@@ -20,6 +20,7 @@ public class Departement implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	private String libelle;
+
 	
 
 	
@@ -73,13 +74,5 @@ public class Departement implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-
-
-
-
-
-
-	
+	}	
 }
