@@ -5,11 +5,14 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
 
 import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.SalleRepository;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
+
 @Service
 public class SalleServiceImpl implements SalleService {
 
@@ -50,5 +53,24 @@ public class SalleServiceImpl implements SalleService {
 		}
 		
 	}
+	
+
+	@Override
+	public Salle update(String designation, String etat, String type,int capacite ) {
+    Salle foundedSalle = findByDesignation(designation);
+	foundedSalle.setCapacite(capacite);
+	foundedSalle.setDesignation(designation);
+	foundedSalle.setEtat(etat);
+	foundedSalle.setType(type);
+	 Salle updateSalle = salleRepository.save(foundedSalle);
+	return updateSalle;
+	
+	}
+
+	@Override
+	public Salle findById(Long id) {
+		return salleRepository.getOne(id);
+	}
+
 
 }

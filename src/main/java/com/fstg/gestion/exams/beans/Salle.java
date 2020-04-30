@@ -20,6 +20,22 @@ public class Salle implements Serializable {
 	private Long id;
 	private int capacite;
 	private String designation;
+	private String type;
+	private String etat;
+	
+
+	public String getEtat() {
+		return etat;
+	}
+	public void setEtat(String etat) {
+		this.etat = etat;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public Long getId() {
 		return id;
 	}
