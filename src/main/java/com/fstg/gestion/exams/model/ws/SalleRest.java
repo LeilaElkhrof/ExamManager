@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.SalleRepository;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
@@ -22,7 +23,7 @@ import com.fstg.gestion.exams.model.service.facade.SalleService;
 
 
 @RestController
-@RequestMapping(value="exam-api/salles", method=RequestMethod.POST )
+@RequestMapping(value="exam-api/salles" )
 @CrossOrigin(origins= {"http://localhost:4200" })
 public class SalleRest {
 
@@ -53,18 +54,23 @@ public class SalleRest {
 		return salleService.deleteByDesignation(designation);
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/findAll")
 	public List<Salle> findAll() {
 		return salleService.findAll();
 	}
 	
-	@PostMapping("/")
+	@PostMapping("/save")
 	public int save(@RequestBody Salle salle) {
 		return salleService.save(salle);
 	}
 	
 	@PutMapping("/{designation}/{etat}/{type}/{capacite}")
-	public Salle update(@PathVariable String designation,@PathVariable  String etat, @PathVariable String type,@PathVariable int capacite) {
-		return salleService.update(designation,etat, type, capacite);
+	public Salle update(@PathVariable Long id,@PathVariable String designation,@PathVariable  String etat, @PathVariable String type,@PathVariable int capacite) {
+		return salleService.update(id,designation,etat, type, capacite);
 	}
+	@GetMapping("/getSalle/{designation}")
+	public Salle findSalle(@PathVariable String designation) {
+		return salleService.findSalle(designation);
+	}
+
 }

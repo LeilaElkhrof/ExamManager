@@ -14,4 +14,5 @@ public interface SalleRepository extends JpaRepository<Salle, Long>{
 	public Salle findByDesignation(String designation);
 	public List<Salle> findByCapacite(int capacite);
 	public int deleteByDesignation(String designation);
+	
 }

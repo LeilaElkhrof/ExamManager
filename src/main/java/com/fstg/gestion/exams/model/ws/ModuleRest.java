@@ -41,7 +41,7 @@ public class ModuleRest {
 		return moduleService.deleteByFiliereLibelle(libelle);
 	}
 
-	@GetMapping("/find-all/")
+	@GetMapping("/find-all")
 	public List<Module> findAll() {
 		return moduleService.findAll();
 	}

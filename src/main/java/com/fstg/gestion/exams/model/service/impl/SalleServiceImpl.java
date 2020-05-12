@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.SalleRepository;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
 
 @Service
@@ -18,6 +19,10 @@ public class SalleServiceImpl implements SalleService {
 
 	@Autowired
 	SalleRepository salleRepository;
+	
+	@Autowired
+	EtatService etatService;
+	
 	
 	@Override
 	public Salle findByDesignation(String designation) {
@@ -32,6 +37,15 @@ public class SalleServiceImpl implements SalleService {
 	@Override
 	@Transactional
 	public int deleteByDesignation(String designation) {
+		Etat etat = new Etat();
+		Salle foundedSalle = findByDesignation(designation);
+		etat.setCapacite(foundedSalle.getCapacite());
+		etat.setDesignation(foundedSalle.getDesignation());
+		etat.setEtat(foundedSalle.getEtat());
+		etat.setType(foundedSalle.getType());
+		etat.setAction("Suppression");
+		etatService.save(etat);
+		
 		return salleRepository.deleteByDesignation(designation);
 	}
 
@@ -56,21 +70,44 @@ public class SalleServiceImpl implements SalleService {
 	
 
 	@Override
-	public Salle update(String designation, String etat, String type,int capacite ) {
-    Salle foundedSalle = findByDesignation(designation);
+	//public Salle update(Long id,String designation, String etat, String type,int capacite,Etat modifie ) {
+  //  Salle foundedSalle = findById(id);
+    public Salle update(Long id,String designation, String etat, String type,int capacite) {
+		Etat modifie = new Etat();
+        Salle foundedSalle = findById(id);
 	foundedSalle.setCapacite(capacite);
 	foundedSalle.setDesignation(designation);
 	foundedSalle.setEtat(etat);
 	foundedSalle.setType(type);
 	 Salle updateSalle = salleRepository.save(foundedSalle);
+		modifie.setCapacite(foundedSalle.getCapacite());
+		modifie.setDesignation(foundedSalle.getDesignation());
+		modifie.setEtat(foundedSalle.getEtat());
+		modifie.setType(foundedSalle.getType());
+		modifie.setAction("Modification");
+		etatService.save(modifie);
 	return updateSalle;
 	
 	}
+/*
+	public ResponseEntity<Salle> update (String designation,  Salle salle) {
+		Salle foundedSalle = salleRepository.findByDesignation(designation);
+			foundedSalle.setDesignation(salle.getDesignation());
+			foundedSalle.setEtat(salle.getEtat());
+			foundedSalle.setType(salle.getType());
+			foundedSalle.setCapacite(salle.getCapacite());
+		final Salle updatedSalle = salleRepository.save(salle);
+		return ResponseEntity.ok(updatedSalle);
+	}
+*/
 
 	@Override
 	public Salle findById(Long id) {
 		return salleRepository.getOne(id);
 	}
 
-
+	@Override
+	public Salle findSalle(String designation) {
+		return  salleRepository.findByDesignation(designation);
+	}
 }

@@ -27,9 +27,7 @@ public class Etudiant implements Serializable {
 	private String adress;
 	private String telephone;
 	private String gender;
-	private String cin;
 	private Date dateNaissance;
-	private String niveau;
 	@ManyToOne
 	private Filiere filiere;
 	
@@ -37,7 +35,16 @@ public class Etudiant implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((adress == null) ? 0 : adress.hashCode());
+		result = prime * result + ((cne == null) ? 0 : cne.hashCode());
+		result = prime * result + ((dateNaissance == null) ? 0 : dateNaissance.hashCode());
+		result = prime * result + ((filiere == null) ? 0 : filiere.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
+		result = prime * result + ((telephone == null) ? 0 : telephone.hashCode());
 		return result;
 	}
 	@Override
@@ -49,10 +56,55 @@ public class Etudiant implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Etudiant other = (Etudiant) obj;
+		if (adress == null) {
+			if (other.adress != null)
+				return false;
+		} else if (!adress.equals(other.adress))
+			return false;
+		if (cne == null) {
+			if (other.cne != null)
+				return false;
+		} else if (!cne.equals(other.cne))
+			return false;
+		if (dateNaissance == null) {
+			if (other.dateNaissance != null)
+				return false;
+		} else if (!dateNaissance.equals(other.dateNaissance))
+			return false;
+		if (filiere == null) {
+			if (other.filiere != null)
+				return false;
+		} else if (!filiere.equals(other.filiere))
+			return false;
+		if (gender == null) {
+			if (other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (mail == null) {
+			if (other.mail != null)
+				return false;
+		} else if (!mail.equals(other.mail))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		if (prenom == null) {
+			if (other.prenom != null)
+				return false;
+		} else if (!prenom.equals(other.prenom))
+			return false;
+		if (telephone == null) {
+			if (other.telephone != null)
+				return false;
+		} else if (!telephone.equals(other.telephone))
 			return false;
 		return true;
 	}
@@ -61,12 +113,6 @@ public class Etudiant implements Serializable {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public String getNiveau() {
-		return niveau;
-	}
-	public void setNiveau(String niveau) {
-		this.niveau = niveau;
 	}
 	public Filiere getFiliere() {
 		return filiere;
@@ -115,12 +161,6 @@ public class Etudiant implements Serializable {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
-	}
-	public String getCin() {
-		return cin;
-	}
-	public void setCin(String cin) {
-		this.cin = cin;
 	}
 	public Date getDateNaissance() {
 		return dateNaissance;

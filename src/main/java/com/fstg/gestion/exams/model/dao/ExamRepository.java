@@ -13,8 +13,10 @@ import com.fstg.gestion.exams.beans.Exam;
 @Repository
 public interface ExamRepository extends JpaRepository<Exam, Long> {
 
+	
 	public Exam findByReference(String reference);
 	public int deleteByReference(String reference);
 	public List<Exam> findByModuleLibelle(String reference);
 	public List<Exam> findByDate(Date date);
+	
 }

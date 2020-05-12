@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Professeur;
+import com.fstg.gestion.exams.beans.Salle;
+import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.dao.ExamRepository;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
+import com.fstg.gestion.exams.model.service.facade.SalleService;
+import com.fstg.gestion.exams.model.service.facade.SurveillantService;
+
 
 
 @Service
@@ -26,7 +31,13 @@ public class ExamServiceImpl implements ExamService{
 	ProfesseurService professeurService;
 	
 	@Autowired
+	SurveillantService surveillantService;
+	
+	@Autowired
 	ModuleService moduleService;
+	
+	@Autowired
+	SalleService salleService;
 	
 	@Override
 	public Exam findByReference(String reference) {
@@ -48,22 +59,34 @@ public class ExamServiceImpl implements ExamService{
 		return examRepository.findByDate(date);
 	}
 	
-	public List<Professeur> validateSurveillants(List<Professeur> surveillants){
-		List<Professeur> validateSurveillants = new ArrayList<Professeur>();
-		for(Professeur surveillant : surveillants) {
-			if(professeurService.findByCin(surveillant.getCin()) != null)
+	public List<Surveillant> validateSurveillants(List<Surveillant> surveillants){
+		List<Surveillant> validateSurveillants = new ArrayList<Surveillant>();
+		for(Surveillant surveillant : surveillants) {
+			if(surveillantService.findByNom(surveillant.getNom()) != null)
 			{
 				validateSurveillants.add(surveillant);
 			}
 		}
 		return validateSurveillants;
 	}
+	public List<Salle> validateSalles(List<Salle> salles){
+		List<Salle> validateSalles = new ArrayList<Salle>();
+		for(Salle salle : salles) {
+			if(salleService.findByDesignation(salle.getDesignation()) != null)
+			{
+				validateSalles.add(salle);
+			}
+		}
+		return validateSalles;
+	}
 
 	@Override
 	public int save(Exam exam) {
 		Exam foundedExam = findByReference(exam.getReference());
-		List<Professeur> validateSurveillants = validateSurveillants(exam.getSurveillants());
+		List<Surveillant> validateSurveillants = validateSurveillants(exam.getSurveillants());
+		List<Salle> validateSalles = validateSalles(exam.getSalles());
 		Module foundedModule = moduleService.findByLibelle(exam.getModule().getLibelle());
+		Professeur foundedProfesseur = professeurService.findByNom(exam.getProf().getNom());
 		
 		if(foundedExam != null)
 			return -1;
@@ -73,11 +96,17 @@ public class ExamServiceImpl implements ExamService{
 		
 		if(foundedModule == null)
 			return -3;
+		if(validateSalles == null)
+			return -4;
+		if(foundedProfesseur == null)
+			return -5;
 		
 		else {
 			exam.setModule(foundedModule);
 			examRepository.save(exam);
 			exam.setSurveillants(validateSurveillants);
+			exam.setProf(foundedProfesseur);
+			exam.setSalles(validateSalles);
 			
 			return 1;
 		}
@@ -89,5 +118,29 @@ public class ExamServiceImpl implements ExamService{
 	public List<Exam> findAll() {
 		return examRepository.findAll();
 	}
+
+	@Override
+	public Exam findById(Long id) {
+		return examRepository.getOne(id);
+	}
+
+
+	@Override
+	public Exam update(Long id, String reference,Date date, String heureDepart, String heureFin,Module module, Professeur prof, List<Surveillant> surveillants, List<Salle> salles) {
+	Exam foundedExam = findById(id);
+	foundedExam.setDate(date);
+	foundedExam.setHeureDepart(heureDepart);
+	foundedExam.setHeureFin(heureFin);
+	foundedExam.setModule(module);
+	foundedExam.setProf(prof);
+	foundedExam.setReference(reference);
+	foundedExam.setSurveillants(surveillants);
+	foundedExam.setSalles(salles);
+	Exam updateExam = examRepository.save(foundedExam);
+	return updateExam;
+		
+
+	}
+
 
 }

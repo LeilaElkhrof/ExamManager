@@ -7,7 +7,7 @@ import com.fstg.gestion.exams.beans.Departement;
 
 
 @Repository
-public interface DepartementDao extends JpaRepository<Departement,Long> {
+public interface DepartementRepository extends JpaRepository<Departement,Long> {
 
 	public Departement findByLibelle(String libelle);
 	public int deleteByLibelle(String libelle);

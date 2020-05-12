@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Professeur implements Serializable {
@@ -22,12 +23,22 @@ public class Professeur implements Serializable {
 	private String nom;
 	private String prenom;
 	private String mail;
-	private String cin;
-	private String responsabilite;
-	
+	@OneToOne
+	private Responsabilite responsabilite;
 	@ManyToOne
 	private Departement departement;
+	
+	
+	
+	
+	
+	public Professeur() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -60,12 +71,12 @@ public class Professeur implements Serializable {
 		this.mail = mail;
 	}
 
-	public String getCin() {
-		return cin;
+	public Responsabilite getResponsabilite() {
+		return responsabilite;
 	}
 
-	public void setCin(String cin) {
-		this.cin = cin;
+	public void setResponsabilite(Responsabilite responsabilite) {
+		this.responsabilite = responsabilite;
 	}
 
 	public Departement getDepartement() {
@@ -75,23 +86,18 @@ public class Professeur implements Serializable {
 	public void setDepartement(Departement departement) {
 		this.departement = departement;
 	}
-
-	public String getResponsabilite() {
-		return responsabilite;
-	}
-
-	public void setResponsabilite(String responsabilite) {
-		this.responsabilite = responsabilite;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((departement == null) ? 0 : departement.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
+		result = prime * result + ((responsabilite == null) ? 0 : responsabilite.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -101,19 +107,38 @@ public class Professeur implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Professeur other = (Professeur) obj;
+		if (departement == null) {
+			if (other.departement != null)
+				return false;
+		} else if (!departement.equals(other.departement))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (mail == null) {
+			if (other.mail != null)
+				return false;
+		} else if (!mail.equals(other.mail))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		if (prenom == null) {
+			if (other.prenom != null)
+				return false;
+		} else if (!prenom.equals(other.prenom))
+			return false;
+		if (responsabilite == null) {
+			if (other.responsabilite != null)
+				return false;
+		} else if (!responsabilite.equals(other.responsabilite))
+			return false;
 		return true;
 	}
 
-	public Professeur() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 
 }

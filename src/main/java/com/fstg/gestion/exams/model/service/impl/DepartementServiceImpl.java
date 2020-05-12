@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Departement;
-import com.fstg.gestion.exams.model.dao.DepartementDao;
+import com.fstg.gestion.exams.model.dao.DepartementRepository;
 import com.fstg.gestion.exams.model.service.facade.DepartementService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
 
@@ -16,7 +16,7 @@ import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
 public class DepartementServiceImpl implements DepartementService {
 
 	@Autowired
-	DepartementDao departementDao;
+	DepartementRepository departementDao;
 	
 	@Autowired
 	ProfesseurService professeurService;
@@ -49,5 +49,18 @@ public class DepartementServiceImpl implements DepartementService {
 	@Override
 	public List<Departement> findAll() {
 		return departementDao.findAll();
+	}
+
+	@Override
+	public Departement update(Long id,String libelle) {
+	    Departement foundedDepart = findById(id);
+		foundedDepart.setLibelle(libelle);
+		 Departement updateDepart = departementDao.save(foundedDepart);
+		return updateDepart;
+	}
+
+	@Override
+	public Departement findById(Long id) {
+		return departementDao.getOne(id);
 	}
 }
