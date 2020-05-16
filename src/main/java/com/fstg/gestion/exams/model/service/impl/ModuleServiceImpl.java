@@ -7,11 +7,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
+import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.model.dao.ModuleRepository;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
+import com.fstg.gestion.exams.model.service.facade.SemestreService;
 
 @Service
 public class ModuleServiceImpl implements ModuleService {
@@ -21,6 +24,9 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Autowired
 	FiliereService filiereService;
+	
+	@Autowired
+	SemestreService semestreService;
 	
 	@Override
 	public Module findByLibelle(String libelle) {
@@ -48,10 +54,12 @@ public class ModuleServiceImpl implements ModuleService {
 	public void save(Filiere filiere, List<Module> modules) {
 		for(Module module : modules) {
 			Module foundedModule = findByLibelle(module.getLibelle());
-			if(foundedModule == null) {
+			Semestre foundedSemestre = semestreService.findByLibelle(module.getSemestre().getLibelle());
+			
 				module.setFiliere(filiere);
+				module.setSemestre(foundedSemestre);
 				moduleRepository.save(module);
-			}	
+				
 		}
 	}
 
@@ -64,19 +72,41 @@ public class ModuleServiceImpl implements ModuleService {
 	public int addModule(Module module) {
 		Module foundedModule = findByLibelle(module.getLibelle());
 		Filiere foundedFiliere = filiereService.findByLibelle(module.getFiliere().getLibelle());
-		
-		if(foundedModule != null)
-			return -1;
+		Semestre foundedSemestre = semestreService.findByLibelle(module.getSemestre().getLibelle());
 		
 		if(foundedFiliere == null)
 			return -2;
 		
 		else {
 			module.setFiliere(foundedFiliere);
+			module.setSemestre(foundedSemestre);
 			moduleRepository.save(module);
 			return 1;
 		}
 		
+	}
+
+	@Override
+	public int updateModule(Long id, String libelle, String semestre) {
+		Module foundedModule = moduleRepository.getOne(id);
+		Semestre foundedSemestre = semestreService.findByLibelle(semestre);
+		
+		if(foundedModule == null)
+			return -1;
+		else {
+			foundedModule.setLibelle(libelle);
+			foundedModule.setSemestre(foundedSemestre);
+		    foundedModule.setFiliere(foundedModule.getFiliere());
+			moduleRepository.save(foundedModule);
+			return 1;
+		}
+		
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(Long id) {
+		 moduleRepository.deleteById(id);
 	}
 
 }

@@ -10,6 +10,6 @@ import com.fstg.gestion.exams.beans.Etat;
 @Repository
 public interface EtatRepository extends JpaRepository<Etat,Long>{
 
-	public int deleteByDesignation(String designation);
-	public Etat findByDesignation(String designation);
+	public int deleteByLibelle(String libelle);
+	public Etat findByLibelle(String libelle);
 }

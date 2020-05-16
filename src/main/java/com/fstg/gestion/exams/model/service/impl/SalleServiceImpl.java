@@ -39,10 +39,7 @@ public class SalleServiceImpl implements SalleService {
 	public int deleteByDesignation(String designation) {
 		Etat etat = new Etat();
 		Salle foundedSalle = findByDesignation(designation);
-		etat.setCapacite(foundedSalle.getCapacite());
-		etat.setDesignation(foundedSalle.getDesignation());
-		etat.setEtat(foundedSalle.getEtat());
-		etat.setType(foundedSalle.getType());
+		etat.setLibelle(foundedSalle.getDesignation());
 		etat.setAction("Suppression");
 		etatService.save(etat);
 		
@@ -80,14 +77,10 @@ public class SalleServiceImpl implements SalleService {
 	foundedSalle.setEtat(etat);
 	foundedSalle.setType(type);
 	 Salle updateSalle = salleRepository.save(foundedSalle);
-		modifie.setCapacite(foundedSalle.getCapacite());
-		modifie.setDesignation(foundedSalle.getDesignation());
-		modifie.setEtat(foundedSalle.getEtat());
-		modifie.setType(foundedSalle.getType());
+		modifie.setLibelle(foundedSalle.getDesignation());
 		modifie.setAction("Modification");
 		etatService.save(modifie);
 	return updateSalle;
-	
 	}
 /*
 	public ResponseEntity<Salle> update (String designation,  Salle salle) {

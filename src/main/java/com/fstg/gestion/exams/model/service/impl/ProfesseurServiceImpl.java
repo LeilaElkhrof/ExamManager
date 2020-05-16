@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Departement;
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.beans.Responsabilite;
-
+import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.ProfesseurRepository;
 import com.fstg.gestion.exams.model.service.facade.DepartementService;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
 
 @Service
@@ -24,10 +26,13 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 	@Autowired
 	DepartementService departementService;
 	
-
+	@Autowired
+	EtatService etatService;
+	
 	@Override
 	@Transactional
 	public int deleteByDepartementLibelle(String libelle) {
+
 		return professeurRepository.deleteByDepartementLibelle(libelle);
 	}
 
@@ -60,13 +65,17 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 
 	@Override
 	public int deleteByNom(String nom) {
-		
+		Etat etat = new Etat();
+		Professeur foundedProf = findByNom(nom);
+		etat.setLibelle(foundedProf.getNom());
+		etat.setAction("Suppression");
+		etatService.save(etat);
 		return professeurRepository.deleteByNom(nom);
 	}
 
 	@Override
 	public Professeur update(Long id,String nom, String prenom, String mail, Responsabilite responsabilite, Departement departement) {
-		
+		Etat modifie = new Etat();
 	   Professeur foundedProfesseur = findById(id);
 		foundedProfesseur.setNom(nom);
 		foundedProfesseur.setPrenom(prenom);
@@ -74,6 +83,9 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 		foundedProfesseur.setResponsabilite(responsabilite);
 		foundedProfesseur.setDepartement(departement);
 		Professeur  updateProfesseur = professeurRepository.save(foundedProfesseur);
+		modifie.setLibelle(foundedProfesseur.getNom());
+		modifie.setAction("Modification");
+		etatService.save(modifie);
 		return updateProfesseur;
 	}
 

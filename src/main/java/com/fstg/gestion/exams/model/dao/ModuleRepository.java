@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.fstg.gestion.exams.beans.Module;
 
 @Repository
-public interface ModuleRepository extends JpaRepository<Module, String> {
+public interface ModuleRepository extends JpaRepository<Module, Long> {
 
 	public Module findByLibelle(String libelle);
 	public int deleteByLibelle(String libelle);

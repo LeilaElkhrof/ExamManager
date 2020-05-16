@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Departement;
+import com.fstg.gestion.exams.beans.Etat;
+import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.DepartementRepository;
 import com.fstg.gestion.exams.model.service.facade.DepartementService;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
 
 @Service
@@ -21,6 +24,9 @@ public class DepartementServiceImpl implements DepartementService {
 	@Autowired
 	ProfesseurService professeurService;
 
+	@Autowired
+	EtatService etatService;
+	
 	@Override
 	public Departement findByLibelle(String libelle) {
 		return departementDao.findByLibelle(libelle);
@@ -29,9 +35,13 @@ public class DepartementServiceImpl implements DepartementService {
 	@Override
 	@Transactional
 	public int deleteByLibelle(String libelle) {
-		int nbrD = departementDao.deleteByLibelle(libelle);
-		int nbrP = professeurService.deleteByDepartementLibelle(libelle);
-		return nbrD + nbrP;
+
+		Etat etat = new Etat();
+		Departement foundedDepart = findByLibelle(libelle);
+		etat.setLibelle(foundedDepart.getLibelle());
+		etat.setAction("Suppression");
+		etatService.save(etat);
+	return departementDao.deleteByLibelle(libelle);
 	}
 
 	@Override
@@ -53,10 +63,15 @@ public class DepartementServiceImpl implements DepartementService {
 
 	@Override
 	public Departement update(Long id,String libelle) {
+		Etat modifie = new Etat();
 	    Departement foundedDepart = findById(id);
 		foundedDepart.setLibelle(libelle);
 		 Departement updateDepart = departementDao.save(foundedDepart);
+		 modifie.setLibelle(foundedDepart.getLibelle());
+			modifie.setAction("Modification");
+			etatService.save(modifie);
 		return updateDepart;
+		
 	}
 
 	@Override

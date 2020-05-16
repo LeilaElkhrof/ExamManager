@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fstg.gestion.exams.beans.Etudiant;
 import com.fstg.gestion.exams.beans.Filiere;
+import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.model.dao.EtudiantRepository;
 import com.fstg.gestion.exams.model.service.facade.EtudiantService;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
+import com.fstg.gestion.exams.model.service.facade.SemestreService;
 
 @Service
 public class EtudiantServiceImpl implements EtudiantService {
@@ -20,6 +22,9 @@ public class EtudiantServiceImpl implements EtudiantService {
 	
 	@Autowired
 	FiliereService filiereService;
+	
+	@Autowired
+	SemestreService semestreService;
 
 	@Override
 	public Etudiant findByCne(String cne) {
@@ -30,6 +35,7 @@ public class EtudiantServiceImpl implements EtudiantService {
 	public int save(Etudiant etudiant) {
 		Etudiant foundedEtudiant = findByCne(etudiant.getCne());
 		Filiere foundedFiliere = filiereService.findByLibelle(etudiant.getFiliere().getLibelle());
+		Semestre foundedSemestre = semestreService.findByLibelle(etudiant.getSemestre().getLibelle());
 		
 		if(foundedEtudiant != null)
 			return -1;
@@ -37,8 +43,12 @@ public class EtudiantServiceImpl implements EtudiantService {
 		if(foundedFiliere == null)
 			return -2;
 		
+		if(foundedSemestre == null)
+			return -3;
+		
 		else {
 			etudiant.setFiliere(foundedFiliere);
+			etudiant.setSemestre(foundedSemestre);
 			etudiantRepository.save(etudiant);
 			return 1;
 		}
@@ -66,5 +76,22 @@ public class EtudiantServiceImpl implements EtudiantService {
 	public int deleteByFiliereLibelle(String libelle) {
 		return etudiantRepository.deleteByFiliereLibelle(libelle);
 	}
+
+	@Override
+	public int update(Long id, String nom, String prenom,String cne, String mail, Long filiere, Long semestre ) {
+		Etudiant foundedEtudiant = etudiantRepository.getOne(id);
+		Filiere foundedFiliere = filiereService.findById(filiere);
+	    Semestre foundedSemestre = semestreService.findById(semestre);
+	    
+	    foundedEtudiant.setCne(cne);
+	    foundedEtudiant.setNom(nom);
+	    foundedEtudiant.setPrenom(prenom);
+	    foundedEtudiant.setMail(mail);
+	    foundedEtudiant.setSemestre(foundedSemestre);
+	    foundedEtudiant.setFiliere(foundedFiliere);
+	    etudiantRepository.save(foundedEtudiant);
+		return 1;
+	}
+
 
 }

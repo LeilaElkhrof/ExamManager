@@ -23,10 +23,7 @@ public class Etat implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private int capacite;
-	private String designation;
-	private String type;
-	private String etat;
+	private String libelle;
 	
 	private String action;
 	@Temporal(TemporalType.DATE)
@@ -38,96 +35,32 @@ public class Etat implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-
-
-	public Date getDateAction () {
-		return dateAction ;
+	public String getLibelle() {
+		return libelle;
 	}
-	public void setDateAction (Date dateAction ) {
-		this.dateAction = dateAction ;
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
-
-	/**
-	 * @return the capacite
-	 */
-	public int getCapacite() {
-		return capacite;
-	}
-
-	/**
-	 * @param capacite the capacite to set
-	 */
-	public void setCapacite(int capacite) {
-		this.capacite = capacite;
-	}
-
-	/**
-	 * @return the designation
-	 */
-	public String getDesignation() {
-		return designation;
-	}
-
-	/**
-	 * @param designation the designation to set
-	 */
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	/**
-	 * @return the etat
-	 */
-	public String getEtat() {
-		return etat;
-	}
-
-	/**
-	 * @param etat the etat to set
-	 */
-	public void setEtat(String etat) {
-		this.etat = etat;
-	}
-
-	/**
-	 * @return the action
-	 */
 	public String getAction() {
 		return action;
 	}
-
-	/**
-	 * @param action the action to set
-	 */
 	public void setAction(String action) {
 		this.action = action;
 	}
-
-
-
+	public Date getDateAction() {
+		return dateAction;
+	}
+	public void setDateAction(Date dateAction) {
+		this.dateAction = dateAction;
+	}
 
 
 

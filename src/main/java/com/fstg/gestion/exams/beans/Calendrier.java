@@ -74,11 +74,7 @@ public class Calendrier implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((anneUniversitaire == null) ? 0 : anneUniversitaire.hashCode());
-		result = prime * result + ((exams == null) ? 0 : exams.hashCode());
-		result = prime * result + ((filieres == null) ? 0 : filieres.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
 		return result;
 	}
 	@Override
@@ -90,33 +86,13 @@ public class Calendrier implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Calendrier other = (Calendrier) obj;
-		if (anneUniversitaire == null) {
-			if (other.anneUniversitaire != null)
-				return false;
-		} else if (!anneUniversitaire.equals(other.anneUniversitaire))
-			return false;
-		if (exams == null) {
-			if (other.exams != null)
-				return false;
-		} else if (!exams.equals(other.exams))
-			return false;
-		if (filieres == null) {
-			if (other.filieres != null)
-				return false;
-		} else if (!filieres.equals(other.filieres))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (libelle == null) {
-			if (other.libelle != null)
-				return false;
-		} else if (!libelle.equals(other.libelle))
-			return false;
 		return true;
 	}
-	
+
 	
 }

@@ -64,7 +64,7 @@ public class SalleRest {
 		return salleService.save(salle);
 	}
 	
-	@PutMapping("/{designation}/{etat}/{type}/{capacite}")
+	@PutMapping("/{id}/{designation}/{etat}/{type}/{capacite}")
 	public Salle update(@PathVariable Long id,@PathVariable String designation,@PathVariable  String etat, @PathVariable String type,@PathVariable int capacite) {
 		return salleService.update(id,designation,etat, type, capacite);
 	}

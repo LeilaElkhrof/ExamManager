@@ -13,4 +13,5 @@ public interface EtudiantService {
 	public int deleteByCne(String cne);
 	public List<Etudiant> findByFiliereLibelle(String libelle);
 	public int deleteByFiliereLibelle(String libelle);
+	public int update(Long id, String nom, String prenom,String cne, String mail, Long filiere, Long semestre);
 }

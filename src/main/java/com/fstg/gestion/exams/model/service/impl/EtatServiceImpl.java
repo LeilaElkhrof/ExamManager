@@ -30,7 +30,6 @@ public class EtatServiceImpl implements EtatService {
 			etat.setDateAction (new Date());
 			etatRepository.save(etat);
 		return 1;
-		
 	}
 
 	@Override
@@ -45,26 +44,14 @@ public class EtatServiceImpl implements EtatService {
 
 	@Override
 	@Transactional
-	public int deleteByDesignation(String designation) {
-	return etatRepository.deleteByDesignation(designation);
+	public int deleteByLibelle(String libelle) {
+	return etatRepository.deleteByLibelle(libelle);
 	}
 
-	@Override
-	@Transactional
-	public int recupere(String designation, Salle salle) {
-		
-		Etat foundedEtat = findByDesignation(designation);
-		salle.setCapacite(foundedEtat.getCapacite());
-		salle.setDesignation(foundedEtat.getDesignation());
-		salle.setEtat(foundedEtat.getEtat());
-		salle.setType(foundedEtat.getType());
-		salleService.save(salle);
-		return deleteByDesignation(designation);
-	}
 
 	@Override
-	public Etat findByDesignation(String designation) {
-	return etatRepository.findByDesignation(designation);
+	public Etat findByLibelle(String libelle) {
+	return etatRepository.findByLibelle(libelle);
 	}
 
 

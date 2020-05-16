@@ -7,9 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Responsabilite;
-
+import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.ResponsabiliteRepository;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ResponsabiliteService;
 
 @Service
@@ -17,7 +19,9 @@ public class ResponsabiliteServiceImpl implements ResponsabiliteService {
 
 	@Autowired
 	ResponsabiliteRepository respoRepository;
-
+	@Autowired
+	EtatService etatService;
+	
 	@Override
 	public Responsabilite findByLibelle(String libelle) {
 		return respoRepository.findByLibelle(libelle);
@@ -26,6 +30,11 @@ public class ResponsabiliteServiceImpl implements ResponsabiliteService {
 	@Override
 	@Transactional
 	public int deleteByLibelle(String libelle) {
+		Etat etat = new Etat();
+		Responsabilite foundedRespo = findByLibelle(libelle);
+		etat.setLibelle(foundedRespo.getLibelle());
+		etat.setAction("Suppression");
+		etatService.save(etat);
 		return respoRepository.deleteByLibelle(libelle);
 	}
 
@@ -48,9 +57,13 @@ public class ResponsabiliteServiceImpl implements ResponsabiliteService {
 
 	@Override
 	public Responsabilite update(Long id,String libelle) {
+		Etat modifie = new Etat();
 	    Responsabilite foundedResponsabilite = findById(id);
 		foundedResponsabilite.setLibelle(libelle);
 		Responsabilite updateResponsabilite = respoRepository.save(foundedResponsabilite);
+		modifie.setLibelle(foundedResponsabilite.getLibelle());
+		modifie.setAction("Modification");
+		etatService.save(modifie);
 		return updateResponsabilite;
 		
 	}

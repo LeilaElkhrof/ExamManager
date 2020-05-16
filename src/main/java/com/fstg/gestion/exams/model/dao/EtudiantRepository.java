@@ -10,7 +10,7 @@ import com.fstg.gestion.exams.beans.Etudiant;
 
 
 @Repository
-public interface EtudiantRepository extends JpaRepository<Etudiant, String> {
+public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
 
 	public Etudiant findByCne(String cne);
 	public int deleteByCne(String cne);

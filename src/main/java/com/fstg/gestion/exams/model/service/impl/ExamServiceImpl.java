@@ -7,12 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.dao.ExamRepository;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
@@ -39,6 +41,9 @@ public class ExamServiceImpl implements ExamService{
 	@Autowired
 	SalleService salleService;
 	
+	@Autowired
+	EtatService etatService;
+	
 	@Override
 	public Exam findByReference(String reference) {
 		return examRepository.findByReference(reference);
@@ -46,6 +51,11 @@ public class ExamServiceImpl implements ExamService{
 
 	@Override
 	public int deleteByReference(String reference) {
+		Etat etat = new Etat();
+		Exam foundedExam = findByReference(reference);
+		etat.setLibelle(foundedExam.getReference());
+		etat.setAction("Suppression");
+		etatService.save(etat);
 		return examRepository.deleteByReference(reference);
 	}
 
@@ -127,7 +137,8 @@ public class ExamServiceImpl implements ExamService{
 
 	@Override
 	public Exam update(Long id, String reference,Date date, String heureDepart, String heureFin,Module module, Professeur prof, List<Surveillant> surveillants, List<Salle> salles) {
-	Exam foundedExam = findById(id);
+		Etat modifie = new Etat();
+		Exam foundedExam = findById(id);
 	foundedExam.setDate(date);
 	foundedExam.setHeureDepart(heureDepart);
 	foundedExam.setHeureFin(heureFin);
@@ -137,6 +148,9 @@ public class ExamServiceImpl implements ExamService{
 	foundedExam.setSurveillants(surveillants);
 	foundedExam.setSalles(salles);
 	Exam updateExam = examRepository.save(foundedExam);
+	modifie.setLibelle(foundedExam.getReference());
+	modifie.setAction("Modification");
+	etatService.save(modifie);
 	return updateExam;
 		
 

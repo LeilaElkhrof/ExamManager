@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+
+
 @Entity
 public class Etudiant implements Serializable {
 
@@ -24,90 +26,22 @@ public class Etudiant implements Serializable {
 	private String prenom;
 	private String nom;
 	private String mail;
-	private String adress;
-	private String telephone;
-	private String gender;
-	private Date dateNaissance;
+	
+	@ManyToOne
+	private Semestre semestre;
+
 	@ManyToOne
 	private Filiere filiere;
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((adress == null) ? 0 : adress.hashCode());
-		result = prime * result + ((cne == null) ? 0 : cne.hashCode());
-		result = prime * result + ((dateNaissance == null) ? 0 : dateNaissance.hashCode());
-		result = prime * result + ((filiere == null) ? 0 : filiere.hashCode());
-		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
-		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
-		result = prime * result + ((telephone == null) ? 0 : telephone.hashCode());
-		return result;
+	public Semestre getSemestre() {
+		return semestre;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Etudiant other = (Etudiant) obj;
-		if (adress == null) {
-			if (other.adress != null)
-				return false;
-		} else if (!adress.equals(other.adress))
-			return false;
-		if (cne == null) {
-			if (other.cne != null)
-				return false;
-		} else if (!cne.equals(other.cne))
-			return false;
-		if (dateNaissance == null) {
-			if (other.dateNaissance != null)
-				return false;
-		} else if (!dateNaissance.equals(other.dateNaissance))
-			return false;
-		if (filiere == null) {
-			if (other.filiere != null)
-				return false;
-		} else if (!filiere.equals(other.filiere))
-			return false;
-		if (gender == null) {
-			if (other.gender != null)
-				return false;
-		} else if (!gender.equals(other.gender))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (mail == null) {
-			if (other.mail != null)
-				return false;
-		} else if (!mail.equals(other.mail))
-			return false;
-		if (nom == null) {
-			if (other.nom != null)
-				return false;
-		} else if (!nom.equals(other.nom))
-			return false;
-		if (prenom == null) {
-			if (other.prenom != null)
-				return false;
-		} else if (!prenom.equals(other.prenom))
-			return false;
-		if (telephone == null) {
-			if (other.telephone != null)
-				return false;
-		} else if (!telephone.equals(other.telephone))
-			return false;
-		return true;
+
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre;
 	}
+
+	
 	public Long getId() {
 		return id;
 	}
@@ -144,36 +78,35 @@ public class Etudiant implements Serializable {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public String getAdress() {
-		return adress;
-	}
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
-	public String getTelephone() {
-		return telephone;
-	}
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	public Date getDateNaissance() {
-		return dateNaissance;
-	}
-	public void setDateNaissance(Date dateNaissance) {
-		this.dateNaissance = dateNaissance;
-	}
+	
 	public Etudiant() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 	
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Etudiant other = (Etudiant) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

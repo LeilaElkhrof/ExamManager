@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+ 
 
 @Entity
 public class Module implements Serializable {
@@ -17,13 +18,29 @@ public class Module implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String libelle;
-	
+	@ManyToOne
+	private Semestre semestre;
 	@ManyToOne
 	private Filiere filiere;
-
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
+	public Semestre getSemestre() {
+		return semestre;
+	}
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre;
+	}
 	public String getLibelle() {
 		return libelle;
 	}
@@ -34,29 +51,17 @@ public class Module implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * @return the filiere
-	 */
 	public Filiere getFiliere() {
 		return filiere;
 	}
-	/**
-	 * @param filiere the filiere to set
-	 */
 	public void setFiliere(Filiere filiere) {
 		this.filiere = filiere;
 	}
 
+
+
+	
+	
 
 	
 	

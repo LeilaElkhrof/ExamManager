@@ -9,6 +9,9 @@ public interface FiliereService {
 
 	public Filiere findByLibelle(String libelle);
 	public int deleteByLibelle(String libelle);
-	public int save(Filiere filiere, List<Module> modules);
+	public int save(Filiere filiere);
+	public int saveFM(Filiere filiere, List<Module> modules);
 	public List<Filiere> findAll();
+	public int update(Long id, String libelle, String niveau);
+	public Filiere findById(Long id);
 }

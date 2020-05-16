@@ -3,10 +3,12 @@ package com.fstg.gestion.exams.model.ws;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +18,12 @@ import com.fstg.gestion.exams.model.service.facade.EtudiantService;
 
 @RestController
 @RequestMapping("exam-api/etudiants")
+@CrossOrigin(origins= {"http://localhost:4200" })
 public class EtudiantRest {
+	@PutMapping("/{id}/{nom}/{prenom}/{cne}/{mail}/{filiere}/{semestre}")
+	public int update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String cne,@PathVariable String mail,@PathVariable Long filiere,@PathVariable Long semestre) {
+		return etudiantService.update(id, nom, prenom, cne, mail, filiere, semestre);
+	}
 
 	@GetMapping("/find-by-filiere/{libelle}")
 	public List<Etudiant> findByFiliereLibelle(@PathVariable String libelle) {

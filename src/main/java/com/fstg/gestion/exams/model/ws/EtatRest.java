@@ -26,14 +26,14 @@ public class EtatRest {
 	@Autowired 
 	EtatService etatService;
 
-	@GetMapping("/find-by-designation/{designation}")
-	public Etat findByDesignation(@PathVariable String designation) {
-		return etatService.findByDesignation(designation);
+	@GetMapping("/find-by-libelle/{libelle}")
+	public Etat findByLibelle(@PathVariable String libelle) {
+		return etatService.findByLibelle(libelle);
 	}
 
-	@DeleteMapping("/delete-by-designation/{designation}")
-	public int deleteByDesignation(@PathVariable String designation) {
-		return etatService.deleteByDesignation(designation);
+	@DeleteMapping("/delete-by-libelle/{libelle}")
+	public int deleteByLibelle(@PathVariable String libelle) {
+		return etatService.deleteByLibelle(libelle);
 	}
 
 	@PostMapping("/save")
@@ -46,8 +46,4 @@ public class EtatRest {
 		return etatService.findAll();
 	}
 
-	@DeleteMapping("/{designation}")
-	public int recupere(@PathVariable String designation, Salle salle) {
-		return etatService.recupere(designation, salle);
-	}
 }
