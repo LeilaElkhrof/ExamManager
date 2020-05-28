@@ -2,62 +2,61 @@ package com.fstg.gestion.exams.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+
+
 @Entity
-public class Salle implements Serializable {
+public class ExamSalle implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private int capacite;
-	private String designation;
-	private String type;
-	private String etat;
+	@ManyToOne(cascade = CascadeType.ALL)
+    private Salle salle;
 	
+	@ManyToOne
+	private Exam exam;
 
 	
-
-	public String getEtat() {
-		return etat;
+	
+	
+	
+	public ExamSalle() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	public void setEtat(String etat) {
-		this.etat = etat;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getCapacite() {
-		return capacite;
+	public Salle getSalle() {
+		return salle;
 	}
-	public void setCapacite(int capacite) {
-		this.capacite = capacite;
+	public void setSalle(Salle salle) {
+		this.salle = salle;
 	}
-	public String getDesignation() {
-		return designation;
+	public Exam getExam() {
+		return exam;
 	}
-	public void setDesignation(String designation) {
-		this.designation = designation;
+	public void setExam(Exam exam) {
+		this.exam = exam;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,7 +72,7 @@ public class Salle implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Salle other = (Salle) obj;
+		ExamSalle other = (ExamSalle) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -81,8 +80,5 @@ public class Salle implements Serializable {
 			return false;
 		return true;
 	}
-	public Salle() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
 }

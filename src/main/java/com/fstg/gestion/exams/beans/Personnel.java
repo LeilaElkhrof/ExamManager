@@ -6,12 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-public class Surveillant implements Serializable{
+public class Personnel implements Serializable{
 
 	/**
 	 * 
@@ -24,18 +23,14 @@ public class Surveillant implements Serializable{
 	private String nom;
 	private String prenom;
 	private String mail;
+	@OneToOne
+	private Responsabilite responsabilite;
+	@ManyToOne
+	private Departement departement;
 	
-	
-	
-	
-	
-	public Surveillant() {
-		super();
+	public Personnel() {
 		// TODO Auto-generated constructor stub
 	}
-
-	
-	
 	
 	
 	public Long getId() {
@@ -71,7 +66,36 @@ public class Surveillant implements Serializable{
 	}
 
 
+	/**
+	 * @return the responsabilite
+	 */
+	public Responsabilite getResponsabilite() {
+		return responsabilite;
+	}
 
+
+	/**
+	 * @param responsabilite the responsabilite to set
+	 */
+	public void setResponsabilite(Responsabilite responsabilite) {
+		this.responsabilite = responsabilite;
+	}
+
+
+	/**
+	 * @return the departement
+	 */
+	public Departement getDepartement() {
+		return departement;
+	}
+
+
+	/**
+	 * @param departement the departement to set
+	 */
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
 
 
 	@Override
@@ -79,14 +103,8 @@ public class Surveillant implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
-		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
 		return result;
 	}
-
-
-
 
 
 	@Override
@@ -97,30 +115,13 @@ public class Surveillant implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Surveillant other = (Surveillant) obj;
+		Personnel other = (Personnel) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (mail == null) {
-			if (other.mail != null)
-				return false;
-		} else if (!mail.equals(other.mail))
-			return false;
-		if (nom == null) {
-			if (other.nom != null)
-				return false;
-		} else if (!nom.equals(other.nom))
-			return false;
-		if (prenom == null) {
-			if (other.prenom != null)
-				return false;
-		} else if (!prenom.equals(other.prenom))
-			return false;
 		return true;
 	}
-	
-	
 
 }

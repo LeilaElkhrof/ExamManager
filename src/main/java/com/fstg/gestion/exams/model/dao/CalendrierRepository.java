@@ -8,5 +8,7 @@ import com.fstg.gestion.exams.beans.Calendrier;
 @Repository
 public interface CalendrierRepository extends JpaRepository<Calendrier,Long>{
 
-	
+	public int deleteByLibelle (String libelle);
+	public Calendrier findByLibelle(String libelle);
+
 }

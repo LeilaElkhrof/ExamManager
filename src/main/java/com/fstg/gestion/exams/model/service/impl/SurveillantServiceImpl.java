@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Etat;
+import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.dao.SurveillantRepository;
@@ -74,4 +75,9 @@ public class SurveillantServiceImpl implements SurveillantService {
 	public Surveillant findById(Long id) {
 	return surveillantRepository.getOne(id);
 	}
+
+
+
+
+
 }

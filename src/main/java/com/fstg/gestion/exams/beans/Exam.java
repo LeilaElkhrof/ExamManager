@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Entity
 public class Exam implements Serializable {
@@ -27,26 +29,26 @@ public class Exam implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	private String reference;
-	
-    @Temporal(TemporalType.DATE)
-	private Date date;
-	
-	private String heureDepart;
-	private String heureFin;
-	
-	@OneToOne
-	private Professeur prof;
-	
-	@OneToMany
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private List<Surveillant> surveillants;
+	private String dateDepart;
+	private String dateFin;
 	
 	@OneToOne
 	private Module module;
+	@OneToOne
+	private Professeur prof;
 	
-	@OneToMany
+		
+	@OneToMany(mappedBy="exam")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private List<Salle> salles;
+	private List<ExamSalle> examSalles;
+			
+	@OneToMany(mappedBy="exam")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private List<ExamSurve> examSurveillants;
+	
+
+	
+
 
 
 	public Exam() {
@@ -70,29 +72,20 @@ public class Exam implements Serializable {
 		this.reference = reference;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getDateDepart() {
+		return dateDepart;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateDepart(String dateDepart) {
+		this.dateDepart = dateDepart;
 	}
 
-	public String getHeureDepart() {
-		return heureDepart;
+	public String getDateFin() {
+		return dateFin;
 	}
 
-	public void setHeureDepart(String heureDepart) {
-		this.heureDepart = heureDepart;
-	}
-
-	public String getHeureFin() {
-		return heureFin;
-	}
-
-
-	public void setHeureFin(String heureFin) {
-		this.heureFin = heureFin;
+	public void setDateFin(String dateFin) {
+		this.dateFin = dateFin;
 	}
 
 
@@ -104,13 +97,7 @@ public class Exam implements Serializable {
 		this.prof = prof;
 	}
 
-	public List<Surveillant> getSurveillants() {
-		return surveillants;
-	}
 
-	public void setSurveillants(List<Surveillant> surveillants) {
-		this.surveillants = surveillants;
-	}
 
 	public Module getModule() {
 		return module;
@@ -119,13 +106,17 @@ public class Exam implements Serializable {
 	public void setModule(Module module) {
 		this.module = module;
 	}
-
-	public List<Salle> getSalles() {
-		return salles;
+	public List<ExamSalle> getExamSalles() {
+		return examSalles;
 	}
-
-	public void setSalles(List<Salle> salles) {
-		this.salles = salles;
+	public void setExamSalles(List<ExamSalle> examSalles) {
+		this.examSalles = examSalles;
+	}
+	public List<ExamSurve> getExamSurveillants() {
+		return examSurveillants;
+	}
+	public void setExamSurveillants(List<ExamSurve> examSurveillants) {
+		this.examSurveillants = examSurveillants;
 	}
 
 
@@ -133,15 +124,7 @@ public class Exam implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((heureFin == null) ? 0 : heureFin.hashCode());
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((heureDepart == null) ? 0 : heureDepart.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((module == null) ? 0 : module.hashCode());
-		result = prime * result + ((prof == null) ? 0 : prof.hashCode());
-		result = prime * result + ((reference == null) ? 0 : reference.hashCode());
-		result = prime * result + ((salles == null) ? 0 : salles.hashCode());
-		result = prime * result + ((surveillants == null) ? 0 : surveillants.hashCode());
 		return result;
 	}
 
@@ -155,53 +138,16 @@ public class Exam implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Exam other = (Exam) obj;
-		if (heureFin == null) {
-			if (other.heureFin != null)
-				return false;
-		} else if (!heureFin.equals(other.heureFin))
-			return false;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (heureDepart == null) {
-			if (other.heureDepart != null)
-				return false;
-		} else if (!heureDepart.equals(other.heureDepart))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (module == null) {
-			if (other.module != null)
-				return false;
-		} else if (!module.equals(other.module))
-			return false;
-		if (prof == null) {
-			if (other.prof != null)
-				return false;
-		} else if (!prof.equals(other.prof))
-			return false;
-		if (reference == null) {
-			if (other.reference != null)
-				return false;
-		} else if (!reference.equals(other.reference))
-			return false;
-		if (salles == null) {
-			if (other.salles != null)
-				return false;
-		} else if (!salles.equals(other.salles))
-			return false;
-		if (surveillants == null) {
-			if (other.surveillants != null)
-				return false;
-		} else if (!surveillants.equals(other.surveillants))
-			return false;
 		return true;
 	}
+
+
+
 	
 	
 }

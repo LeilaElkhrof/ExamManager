@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.gestion.exams.beans.Exam;
+import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.beans.Salle;
@@ -45,16 +46,6 @@ public class ExamRest  {
 		return examService.findByModuleLibelle(reference);
 	}
 
-	@GetMapping("/find-by-date/{date}")
-	public List<Exam> findByDate(@PathVariable Date date) {
-		return examService.findByDate(date);
-	}
-
-	@PostMapping("/save")
-	public int save(@RequestBody Exam exam) {
-		return examService.save(exam);
-	}
-
 	@GetMapping("/find-all")
 	public List<Exam> findAll() {
 		return examService.findAll();
@@ -65,12 +56,21 @@ public class ExamRest  {
 		return examService.findById(id);
 	}
 
-	@PutMapping("/{id}/{reference}/{date}/{heureDepart}/{heureFin}/{module}/{prof}/{surveillants}/{salles}")
-	public Exam update(@PathVariable Long id,@PathVariable String reference,@PathVariable Date date,@PathVariable String heureDepart,@PathVariable String heureFin, Module module,
-			Professeur prof, List<Surveillant> surveillants, List<Salle> salles) {
-		return update(id, reference, date , heureDepart, heureFin, module, prof, surveillants, salles);
+	@PutMapping("/{id}/{reference}/{dateDepart}/{dateFin}/{module}/{prof}")
+	public Exam update(@PathVariable Long id,@PathVariable String reference,@PathVariable String dateDepart,@PathVariable String dateFin, Module module,
+			Professeur prof) {
+		return update(id, reference , dateDepart, dateFin, module, prof);
+	}
+	@PostMapping("/save")
+	public int save(@RequestBody Exam exam) {
+		return examService.save(exam, exam.getExamSurveillants(), exam.getExamSalles());
 	}
 	
-	
+	/*@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}")
+	public Exam findByDateDepartAndDateFin(@PathVariable String dateDepart,@PathVariable String dateFin) {
+		return examService.findByDateDepartAndDateFin(dateDepart, dateFin);
+	}*/
+
+
 	
 }
