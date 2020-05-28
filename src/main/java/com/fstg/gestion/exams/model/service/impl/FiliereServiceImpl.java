@@ -7,11 +7,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.fstg.gestion.exams.beans.Departement;
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Niveau;
 import com.fstg.gestion.exams.model.dao.FiliereRepository;
+import com.fstg.gestion.exams.model.service.facade.DepartementService;
 import com.fstg.gestion.exams.model.service.facade.EtudiantService;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
@@ -32,6 +33,9 @@ public class FiliereServiceImpl implements FiliereService {
 	@Autowired
 	NiveauService niveauService;
 	
+	@Autowired
+	DepartementService departementService;
+	
 	
 	@Override
 	public Filiere findByLibelle(String libelle) {
@@ -49,12 +53,14 @@ public class FiliereServiceImpl implements FiliereService {
 	@Override
 	public int save(Filiere filiere) {
 		Filiere foundedFiliere = findByLibelle(filiere.getLibelle());
-		Niveau foundedNiveau = niveauService.findByLibelle(filiere.getNiveau().getLibelle());
+		Niveau foundedNiveau = niveauService.findById(filiere.getNiveau().getId());
+		Departement foundedDepartement = departementService.findByLibelle(filiere.getDepartement().getLibelle());
 		if(foundedFiliere != null)
 			return -1;
 		
 		else {
 			filiere.setNiveau(foundedNiveau);
+			filiere.setDepartement(foundedDepartement);
 			filiereRepository.save(filiere);
 			return 1;
 		}
@@ -65,12 +71,15 @@ public class FiliereServiceImpl implements FiliereService {
 	public int saveFM(Filiere filiere, List<Module> modules) {
 		Filiere foundedFiliere = findByLibelle(filiere.getLibelle());
 		Niveau foundedNiveau = niveauService.findByLibelle(filiere.getNiveau().getLibelle());
+		System.out.println(foundedNiveau);
+		Departement foundedDepartement = departementService.findByLibelle(filiere.getDepartement().getLibelle());
 		
 		if(foundedFiliere != null)
 			return -1;
 		
 		else {
 			filiere.setNiveau(foundedNiveau);
+			filiere.setDepartement(foundedDepartement);
 			filiereRepository.save(filiere);
 			moduleService.save(filiere, modules);
 			return 1;
@@ -82,14 +91,16 @@ public class FiliereServiceImpl implements FiliereService {
 		return filiereRepository.findAll();
 	}
 	
-	public int update(Long id, String libelle, String niveau) {
+	public int update(Long id, String libelle, String niveau, String departement) {
 	Filiere foundedFiliere= findById(id);
 	Niveau fondedNiveau = niveauService.findByLibelle(niveau);
+    Departement foundedDepartement = departementService.findByLibelle(departement);
 	if(foundedFiliere == null) 
 		return -1;
 	else {
 		foundedFiliere.setLibelle(libelle);
-		foundedFiliere.setNiveau(fondedNiveau);
+		foundedFiliere.setDepartement(foundedDepartement);
+		//foundedFiliere.setNiveau(fondedNiveau);
 		filiereRepository.save(foundedFiliere);
 		return 1;
 	}

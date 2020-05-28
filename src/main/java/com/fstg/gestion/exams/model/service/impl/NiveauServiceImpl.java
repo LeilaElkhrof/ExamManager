@@ -43,4 +43,9 @@ public class NiveauServiceImpl implements NiveauService {
 	public List<Niveau> findAll() {
 		return niveauDao.findAll();
 	}
+
+	@Override
+	public Niveau findById(Long id) {
+		return niveauDao.getOne(id);
+	}
 }

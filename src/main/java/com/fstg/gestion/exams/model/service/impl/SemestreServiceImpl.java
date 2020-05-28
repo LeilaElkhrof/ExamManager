@@ -48,5 +48,4 @@ public class SemestreServiceImpl implements SemestreService {
 	public Semestre findById(Long id) {
 		return semestreDao.getOne(id);
 	}
-
 }

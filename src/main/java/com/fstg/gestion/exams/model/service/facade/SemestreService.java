@@ -10,4 +10,5 @@ public interface SemestreService {
     public int save(Semestre semestre);
     public List<Semestre> findAll();
     public Semestre findById(Long id);
+   // public List<Semestre> findByNiveauLibelle(String niveau);
 }

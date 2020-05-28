@@ -28,11 +28,21 @@ public class Filiere implements Serializable {
 	private String libelle;
 	@ManyToOne
 	private Niveau niveau;
+	@ManyToOne
+	private Departement departement;
 	@OneToMany(mappedBy="filiere")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<Module> modules;
 	
 	
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+
 	public Niveau getNiveau() {
 		return niveau;
 	}
