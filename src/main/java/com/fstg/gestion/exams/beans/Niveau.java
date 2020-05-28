@@ -1,11 +1,16 @@
 package com.fstg.gestion.exams.beans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Entity
 public class Niveau implements Serializable {
@@ -19,6 +24,17 @@ public class Niveau implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	private String libelle;
+	
+	@OneToMany(mappedBy="niveau")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private List<NiveauSemestre> niveauSemestre;
+	
+	public List<NiveauSemestre> getNiveauSemestre() {
+		return niveauSemestre;
+	}
+	public void setNiveauSemestre(List<NiveauSemestre> niveauSemestre) {
+		this.niveauSemestre = niveauSemestre;
+	}
 	public Long getId() {
 		return id;
 	}

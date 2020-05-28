@@ -42,6 +42,8 @@ public class SemestreRest {
 	public List<Semestre> findAll() {
 		return semestreService.findAll();
 	}
+
+
 	
 	
 }

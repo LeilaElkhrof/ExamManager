@@ -50,9 +50,9 @@ public class FiliereRest {
 		return filiereService.findAll();
 	}
 
-	@PutMapping("id/{id}/libelle/{libelle}/niveau/{niveau}")
-	public int update(@PathVariable Long id, @PathVariable String libelle,@PathVariable String niveau) {
-		return filiereService.update(id, libelle, niveau);
+	@PutMapping("id/{id}/libelle/{libelle}/niveau/{niveau}/departement/{departement}")
+	public int update(@PathVariable Long id, @PathVariable String libelle,@PathVariable String niveau,@PathVariable String departement) {
+		return filiereService.update(id, libelle, niveau, departement);
 	}
 
 }

@@ -21,7 +21,7 @@ import com.fstg.gestion.exams.model.service.facade.EtudiantService;
 @CrossOrigin(origins= {"http://localhost:4200" })
 public class EtudiantRest {
 	@PutMapping("/{id}/{nom}/{prenom}/{cne}/{mail}/{filiere}/{semestre}")
-	public int update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String cne,@PathVariable String mail,@PathVariable Long filiere,@PathVariable Long semestre) {
+	public int update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String cne,@PathVariable String mail,@PathVariable String filiere,@PathVariable Long semestre) {
 		return etudiantService.update(id, nom, prenom, cne, mail, filiere, semestre);
 	}
 

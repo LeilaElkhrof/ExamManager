@@ -12,6 +12,6 @@ public interface FiliereService {
 	public int save(Filiere filiere);
 	public int saveFM(Filiere filiere, List<Module> modules);
 	public List<Filiere> findAll();
-	public int update(Long id, String libelle, String niveau);
+	public int update(Long id, String libelle, String niveau, String departement);
 	public Filiere findById(Long id);
 }

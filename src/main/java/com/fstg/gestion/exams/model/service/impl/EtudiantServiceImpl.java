@@ -78,9 +78,9 @@ public class EtudiantServiceImpl implements EtudiantService {
 	}
 
 	@Override
-	public int update(Long id, String nom, String prenom,String cne, String mail, Long filiere, Long semestre ) {
+	public int update(Long id, String nom, String prenom,String cne, String mail, String filiere, Long semestre ) {
 		Etudiant foundedEtudiant = etudiantRepository.getOne(id);
-		Filiere foundedFiliere = filiereService.findById(filiere);
+		Filiere foundedFiliere = filiereService.findByLibelle(filiere);
 	    Semestre foundedSemestre = semestreService.findById(semestre);
 	    
 	    foundedEtudiant.setCne(cne);
