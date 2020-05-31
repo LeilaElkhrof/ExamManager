@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSurve;
+import com.fstg.gestion.exams.beans.Personnel;
 import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.dao.ExamSurveDao;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
 import com.fstg.gestion.exams.model.service.facade.ExamSurveService;
+import com.fstg.gestion.exams.model.service.facade.PersonnelService;
 import com.fstg.gestion.exams.model.service.facade.SurveillantService;
 
 @Service
@@ -27,12 +29,12 @@ public class ExamSurveServiceImpl implements ExamSurveService {
 	@Autowired
 	SurveillantService surveService;
 	
+	@Autowired 
+	PersonnelService personnelService;
+	
 	
 
-	@Override
-	public List<ExamSurve> findBySurveillantNom(String nom) {
-	return examSurveDao.findBySurveillantNom(nom);
-	}
+
 
 	@Override
 	public List<ExamSurve> findByExamReference(String reference) {
@@ -51,9 +53,9 @@ public class ExamSurveServiceImpl implements ExamSurveService {
 	public void saveSurve(Exam exam, List<ExamSurve> examSurveillants) {
 		    
 			for(ExamSurve valideExamSurve : examSurveillants) {
-				Surveillant foundSurveillant = surveService.findByNom(valideExamSurve.getSurveillant().getNom());
+				Personnel foundPerso = personnelService.findByNom(valideExamSurve.getSurveillant().getNom());
 				valideExamSurve.setExam(exam);
-				valideExamSurve.setSurveillant(foundSurveillant);
+				valideExamSurve.setSurveillant(foundPerso);
 				examSurveDao.save(valideExamSurve);
 			}
 		
@@ -67,6 +69,12 @@ public class ExamSurveServiceImpl implements ExamSurveService {
 	@Override
 	public ExamSurve findById(Long id) {
 	return examSurveDao.getOne(id);
+	}
+
+
+	@Override
+	public List<ExamSurve> findBySurveillantNom(String nom) {
+	return examSurveDao.findBySurveillantNom(nom);
 	}
 
 

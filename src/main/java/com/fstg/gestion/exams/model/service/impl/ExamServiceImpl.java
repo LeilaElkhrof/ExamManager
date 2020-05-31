@@ -1,7 +1,7 @@
 package com.fstg.gestion.exams.model.service.impl;
 
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -71,7 +71,7 @@ public class ExamServiceImpl implements ExamService{
 
 
 	@Override
-	public Exam update(Long id, String reference, String dateDepart, String dateFin,Module module, Professeur prof) {
+	public Exam update(Long id, String reference, Date dateDepart, Date dateFin,Module module, Professeur prof) {
 		Etat modifie = new Etat();
 		Exam foundedExam = findById(id);
 	foundedExam.setDateDepart(dateDepart);

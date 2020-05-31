@@ -6,8 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+
 
 @Entity
 public class Personnel implements Serializable{
@@ -23,11 +22,8 @@ public class Personnel implements Serializable{
 	private String nom;
 	private String prenom;
 	private String mail;
-	@OneToOne
-	private Responsabilite responsabilite;
-	@ManyToOne
-	private Departement departement;
-	
+
+
 	public Personnel() {
 		// TODO Auto-generated constructor stub
 	}
@@ -63,38 +59,6 @@ public class Personnel implements Serializable{
 
 	public void setMail(String mail) {
 		this.mail = mail;
-	}
-
-
-	/**
-	 * @return the responsabilite
-	 */
-	public Responsabilite getResponsabilite() {
-		return responsabilite;
-	}
-
-
-	/**
-	 * @param responsabilite the responsabilite to set
-	 */
-	public void setResponsabilite(Responsabilite responsabilite) {
-		this.responsabilite = responsabilite;
-	}
-
-
-	/**
-	 * @return the departement
-	 */
-	public Departement getDepartement() {
-		return departement;
-	}
-
-
-	/**
-	 * @param departement the departement to set
-	 */
-	public void setDepartement(Departement departement) {
-		this.departement = departement;
 	}
 
 

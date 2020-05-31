@@ -57,7 +57,7 @@ public class ExamRest  {
 	}
 
 	@PutMapping("/{id}/{reference}/{dateDepart}/{dateFin}/{module}/{prof}")
-	public Exam update(@PathVariable Long id,@PathVariable String reference,@PathVariable String dateDepart,@PathVariable String dateFin, Module module,
+	public Exam update(@PathVariable Long id,@PathVariable String reference,@PathVariable Date dateDepart,@PathVariable Date dateFin, Module module,
 			Professeur prof) {
 		return update(id, reference , dateDepart, dateFin, module, prof);
 	}

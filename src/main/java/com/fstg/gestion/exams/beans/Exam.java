@@ -29,8 +29,10 @@ public class Exam implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	private String reference;
-	private String dateDepart;
-	private String dateFin;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateDepart;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateFin;
 	
 	@OneToOne
 	private Module module;
@@ -72,20 +74,21 @@ public class Exam implements Serializable {
 		this.reference = reference;
 	}
 
-	public String getDateDepart() {
-		return dateDepart;
-	}
 
-	public void setDateDepart(String dateDepart) {
-		this.dateDepart = dateDepart;
-	}
-
-	public String getDateFin() {
+	public Date getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(String dateFin) {
+	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
+	}
+
+	public void setDateDepart(Date dateDepart) {
+		this.dateDepart = dateDepart;
+	}
+
+	public Date getDateDepart() {
+		return dateDepart;
 	}
 
 

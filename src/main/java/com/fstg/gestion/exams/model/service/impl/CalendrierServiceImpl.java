@@ -21,7 +21,7 @@ public class CalendrierServiceImpl implements CalendrierService {
 
 	@Autowired
 	CalendrierRepository calendrierRepository;
-	
+	/*
 	@Autowired
 	EtatService etatService;
 
@@ -80,17 +80,17 @@ public class CalendrierServiceImpl implements CalendrierService {
 			modifie.setAction("Modification");
 			etatService.save(modifie);
 			return updateCalendrier;
-	}
+	}*/
 
 	@Override
 	public List<Calendrier> findAll() {
 	return calendrierRepository.findAll();
 	}
-
+/*
 	@Override
 	public Calendrier findById(Long id) {
 		return calendrierRepository.getOne(id);
 	}
-
+*/
 	
 }

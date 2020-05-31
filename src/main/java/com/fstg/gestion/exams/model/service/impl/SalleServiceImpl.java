@@ -97,4 +97,8 @@ public class SalleServiceImpl implements SalleService {
 	public Salle findSalle(String designation) {
 		return  salleRepository.findByDesignation(designation);
 	}
+
+	@Override
+	public List<Salle> findEtatPrevue() {
+	return salleRepository.findEtatPrevue();	}
 }

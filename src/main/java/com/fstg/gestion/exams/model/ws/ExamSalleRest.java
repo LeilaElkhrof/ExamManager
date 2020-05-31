@@ -1,5 +1,6 @@
 package com.fstg.gestion.exams.model.ws;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,12 +54,12 @@ public class ExamSalleRest {
 		return examSalleService.findById(id);
 	}
 	@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
-	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable
-			String dateFin) {
+	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable Date dateDepart,@PathVariable
+			Date dateFin) {
 		return examSalleService.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart, dateFin);
 	}
 	@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}/designation/{designation}")
-	public ExamSalle findExamSalle(@PathVariable String dateDepart,@PathVariable String dateFin,@PathVariable String designation) {
+	public ExamSalle findExamSalle(@PathVariable Date dateDepart,@PathVariable Date dateFin,@PathVariable String designation) {
 		return examSalleService.findExamSalle(dateDepart, dateFin, designation);
 	}
 	

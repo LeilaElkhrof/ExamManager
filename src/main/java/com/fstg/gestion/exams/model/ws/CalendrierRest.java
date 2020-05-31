@@ -23,7 +23,7 @@ public class CalendrierRest {
 
 	@Autowired 
 	CalendrierService calendrierService;
-
+/*
 
 	@DeleteMapping("/delete-by-libelle/{libelle}")
 	public int deleteByLibelle(@PathVariable String libelle) {
@@ -45,16 +45,16 @@ public class CalendrierRest {
 		return calendrierService.update(id, libelle, anneUniversitaire);
 	}
 
-	@GetMapping("/find-all")
-	public List<Calendrier> findAll() {
-		return calendrierService.findAll();
-	}
-
 	@GetMapping("/find-by-id/{id}")
 	public Calendrier findById(@PathVariable Long id) {
 		return calendrierService.findById(id);
 	}
 
-	
+	*/
+	@GetMapping("/find-all")
+	public List<Calendrier> findAll() {
+		return calendrierService.findAll();
+	}
+
 	
 }

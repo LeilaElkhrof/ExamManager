@@ -26,7 +26,7 @@ public class ExamSurve implements Serializable {
     private Exam exam;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Surveillant surveillant;
+	private Personnel surveillant;
 
 	public ExamSurve() {
 		super();
@@ -47,10 +47,11 @@ public class ExamSurve implements Serializable {
 	public void setExam(Exam exam) {
 		this.exam = exam;
 	}
-	public Surveillant getSurveillant() {
+	public Personnel getSurveillant() {
 		return surveillant;
 	}
-	public void setSurveillant(Surveillant surveillant) {
+
+	public void setSurveillant(Personnel surveillant) {
 		this.surveillant = surveillant;
 	}
 

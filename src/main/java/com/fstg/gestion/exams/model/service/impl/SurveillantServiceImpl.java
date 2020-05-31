@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Exam;
+import com.fstg.gestion.exams.beans.Personnel;
 import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.dao.SurveillantRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
+import com.fstg.gestion.exams.model.service.facade.PersonnelService;
 import com.fstg.gestion.exams.model.service.facade.SurveillantService;
 
 @Service
@@ -22,6 +24,9 @@ public class SurveillantServiceImpl implements SurveillantService {
 	SurveillantRepository surveillantRepository;
 	@Autowired
 	EtatService etatService;
+	
+	@Autowired
+	PersonnelService personnelService;
 	
 	@Override
 	public Surveillant findByNom(String nom) {
@@ -42,12 +47,18 @@ public class SurveillantServiceImpl implements SurveillantService {
 
 	@Override
 	public int save(Surveillant surveillant) {
+		Personnel personnel = new Personnel();
 		Surveillant foundedSurveillant = findByNom(surveillant.getNom());
 		if(foundedSurveillant != null) 
 			return -1;
 			
 		else {
+			personnel.setMail(surveillant.getMail());
+			personnel.setNom(surveillant.getNom());
+			personnel.setPrenom(surveillant.getPrenom());
+			personnelService.save(personnel);
 			surveillantRepository.save(surveillant);
+			
 			return 1;
 		}
 	}

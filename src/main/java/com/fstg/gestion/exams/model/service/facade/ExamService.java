@@ -1,6 +1,7 @@
 package com.fstg.gestion.exams.model.service.facade;
 
 
+import java.util.Date;
 import java.util.List;
 
 import com.fstg.gestion.exams.beans.Exam;
@@ -20,5 +21,5 @@ public interface ExamService {
 	//public Exam findByDateDepartAndDateFin(String dateDebut, String dateFin);
 
 	public List<Exam>findAll();
-	public Exam update(Long id, String reference, String dateDepart, String dateFin,Module module, Professeur prof);
+	public Exam update(Long id, String reference, Date dateDepart, Date dateFin,Module module, Professeur prof);
 }

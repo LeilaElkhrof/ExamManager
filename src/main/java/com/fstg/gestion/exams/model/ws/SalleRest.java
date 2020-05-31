@@ -72,5 +72,10 @@ public class SalleRest {
 	public Salle findSalle(@PathVariable String designation) {
 		return salleService.findSalle(designation);
 	}
+	
+	@GetMapping("/prevue")
+	public List<Salle> findEtatPrevue() {
+		return salleService.findEtatPrevue();
+	}
 
 }

@@ -3,6 +3,7 @@ package com.fstg.gestion.exams.model.service.impl;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -85,8 +86,8 @@ return examSalleDao.findAll();
 	}
 
 	@Override
-	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(String designation, String dateDepart,
-			String dateFin) {
+	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(String designation, Date dateDepart,
+			Date dateFin) {
 	return examSalleDao.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart, dateFin);
 	}
 
@@ -103,7 +104,7 @@ return examSalleDao.findAll();
 	}
 
 	@Override
-	public ExamSalle findExamSalle(String dateDepart, String dateFin, String designation) {
+	public ExamSalle findExamSalle(Date dateDepart, Date dateFin, String designation) {
 		return examSalleDao.findExamSalle(dateDepart, dateFin, designation);
 	}
 

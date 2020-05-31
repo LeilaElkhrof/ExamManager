@@ -17,4 +17,5 @@ public interface SalleService {
 	//public ResponseEntity<Salle> update (String designation,  Salle salle);
 	public Salle findSalle(String designation);
 	//public void saveExamSalle(List<Salle> salles, Exam exam);
+	public List<Salle> findEtatPrevue();
 }
