@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Salle implements Serializable {
@@ -29,6 +30,7 @@ public class Salle implements Serializable {
 	public Boolean getDisponibilite() {
 		return disponibilite;
 	}
+
 	public void setDisponibilite(Boolean disponibilite) {
 		this.disponibilite = disponibilite;
 	}
@@ -62,6 +64,7 @@ public class Salle implements Serializable {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

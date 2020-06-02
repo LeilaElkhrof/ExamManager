@@ -24,7 +24,6 @@ public class Etat implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String libelle;
-	
 	private String action;
 	@Temporal(TemporalType.DATE)
 	private Date dateAction;

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+
 @Entity
 public class Professeur implements Serializable {
 
@@ -47,6 +48,8 @@ public class Professeur implements Serializable {
 		this.id = id;
 	}
 
+
+
 	public String getNom() {
 		return nom;
 	}
@@ -70,7 +73,7 @@ public class Professeur implements Serializable {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-
+ 
 	public Responsabilite getResponsabilite() {
 		return responsabilite;
 	}

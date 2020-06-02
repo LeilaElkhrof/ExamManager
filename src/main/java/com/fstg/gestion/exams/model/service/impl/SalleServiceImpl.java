@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Etat;
+import com.fstg.gestion.exams.beans.Exam;
+import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Salle;
+import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.model.dao.SalleRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
@@ -71,8 +74,6 @@ public class SalleServiceImpl implements SalleService {
 	
 
 	@Override
-	//public Salle update(Long id,String designation, String etat, String type,int capacite,Etat modifie ) {
-  //  Salle foundedSalle = findById(id);
     public Salle update(Long id,String designation, String etat, String type,int capacite) {
 		Etat modifie = new Etat();
         Salle foundedSalle = findById(id);
@@ -86,17 +87,6 @@ public class SalleServiceImpl implements SalleService {
 		etatService.save(modifie);
 	return updateSalle;
 	}
-/*
-	public ResponseEntity<Salle> update (String designation,  Salle salle) {
-		Salle foundedSalle = salleRepository.findByDesignation(designation);
-			foundedSalle.setDesignation(salle.getDesignation());
-			foundedSalle.setEtat(salle.getEtat());
-			foundedSalle.setType(salle.getType());
-			foundedSalle.setCapacite(salle.getCapacite());
-		final Salle updatedSalle = salleRepository.save(salle);
-		return ResponseEntity.ok(updatedSalle);
-	}
-*/
 
 	@Override
 	public Salle findById(Long id) {
@@ -107,4 +97,8 @@ public class SalleServiceImpl implements SalleService {
 	public Salle findSalle(String designation) {
 		return  salleRepository.findByDesignation(designation);
 	}
+
+	@Override
+	public List<Salle> findEtatPrevue() {
+	return salleRepository.findEtatPrevue();	}
 }

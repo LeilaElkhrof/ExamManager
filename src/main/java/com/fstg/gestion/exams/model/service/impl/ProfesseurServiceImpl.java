@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Departement;
 import com.fstg.gestion.exams.beans.Etat;
+import com.fstg.gestion.exams.beans.Personnel;
 import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.beans.Responsabilite;
 import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.ProfesseurRepository;
 import com.fstg.gestion.exams.model.service.facade.DepartementService;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
+import com.fstg.gestion.exams.model.service.facade.PersonnelService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
 
 @Service
@@ -29,6 +31,9 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 	@Autowired
 	EtatService etatService;
 	
+	@Autowired
+	PersonnelService personnelService;
+	
 	@Override
 	@Transactional
 	public int deleteByDepartementLibelle(String libelle) {
@@ -38,6 +43,7 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 
 	@Override
 	public int save(Professeur professeur) {
+		Personnel personnel = new Personnel();
 		Professeur foundedProfesseur = findByNom(professeur.getNom());
 		Departement foundedDepartement = departementService.findByLibelle(professeur.getDepartement().getLibelle());
 		
@@ -47,6 +53,10 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 			return -2;
 		else {
 			professeur.setDepartement(foundedDepartement);
+			personnel.setMail(professeur.getMail());
+			personnel.setNom(professeur.getNom());
+			personnel.setPrenom(professeur.getPrenom());
+			personnelService.save(personnel);
 			professeurRepository.save(professeur);
 		}
 		return 0;
@@ -64,6 +74,7 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 	}
 
 	@Override
+	@Transactional
 	public int deleteByNom(String nom) {
 		Etat etat = new Etat();
 		Professeur foundedProf = findByNom(nom);

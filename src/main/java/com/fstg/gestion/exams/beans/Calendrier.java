@@ -1,6 +1,8 @@
 package com.fstg.gestion.exams.beans;
 
+import java.awt.Color;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -25,74 +27,84 @@ public class Calendrier implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	
-	private String libelle;
-	private Integer anneUniversitaire;
-	
-	@OneToOne
-	private Filiere filieres;
-	
-	@OneToMany
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private List<Exam> exams;
-
-
+	 private Date start;
+	 
+     private Date end;
+     private String title;
+     private String color;
+     
+     
+     
 	public Calendrier() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getLibelle() {
-		return libelle;
+	/**
+	 * @return the start
+	 */
+	public Date getStart() {
+		return start;
 	}
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+	/**
+	 * @param start the start to set
+	 */
+	public void setStart(Date start) {
+		this.start = start;
 	}
-	public Integer getAnneUniversitaire() {
-		return anneUniversitaire;
+	/**
+	 * @return the end
+	 */
+	public Date getEnd() {
+		return end;
 	}
-	public void setAnneUniversitaire(Integer anneUniversitaire) {
-		this.anneUniversitaire = anneUniversitaire;
+	/**
+	 * @param end the end to set
+	 */
+	public void setEnd(Date end) {
+		this.end = end;
 	}
-	public Filiere getFilieres() {
-		return filieres;
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
 	}
-	public void setFilieres(Filiere filieres) {
-		this.filieres = filieres;
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public List<Exam> getExams() {
-		return exams;
+	/**
+	 * @return the color
+	 */
+	/**
+	 * @return the color
+	 */
+	public String getColor() {
+		return color;
 	}
-	public void setExams(List<Exam> exams) {
-		this.exams = exams;
+	/**
+	 * @param color the color to set
+	 */
+	public void setColor(String color) {
+		this.color = color;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Calendrier other = (Calendrier) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+
+   
+
+
 
 	
 }
