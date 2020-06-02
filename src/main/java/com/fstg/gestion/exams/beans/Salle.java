@@ -23,17 +23,11 @@ public class Salle implements Serializable {
 	private String designation;
 	private String type;
 	private String etat;
-	private Boolean disponibilite;
+	
 	
 	
 
-	public Boolean getDisponibilite() {
-		return disponibilite;
-	}
 
-	public void setDisponibilite(Boolean disponibilite) {
-		this.disponibilite = disponibilite;
-	}
 	public String getEtat() {
 		return etat;
 	}

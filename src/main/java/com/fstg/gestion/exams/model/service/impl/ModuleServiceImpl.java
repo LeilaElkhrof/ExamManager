@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
+import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.model.dao.ModuleRepository;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
+import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
 import com.fstg.gestion.exams.model.service.facade.SemestreService;
 
 @Service
@@ -27,6 +29,8 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Autowired
 	SemestreService semestreService;
+	@Autowired
+	ProfesseurService profService;
 	
 	@Override
 	public Module findByLibelle(String libelle) {
@@ -55,7 +59,9 @@ public class ModuleServiceImpl implements ModuleService {
 		for(Module module : modules) {
 			Module foundedModule = findByLibelle(module.getLibelle());
 			Semestre foundedSemestre = semestreService.findByLibelle(module.getSemestre().getLibelle());
+			Professeur foundedProfesseur = profService.findByNom(module.getProfesseur().getNom());
 			
+			module.setProfesseur(foundedProfesseur);
 				module.setFiliere(filiere);
 				module.setSemestre(foundedSemestre);
 				moduleRepository.save(module);
@@ -87,15 +93,17 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
-	public int updateModule(Long id, String libelle, String semestre) {
+	public int updateModule(Long id, String libelle, String semestre, Professeur professeur) {
 		Module foundedModule = moduleRepository.getOne(id);
 		Semestre foundedSemestre = semestreService.findByLibelle(semestre);
+		Professeur foundedProfesseur = profService.findByNom(professeur.getNom());
 		
 		if(foundedModule == null)
 			return -1;
 		else {
 			foundedModule.setLibelle(libelle);
 			foundedModule.setSemestre(foundedSemestre);
+			foundedModule.setProfesseur(foundedProfesseur);
 		    foundedModule.setFiliere(foundedModule.getFiliere());
 			moduleRepository.save(foundedModule);
 			return 1;

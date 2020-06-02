@@ -25,6 +25,8 @@ public class Module implements Serializable {
 	private Semestre semestre;
 	@ManyToOne
 	private Filiere filiere;
+	@ManyToOne
+	private Professeur professeur;
 	
 	
 	public Long getId() {
@@ -56,6 +58,13 @@ public class Module implements Serializable {
 	}
 	public void setFiliere(Filiere filiere) {
 		this.filiere = filiere;
+	}
+
+	public Professeur getProfesseur() {
+		return professeur;
+	}
+	public void setProfesseur(Professeur professeur) {
+		this.professeur = professeur;
 	}
 
 

@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fstg.gestion.exams.beans.Exam;
+
 import com.fstg.gestion.exams.beans.ExamSurve;
 import com.fstg.gestion.exams.model.service.facade.ExamSurveService;
+
+import DateUtil.DateUtil;
 
 @RestController
 @RequestMapping("exam-api/exams-surve")
@@ -52,7 +53,11 @@ public class ExamSurveRest {
 		return examSurveService.findById(id);
 	}
 
-
+	@GetMapping("/nom/{nom}/dateDepart/{dateDepart}/dateFin/{dateFin}")
+	public List<ExamSurve> findExamSurveillant(@PathVariable String nom,@PathVariable String dateDepart,@PathVariable String dateFin) {
+		System.out.println("dateDepart "+dateDepart);
+		return examSurveService.findExamSurveillant(nom ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
+	}
 	
 	
 }

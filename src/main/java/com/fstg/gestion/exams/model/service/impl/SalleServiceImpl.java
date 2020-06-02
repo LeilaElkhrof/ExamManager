@@ -42,14 +42,13 @@ public class SalleServiceImpl implements SalleService {
 	public int deleteByDesignation(String designation) {
 		Etat etat = new Etat();
 		Salle foundedSalle = findByDesignation(designation);
-		if(foundedSalle.getDisponibilite() == false)
-			return -1;
-		else {
+		
+		
 		etat.setLibelle(foundedSalle.getDesignation());
 		etat.setAction("Suppression");
 		etatService.save(etat);
 		return salleRepository.deleteByDesignation(designation);
-		}
+		
 	}
 
 	@Override
@@ -65,7 +64,7 @@ public class SalleServiceImpl implements SalleService {
 			return -1;
 		
 		else {
-			salle.setDisponibilite(true);
+			
 			salleRepository.save(salle);
 			return 0;
 		}

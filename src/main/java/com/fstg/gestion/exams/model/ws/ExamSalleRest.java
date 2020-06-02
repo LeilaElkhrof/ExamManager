@@ -55,14 +55,15 @@ public class ExamSalleRest {
 	public ExamSalle findById(@PathVariable Long id) {
 		return examSalleService.findById(id);
 	}
-	@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
+	/*@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
 	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable Date dateDepart,@PathVariable
 			Date dateFin) {
 		return examSalleService.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart,dateFin);
-	}
-	@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}/designation/{designation}")
-	public ExamSalle findExamSalle(@PathVariable String dateDepart,@PathVariable String dateFin,@PathVariable String designation) {
-		return examSalleService.findExamSalle( DateUtil.parse(dateDepart), DateUtil.parse(dateFin),designation);
+	}*/
+	@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
+	public List<ExamSalle> findExamSalle(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin) {
+		System.out.println("dateDepart "+dateDepart);
+		return examSalleService.findExamSalle(designation ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
 	
 }

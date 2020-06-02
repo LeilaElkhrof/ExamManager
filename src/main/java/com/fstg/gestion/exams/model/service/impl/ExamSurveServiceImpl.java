@@ -1,6 +1,7 @@
 package com.fstg.gestion.exams.model.service.impl;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,12 @@ public class ExamSurveServiceImpl implements ExamSurveService {
 	@Override
 	public List<ExamSurve> findBySurveillantNom(String nom) {
 	return examSurveDao.findBySurveillantNom(nom);
+	}
+
+
+	@Override
+	public List<ExamSurve> findExamSurveillant(String nom, Date dateDepart, Date dateFin) {
+		return examSurveDao.findExamSurveillant(nom, dateDepart, dateFin);
 	}
 
 

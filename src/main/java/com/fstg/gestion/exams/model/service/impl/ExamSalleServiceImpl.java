@@ -55,9 +55,10 @@ public class ExamSalleServiceImpl implements ExamSalleService{
 	@Override
 	public void saveSalle(Exam exam, List<ExamSalle> examSalles) {
 	System.out.println("hola"+examSalles);
-	List<ExamSalle> validateExamSalle = validateSalle(examSalles,exam);
-	if(validateExamSalle != null) {
-			for(ExamSalle valideExamSalle : validateExamSalle) {
+	//List<ExamSalle> validateExamSalle = validateSalle(examSalles,exam);
+	//if(validateExamSalle != null) {
+			for(ExamSalle valideExamSalle : examSalles) {
+				System.out.println("sdvcjsh "+valideExamSalle.getSalle().getDesignation());
 				Salle foundSalle = salleService.findByDesignation(valideExamSalle.getSalle().getDesignation());
 				
 				valideExamSalle.setExam(exam);
@@ -65,7 +66,7 @@ public class ExamSalleServiceImpl implements ExamSalleService{
 				valideExamSalle.setSalle(foundSalle);
 				examSalleDao.save(valideExamSalle);	
 			}
-	}
+	
 		
 		
 	}
@@ -91,25 +92,24 @@ return examSalleDao.findAll();
 	return examSalleDao.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart, dateFin);
 	}
 
-	public List<ExamSalle> validateSalle(List<ExamSalle> examSalles, Exam exam) {
+	/*public List<ExamSalle> validateSalle(List<ExamSalle> examSalles, Exam exam) {
 		List<ExamSalle> valideSalle = new ArrayList<ExamSalle>();
+		
 		for(ExamSalle examsSalle: examSalles) {
-		ExamSalle examSalle = findBySalleDesignationAndExamDateDepartAndExamDateFin(examsSalle.getSalle().getDesignation(),exam.getDateDepart(),exam.getDateFin());
+		//ExamSalle examSalle = findBySalleDesignationAndExamDateDepartAndExamDateFin(examsSalle.getSalle().getDesignation(),exam.getDateDepart(),exam.getDateFin());
+			//List<ExamSalle> examSalle = findExamSalle(examsSalle.getSalle().getDesignation(),exam.getDateDepart(),exam.getDateFin());
 		if(examSalle == null) {
 			valideSalle.add(examsSalle);
-			
+			System.out.println("salle"+examsSalle.getSalle().getDesignation());
 		}
 		}
 		return valideSalle;
-	}
+	}*/
 
 	
 	@Override
-	public ExamSalle findExamSalle(Date dateDepart, Date dateFin, String designation) {
-		System.out.println("date" + dateDepart);
-		System.out.println("date" + dateFin);
-		System.out.println(designation);
-		return examSalleDao.findExamSalle(dateDepart, dateFin, designation);
+	public List<ExamSalle> findExamSalle(String designation, Date dateDepart, Date dateFin ) {
+		return examSalleDao.findExamSalle(designation, dateDepart, dateFin );
 		
 	}
 

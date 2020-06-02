@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
+import com.fstg.gestion.exams.beans.Professeur;
 
 public interface ModuleService {
 
@@ -14,7 +15,7 @@ public interface ModuleService {
 	public void save(Filiere filiere, List<Module> module);
 	public List<Module> findAll();
 	public int addModule(Module module);
-	public int updateModule(Long id, String libelle, String semestre);
+	public int updateModule(Long id, String libelle, String semestre, Professeur professeur);
 	public void deleteById(Long id);
 	
 }

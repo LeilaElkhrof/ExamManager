@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -28,6 +29,7 @@ public class Exam implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
+	
 	private String reference;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateDepart;
@@ -38,6 +40,8 @@ public class Exam implements Serializable {
 	private Module module;
 	@OneToOne
 	private Professeur prof;
+	@ManyToOne
+	private Filiere filiere;
 	
 		
 	@OneToMany(mappedBy="exam")
@@ -66,13 +70,7 @@ public class Exam implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getReference() {
-		return reference;
-	}
 
-	public void setReference(String reference) {
-		this.reference = reference;
-	}
 
 
 	public Date getDateFin() {
@@ -120,6 +118,22 @@ public class Exam implements Serializable {
 	}
 	public void setExamSurveillants(List<ExamSurve> examSurveillants) {
 		this.examSurveillants = examSurveillants;
+	}
+
+	public Filiere getFiliere() {
+		return filiere;
+	}
+
+	public void setFiliere(Filiere filiere) {
+		this.filiere = filiere;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 

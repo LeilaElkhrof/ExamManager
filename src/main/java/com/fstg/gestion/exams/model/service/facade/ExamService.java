@@ -7,6 +7,7 @@ import java.util.List;
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
 import com.fstg.gestion.exams.beans.ExamSurve;
+import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Professeur;
 
@@ -21,5 +22,5 @@ public interface ExamService {
 	//public Exam findByDateDepartAndDateFin(String dateDebut, String dateFin);
 
 	public List<Exam>findAll();
-	public Exam update(Long id, String reference, Date dateDepart, Date dateFin,Module module, Professeur prof);
+	public Exam update(Long id, String reference, Date dateDepart, Date dateFin,Module module, Professeur prof,Filiere filiere);
 }

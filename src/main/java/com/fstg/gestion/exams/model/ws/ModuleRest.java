@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.gestion.exams.beans.Module;
+import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
 
 @RestController
@@ -54,9 +55,9 @@ public class ModuleRest {
 		return moduleService.addModule(module);
 	}
 
-	@PutMapping("/{id}/{libelle}/{semestre}")
-	public int updateModule( @PathVariable Long id,@PathVariable String libelle,@PathVariable String semestre) {
-		return moduleService.updateModule(id, libelle, semestre);
+	@PutMapping("/{id}/{libelle}/{semestre}/{professeur}")
+	public int updateModule( @PathVariable Long id,@PathVariable String libelle,@PathVariable String semestre, Professeur professeur) {
+		return moduleService.updateModule(id, libelle, semestre,professeur);
 	}
 
 	@DeleteMapping("/delete-by-id/{id}")

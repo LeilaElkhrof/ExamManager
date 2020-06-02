@@ -14,6 +14,7 @@ import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
 import com.fstg.gestion.exams.beans.ExamSurve;
+import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Professeur;
 
@@ -22,6 +23,7 @@ import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
 import com.fstg.gestion.exams.model.service.facade.ExamSurveService;
+import com.fstg.gestion.exams.model.service.facade.FiliereService;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
@@ -53,6 +55,8 @@ public class ExamServiceImpl implements ExamService{
 	ExamSalleService examSalleService;
 	@Autowired
 	ExamSurveService examSurveService;
+	@Autowired
+	FiliereService filiereService;
 	
 	@Override
 	public Exam findByReference(String reference) {
@@ -71,7 +75,7 @@ public class ExamServiceImpl implements ExamService{
 
 
 	@Override
-	public Exam update(Long id, String reference, Date dateDepart, Date dateFin,Module module, Professeur prof) {
+	public Exam update(Long id, String reference, Date dateDepart, Date dateFin,Module module, Professeur prof,Filiere filiere) {
 		Etat modifie = new Etat();
 		Exam foundedExam = findById(id);
 	foundedExam.setDateDepart(dateDepart);
@@ -79,6 +83,7 @@ public class ExamServiceImpl implements ExamService{
 	foundedExam.setModule(module);
 	foundedExam.setProf(prof);
 	foundedExam.setReference(reference);
+	foundedExam.setFiliere(filiere);
 
 	
 	Exam updateExam = examRepository.save(foundedExam);
@@ -92,11 +97,22 @@ public class ExamServiceImpl implements ExamService{
 
 	@Override
 	public int save(Exam exam, List<ExamSurve> examSurves, List<ExamSalle> examSalles) {
+		 System.out.println("examDateDEpart"+ exam.getDateDepart());
+		 Filiere foundedFiliere = filiereService.findByLibelle(exam.getFiliere().getLibelle());
+		 Professeur foundedProfesseur = professeurService.findByNom(exam.getProf().getNom());
+		 Module foundedModule = moduleService.findByLibelle(exam.getModule().getLibelle());
 		Exam examFound = findByReference(exam.getReference());
 		if (examFound != null) {
 			return -1;
 		} 
+		else if(foundedFiliere == null) {
+			return -2;
+		}
 		 else {
+			 System.out.println(examSalles);
+			 exam.setProf(foundedProfesseur);
+			 exam.setModule(foundedModule);
+			 exam.setFiliere(foundedFiliere);
 			examRepository.save(exam);	
 			examSalleService.saveSalle(exam, examSalles);
 			examSurveService.saveSurve(exam, examSurves);
@@ -112,7 +128,11 @@ public int deleteByReference(String reference) {
 	etat.setLibelle(foundedExam.getReference());
 	etat.setAction("Suppression");
 	etatService.save(etat);
-	return examRepository.deleteByReference(reference);
+	int exam = examRepository.deleteByReference(reference);
+	int examSalle = examSalleService.deleteByExamReference(reference);
+	int examSurve =  examSurveService.deleteByExamReference(reference);
+	return exam+examSalle+examSurve;
+			
 }
 
 @Override
