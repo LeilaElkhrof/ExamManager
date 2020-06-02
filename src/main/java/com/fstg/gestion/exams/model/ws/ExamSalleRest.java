@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.gestion.exams.beans.ExamSalle;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
+import com.fstg.gestion.exams.model.service.util.DateUtil;
 
-import DateUtil.DateUtil;
 
 @RestController
 @RequestMapping("exam-api/exams-salle")
