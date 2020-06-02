@@ -1,7 +1,7 @@
 package com.fstg.gestion.exams.model.service.impl;
 
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -91,21 +91,26 @@ return examSalleDao.findAll();
 	return examSalleDao.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart, dateFin);
 	}
 
-	public List<ExamSalle> validateSalle(List<ExamSalle> salles, Exam exam) {
+	public List<ExamSalle> validateSalle(List<ExamSalle> examSalles, Exam exam) {
 		List<ExamSalle> valideSalle = new ArrayList<ExamSalle>();
-		for(ExamSalle salle: salles) {
-		ExamSalle examSalle = findBySalleDesignationAndExamDateDepartAndExamDateFin(salle.getSalle().getDesignation(),exam.getDateDepart(),exam.getDateFin());
+		for(ExamSalle examsSalle: examSalles) {
+		ExamSalle examSalle = findBySalleDesignationAndExamDateDepartAndExamDateFin(examsSalle.getSalle().getDesignation(),exam.getDateDepart(),exam.getDateFin());
 		if(examSalle == null) {
-			valideSalle.add(salle);
+			valideSalle.add(examsSalle);
 			
 		}
 		}
 		return valideSalle;
 	}
 
+	
 	@Override
 	public ExamSalle findExamSalle(Date dateDepart, Date dateFin, String designation) {
+		System.out.println("date" + dateDepart);
+		System.out.println("date" + dateFin);
+		System.out.println(designation);
 		return examSalleDao.findExamSalle(dateDepart, dateFin, designation);
+		
 	}
 
 }

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fstg.gestion.exams.beans.ExamSalle;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
 
+import DateUtil.DateUtil;
+
 @RestController
 @RequestMapping("exam-api/exams-salle")
 @CrossOrigin(origins= {"http://localhost:4200" })
@@ -56,12 +58,11 @@ public class ExamSalleRest {
 	@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
 	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable Date dateDepart,@PathVariable
 			Date dateFin) {
-		return examSalleService.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart, dateFin);
+		return examSalleService.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart,dateFin);
 	}
 	@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}/designation/{designation}")
-	public ExamSalle findExamSalle(@PathVariable Date dateDepart,@PathVariable Date dateFin,@PathVariable String designation) {
-		return examSalleService.findExamSalle(dateDepart, dateFin, designation);
+	public ExamSalle findExamSalle(@PathVariable String dateDepart,@PathVariable String dateFin,@PathVariable String designation) {
+		return examSalleService.findExamSalle( DateUtil.parse(dateDepart), DateUtil.parse(dateFin),designation);
 	}
-	
 	
 }
