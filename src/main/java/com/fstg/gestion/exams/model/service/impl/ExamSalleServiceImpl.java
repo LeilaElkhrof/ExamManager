@@ -106,10 +106,10 @@ return examSalleDao.findAll();
 	
 	@Override
 	public ExamSalle findExamSalle(Date dateDepart, Date dateFin, String designation) {
-		System.out.println("date" + dateDepart);
-		System.out.println("date" + dateFin);
+		System.out.println( dateDepart);
+		System.out.println(dateFin);
 		System.out.println(designation);
-		return examSalleDao.findExamSalle(dateDepart, dateFin, designation);
+		return examSalleDao.findExamSalle(designation, dateDepart, dateFin);
 		
 	}
 

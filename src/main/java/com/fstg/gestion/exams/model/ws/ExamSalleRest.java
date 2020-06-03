@@ -60,9 +60,10 @@ public class ExamSalleRest {
 			Date dateFin) {
 		return examSalleService.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart,dateFin);
 	}
+	
 	@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}/designation/{designation}")
 	public ExamSalle findExamSalle(@PathVariable String dateDepart,@PathVariable String dateFin,@PathVariable String designation) {
-		return examSalleService.findExamSalle( DateUtil.parse(dateDepart), DateUtil.parse(dateFin),designation);
+		return examSalleService.findExamSalle(DateUtil.parse(dateDepart), DateUtil.parse(dateFin),designation);
 	}
 	
 }
