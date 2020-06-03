@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.gestion.exams.beans.ExamSurve;
 import com.fstg.gestion.exams.model.service.facade.ExamSurveService;
+import com.fstg.gestion.exams.model.service.util.DateUtil;
 
-import DateUtil.DateUtil;
 
 @RestController
 @RequestMapping("exam-api/exams-surve")

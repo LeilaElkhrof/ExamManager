@@ -19,6 +19,8 @@ import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.SalleRepository;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 
 
 
@@ -30,6 +32,7 @@ public class SalleRest {
 	@Autowired
 	SalleService salleService;
 	
+
 	@Autowired
 	SalleRepository salleRepository;
 
@@ -76,6 +79,11 @@ public class SalleRest {
 	@GetMapping("/prevue")
 	public List<Salle> findEtatPrevue() {
 		return salleService.findEtatPrevue();
+	}
+	
+	@PostMapping("/imprimer")
+	public int imprimerListeSalle() throws DocumentException, Exception {
+		return salleService.imprimerListeSalle();
 	}
 
 }

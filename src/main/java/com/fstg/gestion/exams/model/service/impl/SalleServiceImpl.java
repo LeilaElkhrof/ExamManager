@@ -1,5 +1,7 @@
 package com.fstg.gestion.exams.model.service.impl;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -16,6 +18,17 @@ import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.model.dao.SalleRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
+import com.fstg.gestion.exams.model.service.util.PdfUtil;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 public class SalleServiceImpl implements SalleService {
@@ -100,4 +113,9 @@ public class SalleServiceImpl implements SalleService {
 	@Override
 	public List<Salle> findEtatPrevue() {
 	return salleRepository.findEtatPrevue();	}
+
+	@Override
+	public int imprimerListeSalle() throws Exception, DocumentException {
+		return PdfUtil.imprimerListeSalle(findAll());
+	}
 }
