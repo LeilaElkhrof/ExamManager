@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.gestion.exams.beans.ExamSalle;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
+import com.fstg.gestion.exams.model.service.util.DateUtil;
 
-import DateUtil.DateUtil;
 
 @RestController
 @RequestMapping("exam-api/exams-salle")
@@ -59,11 +59,19 @@ public class ExamSalleRest {
 	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable Date dateDepart,@PathVariable
 			Date dateFin) {
 		return examSalleService.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart,dateFin);
+<<<<<<< HEAD
 	}*/
 	@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
 	public List<ExamSalle> findExamSalle(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin) {
 		System.out.println("dateDepart "+dateDepart);
 		return examSalleService.findExamSalle(designation ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
+=======
+	}
+	
+	@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}/designation/{designation}")
+	public ExamSalle findExamSalle(@PathVariable String dateDepart,@PathVariable String dateFin,@PathVariable String designation) {
+		return examSalleService.findExamSalle(DateUtil.parse(dateDepart), DateUtil.parse(dateFin),designation);
+>>>>>>> branch 'master' of https://github.com/LeilaElkhrof/ExamManager.git
 	}
 	
 }

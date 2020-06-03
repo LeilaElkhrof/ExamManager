@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api("Cette end point permet de gerer les filieres")
 @RestController
 @RequestMapping("exam-api/filieres")
 @CrossOrigin(origins= {"http://localhost:4200" })
 public class FiliereRest {
 	
-	
+	@ApiOperation("Cette methodes permet de sauvegarder une filiere, ainsi ses modules")
 	@PostMapping("/saveFM")
 	public int saveFM(@RequestBody Filiere filiere) {
 		return filiereService.saveFM(filiere, filiere.getModules());

@@ -20,5 +20,10 @@ public interface ExamSalleDao  extends JpaRepository<ExamSalle, Long>  {
 	public int deleteByExamReference(String reference);
 	public int deleteBySalleDesignation(String designation);
 	@Query("SELECT examSalle FROM ExamSalle examSalle WHERE examSalle.salle.designation = :designation AND((:dateDepart BETWEEN examSalle.exam.dateDepart AND examSalle.exam.dateFin ) OR (:dateFin BETWEEN examSalle.exam.dateDepart AND examSalle.exam.dateFin))")
+<<<<<<< HEAD
 	public List<ExamSalle> findExamSalle(@Param(value = "designation") String designation,@Param(value = "dateDepart")Date dateDepart,@Param(value = "dateFin") Date dateFin);
 }
+=======
+	public ExamSalle findExamSalle(@Param(value = "designation") String designation,@Param(value = "dateDepart")Date dateDepart,@Param(value = "dateFin") Date dateFin);
+}
+>>>>>>> branch 'master' of https://github.com/LeilaElkhrof/ExamManager.git
