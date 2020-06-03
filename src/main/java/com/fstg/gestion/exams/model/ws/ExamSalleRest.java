@@ -65,13 +65,7 @@ public class ExamSalleRest {
 	public List<ExamSalle> findExamSalle(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin) {
 		System.out.println("dateDepart "+dateDepart);
 		return examSalleService.findExamSalle(designation ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
-=======
 	}
-	
-	@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}/designation/{designation}")
-	public ExamSalle findExamSalle(@PathVariable String dateDepart,@PathVariable String dateFin,@PathVariable String designation) {
-		return examSalleService.findExamSalle(DateUtil.parse(dateDepart), DateUtil.parse(dateFin),designation);
->>>>>>> branch 'master' of https://github.com/LeilaElkhrof/ExamManager.git
-	}
+
 	
 }

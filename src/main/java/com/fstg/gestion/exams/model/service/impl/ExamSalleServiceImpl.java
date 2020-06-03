@@ -108,16 +108,12 @@ return examSalleDao.findAll();
 
 	
 	@Override
-<<<<<<< HEAD
-	public List<ExamSalle> findExamSalle(String designation, Date dateDepart, Date dateFin ) {
-		return examSalleDao.findExamSalle(designation, dateDepart, dateFin );
-=======
-	public ExamSalle findExamSalle(Date dateDepart, Date dateFin, String designation) {
+	public List<ExamSalle> findExamSalle(String designation, Date dateDepart, Date dateFin) {
 		System.out.println( dateDepart);
 		System.out.println(dateFin);
 		System.out.println(designation);
 		return examSalleDao.findExamSalle(designation, dateDepart, dateFin);
->>>>>>> branch 'master' of https://github.com/LeilaElkhrof/ExamManager.git
+
 		
 	}
 
