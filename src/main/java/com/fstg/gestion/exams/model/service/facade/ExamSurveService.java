@@ -12,10 +12,11 @@ import com.fstg.gestion.exams.beans.ExamSurve;
 public interface ExamSurveService {
 	public List<ExamSurve> findBySurveillantNom(String nom);
 	public List<ExamSurve> findByExamReference(String reference);
-	public int deleteByExamReference(String reference);
+	public int deleteByExamId(Long id);
 	public void saveSurve(Exam exam, List<ExamSurve> ExamSurveillants);
 	public List<ExamSurve> findAll();
 	public ExamSurve findById(Long id);
+	public void deleteById(Long id);
 	public List<ExamSurve> findExamSurveillant( String nom,Date dateDepart, Date dateFin);
 
 	

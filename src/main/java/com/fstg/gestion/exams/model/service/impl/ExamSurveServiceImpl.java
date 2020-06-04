@@ -45,8 +45,8 @@ public class ExamSurveServiceImpl implements ExamSurveService {
 
 	@Override
 	@Transactional
-	public int deleteByExamReference(String reference) {
-	return examSurveDao.deleteByExamReference(reference);
+	public int deleteByExamId(Long id) {
+	return examSurveDao.deleteByExamId(id);
 	}
 
 
@@ -82,6 +82,13 @@ public class ExamSurveServiceImpl implements ExamSurveService {
 	@Override
 	public List<ExamSurve> findExamSurveillant(String nom, Date dateDepart, Date dateFin) {
 		return examSurveDao.findExamSurveillant(nom, dateDepart, dateFin);
+	}
+
+
+	@Override
+	public void deleteById(Long id) {
+		examSurveDao.deleteById(id);
+		
 	}
 
 

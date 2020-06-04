@@ -55,6 +55,9 @@ public class SalleServiceImpl implements SalleService {
 			etat.setLibelle(foundedSalle.getDesignation());
 			etat.setAction("Suppression");
 			etatService.save(etat);
+			for(ExamSalle examSalle : foundedExamSalle) {
+				 examSalleService.deleteById(examSalle.getId());
+			}
 			
 			return salleRepository.deleteByDesignation(designation);
 		}

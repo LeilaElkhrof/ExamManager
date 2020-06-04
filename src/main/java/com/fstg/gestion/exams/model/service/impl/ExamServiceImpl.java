@@ -127,11 +127,14 @@ public int deleteByReference(String reference) {
 	Exam foundedExam = findByReference(reference);
 	etat.setLibelle(foundedExam.getReference());
 	etat.setAction("Suppression");
-	etatService.save(etat);
-	int examSalle = examSalleService.deleteByExamReference(reference);
-	int examSurve =  examSurveService.deleteByExamReference(reference);
+
+	etatService.save(etat);	
+	int examSalle = examSalleService.deleteByExamId(foundedExam.getId());
+	int examSurve =  examSurveService.deleteByExamId(foundedExam.getId());
 	int exam = examRepository.deleteByReference(reference);
-	return exam+examSalle+examSurve;
+
+	return examSalle+examSurve+exam;
+
 			
 }
 

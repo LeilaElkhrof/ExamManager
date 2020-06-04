@@ -1,5 +1,6 @@
 package com.fstg.gestion.exams.model.ws;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,6 @@ public class ExamSalleRest {
 
 	@GetMapping("/exam-salle/find-by-designation/{designation}")
 	public List<ExamSalle> findSalleNonDisponible(@PathVariable String designation) {
-		System.out.println("hahiya"+new Date());
 		return examSalleService.findSalleNonDisponible(designation, new Date());
 	}
 
@@ -42,13 +42,13 @@ public class ExamSalleRest {
 		return examSalleService.findByExamReference(reference);
 	}
 
-	@DeleteMapping("/exam/delete-by-reference/{reference}")
-	public int deleteByExamReference(@PathVariable String reference) {
-		return examSalleService.deleteByExamReference(reference);
+	@DeleteMapping("/exam/delete-by-id/{id}")
+	public int deleteByExamId(@PathVariable Long id) {
+		return examSalleService.deleteByExamId(id);
 	}
-	@DeleteMapping("/delete-by-designation/{designation}")
-	public int deleteBySalleDesignation(String designation) {
-		return examSalleService.deleteBySalleDesignation(designation);
+	@DeleteMapping("/delete-by-designation/{designation}/delete-by-dateDepart/{dateDepart}/delete-by-dateFin/{dateFin}")
+	public int deleteBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin )  {
+		return examSalleService.deleteBySalleDesignationAndExamDateDepartAndExamDateFin( designation,DateUtil.parse(dateDepart), DateUtil.parse(dateFin) ) ;
 	}
 
 
@@ -68,6 +68,13 @@ public class ExamSalleRest {
 		return examSalleService.findExamSalle(designation ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
 
-	
-	
+	@DeleteMapping("/delete-by-id/{id}")
+	public void deleteById(@PathVariable Long id) {
+		examSalleService.deleteById(id);
+	}
+	@DeleteMapping("/salle/delete-by-id/{id}")
+	public int deleteBySalleId(@PathVariable Long id) {
+		return examSalleService.deleteBySalleId(id);
+	}
+
 }

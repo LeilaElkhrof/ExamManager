@@ -30,8 +30,8 @@ public class PdfUtil {
 
 	public static  int imprimerListeSalle(List<Salle> salles) throws Exception, DocumentException {
 		Document document = new Document();
-		PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\LEILA\\pfe\\pdf\\Salles.pdf"));
-		 
+		//PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\LEILA\\pfe\\pdf\\Salles.pdf"));
+		PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\HPELITEBOOK\\Documents\\pdf\\Salles.pdf"));
 		document.open();
 		
 		Image img;
