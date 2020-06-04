@@ -112,9 +112,13 @@ return examSalleDao.findAll();
 		System.out.println( dateDepart);
 		System.out.println(dateFin);
 		System.out.println(designation);
-		return examSalleDao.findExamSalle(designation, dateDepart, dateFin);
+		return examSalleDao.findExamSalle(designation, dateDepart, dateFin);		
+	}
 
-		
+	@Override
+	public List<ExamSalle> findSalleNonDisponible(String designation, Date date) {
+		System.out.println("hahiya"+date);
+		return examSalleDao.findSalleNonDisponible(designation, date);
 	}
 
 }

@@ -128,9 +128,9 @@ public int deleteByReference(String reference) {
 	etat.setLibelle(foundedExam.getReference());
 	etat.setAction("Suppression");
 	etatService.save(etat);
-	int exam = examRepository.deleteByReference(reference);
 	int examSalle = examSalleService.deleteByExamReference(reference);
 	int examSurve =  examSurveService.deleteByExamReference(reference);
+	int exam = examRepository.deleteByReference(reference);
 	return exam+examSalle+examSurve;
 			
 }

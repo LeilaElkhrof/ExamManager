@@ -1,7 +1,6 @@
 package com.fstg.gestion.exams.model.service.impl;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -11,24 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Etat;
-import com.fstg.gestion.exams.beans.Exam;
-import com.fstg.gestion.exams.beans.Module;
+import com.fstg.gestion.exams.beans.ExamSalle;
 import com.fstg.gestion.exams.beans.Salle;
-import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.model.dao.SalleRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
+import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
 import com.fstg.gestion.exams.model.service.util.PdfUtil;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 public class SalleServiceImpl implements SalleService {
@@ -38,6 +27,9 @@ public class SalleServiceImpl implements SalleService {
 	
 	@Autowired
 	EtatService etatService;
+	
+	@Autowired
+	ExamSalleService examSalleService;
 	
 	
 	@Override
@@ -55,12 +47,19 @@ public class SalleServiceImpl implements SalleService {
 	public int deleteByDesignation(String designation) {
 		Etat etat = new Etat();
 		Salle foundedSalle = findByDesignation(designation);
+		List<ExamSalle> foundedExamSalle = examSalleService.findSalleNonDisponible(designation, new Date());
+		System.out.println("hani"+ foundedExamSalle.size());
+		if(foundedExamSalle.size() > 0) 
+			return -1;
+		else {
+			etat.setLibelle(foundedSalle.getDesignation());
+			etat.setAction("Suppression");
+			etatService.save(etat);
+			
+			return salleRepository.deleteByDesignation(designation);
+		}
 		
 		
-		etat.setLibelle(foundedSalle.getDesignation());
-		etat.setAction("Suppression");
-		etatService.save(etat);
-		return salleRepository.deleteByDesignation(designation);
 		
 	}
 
@@ -77,9 +76,8 @@ public class SalleServiceImpl implements SalleService {
 			return -1;
 		
 		else {
-			
 			salleRepository.save(salle);
-			return 0;
+			return 1;
 		}
 		
 	}

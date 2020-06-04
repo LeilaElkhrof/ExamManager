@@ -26,7 +26,13 @@ public class ExamSalleRest {
 	@Autowired
 	ExamSalleService examSalleService;
 
-	@GetMapping("/salle/find-by-reference/{reference}")
+	@GetMapping("/exam-salle/find-by-designation/{designation}")
+	public List<ExamSalle> findSalleNonDisponible(@PathVariable String designation) {
+		System.out.println("hahiya"+new Date());
+		return examSalleService.findSalleNonDisponible(designation, new Date());
+	}
+
+	@GetMapping("/salle/find-by-designation/{designation}")
 	public List<ExamSalle> findBySalleDesignation(@PathVariable String designation) {
 		return examSalleService.findBySalleDesignation(designation);
 	}
@@ -55,17 +61,13 @@ public class ExamSalleRest {
 	public ExamSalle findById(@PathVariable Long id) {
 		return examSalleService.findById(id);
 	}
-	/*@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
-	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable Date dateDepart,@PathVariable
-			Date dateFin) {
-		return examSalleService.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart,dateFin);
-<<<<<<< HEAD
-	}*/
+
 	@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
 	public List<ExamSalle> findExamSalle(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin) {
 		System.out.println("dateDepart "+dateDepart);
 		return examSalleService.findExamSalle(designation ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
 
+	
 	
 }
