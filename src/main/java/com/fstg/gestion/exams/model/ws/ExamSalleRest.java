@@ -1,6 +1,6 @@
 package com.fstg.gestion.exams.model.ws;
 
-import java.util.Date;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +36,13 @@ public class ExamSalleRest {
 		return examSalleService.findByExamReference(reference);
 	}
 
-	@DeleteMapping("/exam/delete-by-reference/{reference}")
-	public int deleteByExamReference(@PathVariable String reference) {
-		return examSalleService.deleteByExamReference(reference);
+	@DeleteMapping("/exam/delete-by-id/{id}")
+	public int deleteByExamId(@PathVariable Long id) {
+		return examSalleService.deleteByExamId(id);
 	}
-	@DeleteMapping("/delete-by-designation/{designation}")
-	public int deleteBySalleDesignation(String designation) {
-		return examSalleService.deleteBySalleDesignation(designation);
+	@DeleteMapping("/delete-by-designation/{designation}/delete-by-dateDepart/{dateDepart}/delete-by-dateFin/{dateFin}")
+	public int deleteBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin )  {
+		return examSalleService.deleteBySalleDesignationAndExamDateDepartAndExamDateFin( designation,DateUtil.parse(dateDepart), DateUtil.parse(dateFin) ) ;
 	}
 
 
@@ -59,13 +59,18 @@ public class ExamSalleRest {
 	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable Date dateDepart,@PathVariable
 			Date dateFin) {
 		return examSalleService.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart,dateFin);
-<<<<<<< HEAD
 	}*/
 	@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
 	public List<ExamSalle> findExamSalle(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin) {
 		System.out.println("dateDepart "+dateDepart);
 		return examSalleService.findExamSalle(designation ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
-
-	
+	@DeleteMapping("/delete-by-id/{id}")
+	public void deleteById(@PathVariable Long id) {
+		examSalleService.deleteById(id);
+	}
+	@DeleteMapping("/salle/delete-by-id/{id}")
+	public int deleteBySalleId(@PathVariable Long id) {
+		return examSalleService.deleteBySalleId(id);
+	}
 }

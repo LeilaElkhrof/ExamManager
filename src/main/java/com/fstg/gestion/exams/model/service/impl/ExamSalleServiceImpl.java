@@ -43,14 +43,6 @@ public class ExamSalleServiceImpl implements ExamSalleService{
 
 
 
-	@Override
-	@Transactional
-	public int deleteByExamReference(String reference) {
-		return examSalleDao.deleteByExamReference(reference);
-	}
-
-
-
 
 	@Override
 	public void saveSalle(Exam exam, List<ExamSalle> examSalles) {
@@ -82,8 +74,10 @@ return examSalleDao.findAll();
 	}
 
 	@Override
-	public int deleteBySalleDesignation(String designation) {
-	return examSalleDao.deleteBySalleDesignation(designation);
+	@Transactional
+	public int deleteBySalleDesignationAndExamDateDepartAndExamDateFin(String designation, Date dateDepart, Date dateFin ) {
+		
+	return examSalleDao.deleteBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart, dateFin);
 	}
 
 	@Override
@@ -116,5 +110,26 @@ return examSalleDao.findAll();
 
 		
 	}
+
+	@Override
+	@Transactional
+	public void deleteById(Long id) {
+		 examSalleDao.deleteById(id);
+		
+	}
+     
+	@Override
+	@Transactional
+	public int deleteByExamId(Long id) {
+		return examSalleDao.deleteByExamId(id);
+	}
+
+	@Override
+	@Transactional
+	public int deleteBySalleId(Long id) {
+		return examSalleDao.deleteBySalleId(id);
+	}
+	
+	
 
 }

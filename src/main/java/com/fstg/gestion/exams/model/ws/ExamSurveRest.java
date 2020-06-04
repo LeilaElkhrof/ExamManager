@@ -37,9 +37,9 @@ public class ExamSurveRest {
 
 
 
-	@DeleteMapping("/exam/delete-by-reference/{reference}")
-	public int deleteByExamReference(@PathVariable String reference) {
-		return examSurveService.deleteByExamReference(reference);
+	@DeleteMapping("/exam/delete-by-id/{id}")
+	public int deleteByExamReference(@PathVariable Long id) {
+		return examSurveService.deleteByExamId(id);
 	}
 
 
@@ -57,6 +57,10 @@ public class ExamSurveRest {
 	public List<ExamSurve> findExamSurveillant(@PathVariable String nom,@PathVariable String dateDepart,@PathVariable String dateFin) {
 		System.out.println("dateDepart "+dateDepart);
 		return examSurveService.findExamSurveillant(nom ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
+	}
+	@DeleteMapping("/delete-by-id/{id}")
+	public void deleteById(@PathVariable Long id) {
+		examSurveService.deleteById(id);
 	}
 	
 	

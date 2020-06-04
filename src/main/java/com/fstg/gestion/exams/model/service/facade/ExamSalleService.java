@@ -13,12 +13,14 @@ public interface ExamSalleService {
 	public List<ExamSalle> findBySalleDesignation(String designation);
 	public List<ExamSalle> findByExamReference(String reference);
 
-	public int deleteByExamReference(String reference);
+	public int deleteByExamId(Long id);
 
 	public void saveSalle(Exam exam, List<ExamSalle> examSalles);
 public List<ExamSalle> findAll();
+public void deleteById(Long id);
+public int deleteBySalleId(Long id);
 public ExamSalle findById(Long id);
-public int deleteBySalleDesignation(String designation);
+public int deleteBySalleDesignationAndExamDateDepartAndExamDateFin(String designation, Date dateDepart, Date dateFin ) ;
 public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(String designation,Date dateDepart,Date dateFin);
 public List<ExamSalle> findExamSalle(String designation, Date dateDepart, Date dateFin);
 
