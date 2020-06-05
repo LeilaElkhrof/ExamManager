@@ -1,15 +1,20 @@
 package com.fstg.gestion.exams.model.service.impl;
 
+
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Etudiant;
 import com.fstg.gestion.exams.beans.Filiere;
+import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.model.dao.EtudiantRepository;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.EtudiantService;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
 import com.fstg.gestion.exams.model.service.facade.SemestreService;
@@ -25,6 +30,9 @@ public class EtudiantServiceImpl implements EtudiantService {
 	
 	@Autowired
 	SemestreService semestreService;
+	
+	@Autowired
+    EtatService etatService;	
 
 	@Override
 	public Etudiant findByCne(String cne) {
@@ -63,6 +71,12 @@ public class EtudiantServiceImpl implements EtudiantService {
 	@Override
 	@Transactional
 	public int deleteByCne(String cne) {
+		Etat etat = new Etat();
+Etudiant foundedEtudiant = findByCne(cne);
+		etat.setLibelle(foundedEtudiant.getCne());
+		etat.setAction("Suppression");
+		etat.setType("Etudiant");
+		etatService.save(etat);
 		return etudiantRepository.deleteByCne(cne);
 	}
 
@@ -79,6 +93,7 @@ public class EtudiantServiceImpl implements EtudiantService {
 
 	@Override
 	public int update(Long id, String nom, String prenom,String cne, String mail, String filiere, Long semestre ) {
+		Etat modifie = new Etat();
 		Etudiant foundedEtudiant = etudiantRepository.getOne(id);
 		Filiere foundedFiliere = filiereService.findByLibelle(filiere);
 	    Semestre foundedSemestre = semestreService.findById(semestre);
@@ -89,6 +104,11 @@ public class EtudiantServiceImpl implements EtudiantService {
 	    foundedEtudiant.setMail(mail);
 	    foundedEtudiant.setSemestre(foundedSemestre);
 	    foundedEtudiant.setFiliere(foundedFiliere);
+	    modifie.setDateAction(new Date());
+	    modifie.setLibelle(foundedEtudiant.getNom());
+	    modifie.setAction("modification");
+	    modifie.setType("Etudiant");
+	    etatService.save(modifie);
 	    etudiantRepository.save(foundedEtudiant);
 		return 1;
 	}

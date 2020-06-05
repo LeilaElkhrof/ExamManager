@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Etat;
-import com.fstg.gestion.exams.beans.Exam;
+
 import com.fstg.gestion.exams.beans.Personnel;
-import com.fstg.gestion.exams.beans.Salle;
+
 import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.dao.SurveillantRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
@@ -41,6 +41,7 @@ public class SurveillantServiceImpl implements SurveillantService {
 		Surveillant foundedSurve = findByNom(nom);
 		etat.setLibelle(foundedSurve.getNom());
 		etat.setAction("Suppression");
+		etat.setType("Surveillant");
 		etatService.save(etat);
 		return surveillantRepository.deleteByNom(nom);
 	}
@@ -78,6 +79,7 @@ public class SurveillantServiceImpl implements SurveillantService {
 			Surveillant  updateSurveillant = surveillantRepository.save(foundedSurveillant);
 			modifie.setLibelle(foundedSurveillant.getNom());
 			modifie.setAction("Modification");
+			modifie.setType("Surveillant");
 			etatService.save(modifie);
 			return updateSurveillant;
 	}

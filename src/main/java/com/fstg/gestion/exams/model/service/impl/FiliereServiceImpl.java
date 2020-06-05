@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Departement;
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Niveau;
+
 import com.fstg.gestion.exams.model.dao.FiliereRepository;
 import com.fstg.gestion.exams.model.service.facade.DepartementService;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.EtudiantService;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
@@ -36,6 +39,9 @@ public class FiliereServiceImpl implements FiliereService {
 	@Autowired
 	DepartementService departementService;
 	
+	@Autowired
+	EtatService etatService;
+	
 	
 	@Override
 	public Filiere findByLibelle(String libelle) {
@@ -45,6 +51,14 @@ public class FiliereServiceImpl implements FiliereService {
 	@Override
 	@Transactional
 	public int deleteByLibelle(String libelle) {
+		Etat etat = new Etat();
+		Filiere foundedFiliere = findByLibelle(libelle);
+		
+		
+		etat.setLibelle(foundedFiliere.getLibelle());
+		etat.setAction("Suppression");
+		etat.setType("Filiere");
+		etatService.save(etat);
 		int nbrM = moduleService.deleteByFiliereLibelle(libelle);
 		int nbrF = filiereRepository.deleteByLibelle(libelle);
 		return nbrF + nbrM;
@@ -92,14 +106,19 @@ public class FiliereServiceImpl implements FiliereService {
 	}
 	
 	public int update(Long id, String libelle, String niveau, String departement) {
+		Etat modifie = new Etat();
 	Filiere foundedFiliere= findById(id);
-	Niveau fondedNiveau = niveauService.findByLibelle(niveau);
+	
     Departement foundedDepartement = departementService.findByLibelle(departement);
 	if(foundedFiliere == null) 
 		return -1;
 	else {
 		foundedFiliere.setLibelle(libelle);
 		foundedFiliere.setDepartement(foundedDepartement);
+		modifie.setLibelle(foundedFiliere.getLibelle());
+		modifie.setAction("Modification");
+		modifie.setType("Filiere");
+		etatService.save(modifie);
 		//foundedFiliere.setNiveau(fondedNiveau);
 		filiereRepository.save(foundedFiliere);
 		return 1;

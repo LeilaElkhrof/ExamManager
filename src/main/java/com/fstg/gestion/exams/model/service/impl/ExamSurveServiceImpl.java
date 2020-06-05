@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSurve;
 import com.fstg.gestion.exams.beans.Personnel;
-import com.fstg.gestion.exams.beans.Surveillant;
+
 import com.fstg.gestion.exams.model.dao.ExamSurveDao;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
 import com.fstg.gestion.exams.model.service.facade.ExamSurveService;
 import com.fstg.gestion.exams.model.service.facade.PersonnelService;
@@ -32,6 +34,8 @@ public class ExamSurveServiceImpl implements ExamSurveService {
 	
 	@Autowired 
 	PersonnelService personnelService;
+	@Autowired
+	EtatService etatService;
 	
 	
 
@@ -87,6 +91,15 @@ public class ExamSurveServiceImpl implements ExamSurveService {
 
 	@Override
 	public void deleteById(Long id) {
+		Etat etat = new Etat();
+	
+		ExamSurve foundedExamSurve = findById(id);
+		
+		
+		etat.setLibelle(foundedExamSurve.getSurveillant().getNom());
+		etat.setAction("Suppression");
+		etat.setType("ExamSurveillant");
+		etatService.save(etat);
 		examSurveDao.deleteById(id);
 		
 	}

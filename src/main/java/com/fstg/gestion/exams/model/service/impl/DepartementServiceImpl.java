@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Departement;
 import com.fstg.gestion.exams.beans.Etat;
-import com.fstg.gestion.exams.beans.Salle;
+
 import com.fstg.gestion.exams.model.dao.DepartementRepository;
 import com.fstg.gestion.exams.model.service.facade.DepartementService;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
@@ -40,6 +40,7 @@ public class DepartementServiceImpl implements DepartementService {
 		Departement foundedDepart = findByLibelle(libelle);
 		etat.setLibelle(foundedDepart.getLibelle());
 		etat.setAction("Suppression");
+		etat.setType("Departement");
 		etatService.save(etat);
 	return departementDao.deleteByLibelle(libelle);
 	}
@@ -69,6 +70,7 @@ public class DepartementServiceImpl implements DepartementService {
 		 Departement updateDepart = departementDao.save(foundedDepart);
 		 modifie.setLibelle(foundedDepart.getLibelle());
 			modifie.setAction("Modification");
+			modifie.setType("Departement");
 			etatService.save(modifie);
 		return updateDepart;
 		

@@ -1,5 +1,6 @@
 package com.fstg.gestion.exams.model.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,12 +8,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.model.dao.ModuleRepository;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
@@ -32,6 +34,9 @@ public class ModuleServiceImpl implements ModuleService {
 	@Autowired
 	ProfesseurService profService;
 	
+	@Autowired
+	EtatService etatService;
+	
 	@Override
 	public Module findByLibelle(String libelle) {
 		return moduleRepository.findByLibelle(libelle);
@@ -40,6 +45,14 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@Transactional
 	public int deleteByLibelle(String libelle) {
+		
+		Etat etat = new Etat();
+		Module foundedModule = findByLibelle(libelle);
+		etat.setAction("Suppression");
+		etat.setDateAction(new Date());
+		etat.setLibelle(foundedModule.getLibelle());
+		etat.setType("Module");
+		etatService.save(etat);
 		return moduleRepository.deleteByLibelle(libelle);
 	}
 
@@ -57,7 +70,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public void save(Filiere filiere, List<Module> modules) {
 		for(Module module : modules) {
-			Module foundedModule = findByLibelle(module.getLibelle());
+			
 			Semestre foundedSemestre = semestreService.findByLibelle(module.getSemestre().getLibelle());
 			Professeur foundedProfesseur = profService.findByNom(module.getProfesseur().getNom());
 			
@@ -76,7 +89,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 	@Override
 	public int addModule(Module module) {
-		Module foundedModule = findByLibelle(module.getLibelle());
+		
 		Filiere foundedFiliere = filiereService.findByLibelle(module.getFiliere().getLibelle());
 		Semestre foundedSemestre = semestreService.findByLibelle(module.getSemestre().getLibelle());
 		
@@ -94,6 +107,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 	@Override
 	public int updateModule(Long id, String libelle, String semestre, Professeur professeur) {
+		Etat modifie = new Etat();
 		Module foundedModule = moduleRepository.getOne(id);
 		Semestre foundedSemestre = semestreService.findByLibelle(semestre);
 		Professeur foundedProfesseur = profService.findByNom(professeur.getNom());
@@ -105,6 +119,10 @@ public class ModuleServiceImpl implements ModuleService {
 			foundedModule.setSemestre(foundedSemestre);
 			foundedModule.setProfesseur(foundedProfesseur);
 		    foundedModule.setFiliere(foundedModule.getFiliere());
+			modifie.setLibelle(foundedModule.getLibelle());
+			modifie.setAction("Modification");
+			modifie.setType("Module");
+			etatService.save(modifie);
 			moduleRepository.save(foundedModule);
 			return 1;
 		}

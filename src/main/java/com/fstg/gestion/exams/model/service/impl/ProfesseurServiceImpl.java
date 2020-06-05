@@ -12,7 +12,7 @@ import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Personnel;
 import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.beans.Responsabilite;
-import com.fstg.gestion.exams.beans.Salle;
+
 import com.fstg.gestion.exams.model.dao.ProfesseurRepository;
 import com.fstg.gestion.exams.model.service.facade.DepartementService;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
@@ -80,6 +80,7 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 		Professeur foundedProf = findByNom(nom);
 		etat.setLibelle(foundedProf.getNom());
 		etat.setAction("Suppression");
+		etat.setType("Professeur");
 		etatService.save(etat);
 		return professeurRepository.deleteByNom(nom);
 	}
@@ -96,6 +97,7 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 		Professeur  updateProfesseur = professeurRepository.save(foundedProfesseur);
 		modifie.setLibelle(foundedProfesseur.getNom());
 		modifie.setAction("Modification");
+		modifie.setType("Professeur");
 		etatService.save(modifie);
 		return updateProfesseur;
 	}

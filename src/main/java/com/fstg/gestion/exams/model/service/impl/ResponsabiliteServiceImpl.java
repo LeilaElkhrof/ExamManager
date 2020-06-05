@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Responsabilite;
-import com.fstg.gestion.exams.beans.Salle;
+
 import com.fstg.gestion.exams.model.dao.ResponsabiliteRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ResponsabiliteService;
@@ -34,6 +34,7 @@ public class ResponsabiliteServiceImpl implements ResponsabiliteService {
 		Responsabilite foundedRespo = findByLibelle(libelle);
 		etat.setLibelle(foundedRespo.getLibelle());
 		etat.setAction("Suppression");
+		etat.setType("Responsabilité");
 		etatService.save(etat);
 		return respoRepository.deleteByLibelle(libelle);
 	}
@@ -63,6 +64,7 @@ public class ResponsabiliteServiceImpl implements ResponsabiliteService {
 		Responsabilite updateResponsabilite = respoRepository.save(foundedResponsabilite);
 		modifie.setLibelle(foundedResponsabilite.getLibelle());
 		modifie.setAction("Modification");
+		modifie.setType("Responsabilité");
 		etatService.save(modifie);
 		return updateResponsabilite;
 		

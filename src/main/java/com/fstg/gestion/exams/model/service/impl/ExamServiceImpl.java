@@ -1,6 +1,6 @@
 package com.fstg.gestion.exams.model.service.impl;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -89,6 +89,7 @@ public class ExamServiceImpl implements ExamService{
 	Exam updateExam = examRepository.save(foundedExam);
 	modifie.setLibelle(foundedExam.getReference());
 	modifie.setAction("Modification");
+	modifie.setType("Exam");
 	etatService.save(modifie);
 	return updateExam;
 		
@@ -127,6 +128,7 @@ public int deleteByReference(String reference) {
 	Exam foundedExam = findByReference(reference);
 	etat.setLibelle(foundedExam.getReference());
 	etat.setAction("Suppression");
+	etat.setType("Exam");
 	etatService.save(etat);	
 	int examSalle = examSalleService.deleteByExamId(foundedExam.getId());
 	int examSurve =  examSurveService.deleteByExamId(foundedExam.getId());

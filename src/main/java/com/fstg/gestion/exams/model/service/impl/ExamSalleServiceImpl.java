@@ -2,7 +2,6 @@ package com.fstg.gestion.exams.model.service.impl;
 
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,10 +10,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
+
 import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.ExamSalleDao;
+import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
@@ -30,6 +32,8 @@ public class ExamSalleServiceImpl implements ExamSalleService{
 	
 	@Autowired 
 	SalleService salleService;
+	@Autowired
+	EtatService etatService;
 	
 	@Override
 	public List<ExamSalle> findBySalleDesignation(String designation) {
@@ -114,6 +118,15 @@ return examSalleDao.findAll();
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
+		Etat etat = new Etat();
+		
+		ExamSalle foundedExamSalle = findById(id);
+		
+		
+		etat.setLibelle(foundedExamSalle.getSalle().getDesignation());
+		etat.setAction("Suppression");
+		etat.setType("ExamSalle");
+		etatService.save(etat);
 		 examSalleDao.deleteById(id);
 		
 	}

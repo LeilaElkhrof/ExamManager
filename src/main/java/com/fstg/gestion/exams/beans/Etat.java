@@ -2,13 +2,13 @@ package com.fstg.gestion.exams.beans;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -27,6 +27,7 @@ public class Etat implements Serializable {
 	private String action;
 	@Temporal(TemporalType.DATE)
 	private Date dateAction;
+	private String type;
 
 
 	public Etat() {
@@ -59,6 +60,13 @@ public class Etat implements Serializable {
 	}
 	public void setDateAction(Date dateAction) {
 		this.dateAction = dateAction;
+	}
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 
