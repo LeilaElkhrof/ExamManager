@@ -1,6 +1,7 @@
 package com.fstg.gestion.exams.model.ws;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,12 @@ public class ExamSalleRest {
 	@Autowired
 	ExamSalleService examSalleService;
 
-	@GetMapping("/salle/find-by-reference/{reference}")
+	@GetMapping("/exam-salle/find-by-designation/{designation}")
+	public List<ExamSalle> findSalleNonDisponible(@PathVariable String designation) {
+		return examSalleService.findSalleNonDisponible(designation, new Date());
+	}
+
+	@GetMapping("/salle/find-by-designation/{designation}")
 	public List<ExamSalle> findBySalleDesignation(@PathVariable String designation) {
 		return examSalleService.findBySalleDesignation(designation);
 	}
@@ -55,16 +61,13 @@ public class ExamSalleRest {
 	public ExamSalle findById(@PathVariable Long id) {
 		return examSalleService.findById(id);
 	}
-	/*@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
-	public ExamSalle findBySalleDesignationAndExamDateDepartAndExamDateFin(@PathVariable String designation,@PathVariable Date dateDepart,@PathVariable
-			Date dateFin) {
-		return examSalleService.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart,dateFin);
-	}*/
+
 	@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
 	public List<ExamSalle> findExamSalle(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin) {
 		System.out.println("dateDepart "+dateDepart);
 		return examSalleService.findExamSalle(designation ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
+
 	@DeleteMapping("/delete-by-id/{id}")
 	public void deleteById(@PathVariable Long id) {
 		examSalleService.deleteById(id);
@@ -73,4 +76,5 @@ public class ExamSalleRest {
 	public int deleteBySalleId(@PathVariable Long id) {
 		return examSalleService.deleteBySalleId(id);
 	}
+
 }

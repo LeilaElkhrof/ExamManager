@@ -135,6 +135,7 @@ public int deleteByReference(String reference) {
 	int exam = examRepository.deleteByReference(reference);
 
 	return examSalle+examSurve+exam;
+
 			
 }
 
