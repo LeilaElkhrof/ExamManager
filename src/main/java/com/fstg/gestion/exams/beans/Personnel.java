@@ -22,6 +22,7 @@ public class Personnel implements Serializable{
 	private String nom;
 	private String prenom;
 	private String mail;
+	private String fonction;
 
 
 	public Personnel() {
@@ -59,6 +60,14 @@ public class Personnel implements Serializable{
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	public String getFonction() {
+		return fonction;
+	}
+
+	public void setFonction(String fonction) {
+		this.fonction = fonction;
 	}
 
 

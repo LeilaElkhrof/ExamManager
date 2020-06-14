@@ -45,9 +45,17 @@ public class PersonnelRest {
 	public List<Personnel> findAll() {
 		return personnelService.findAll();
 	}
-	@PutMapping("/{id}/{nom}/{prenom}/{mail}")
-	public Personnel update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String mail ) {
-		return personnelService.update(id,nom, prenom, mail);
+	@PutMapping("/{id}/{nom}/{prenom}/{mail}/{fonction}")
+	public Personnel update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String mail,@PathVariable String fonction ) {
+		return personnelService.update(id,nom, prenom, mail, fonction);
+	}
+	@GetMapping("/find-by-fonction/{fonction}")
+	public List<Personnel> findByFonction(@PathVariable String fonction) {
+		return personnelService.findByFonction(fonction);
+	}
+	@GetMapping("/fonction")
+	public List<Personnel> findFonction() {
+		return personnelService.findFonction();
 	}
 	 
 	 
