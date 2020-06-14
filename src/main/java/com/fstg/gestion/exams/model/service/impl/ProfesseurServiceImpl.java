@@ -56,6 +56,7 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 			personnel.setMail(professeur.getMail());
 			personnel.setNom(professeur.getNom());
 			personnel.setPrenom(professeur.getPrenom());
+			personnel.setFonction("professeur");
 			personnelService.save(personnel);
 			professeurRepository.save(professeur);
 		}
