@@ -47,11 +47,11 @@ public class Exam implements Serializable {
 	@OneToMany(mappedBy="exam")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<ExamSalle> examSalles;
-			
+/*			
 	@OneToMany(mappedBy="exam")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<ExamSurve> examSurveillants;
-	
+*/	
 
 	
 
@@ -113,13 +113,13 @@ public class Exam implements Serializable {
 	public void setExamSalles(List<ExamSalle> examSalles) {
 		this.examSalles = examSalles;
 	}
-	public List<ExamSurve> getExamSurveillants() {
+/*	public List<ExamSurve> getExamSurveillants() {
 		return examSurveillants;
 	}
 	public void setExamSurveillants(List<ExamSurve> examSurveillants) {
 		this.examSurveillants = examSurveillants;
 	}
-
+*/
 	public Filiere getFiliere() {
 		return filiere;
 	}

@@ -1,5 +1,6 @@
 package com.fstg.gestion.exams.model.ws;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.service.facade.SurveillantService;
+import com.fstg.gestion.exams.model.service.util.DateUtil;
 
 @RestController
 @RequestMapping("exam-api/surveillants")
@@ -48,4 +50,18 @@ public class SurveillantRest {
 	public Surveillant update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String mail) {
 		return surveillantService.update(id,nom, prenom, mail);
 	}
+
+	@GetMapping("/{designation}/{dateDepart}/{dateFin}")
+	public List<Surveillant> findByExamSalleSalleDesignationAndExamSalleExamDateDepartAndExamSalleExamDateFin(
+			@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin) {
+		return surveillantService.findByExamSalleSalleDesignationAndExamSalleExamDateDepartAndExamSalleExamDateFin(
+				designation, DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
+	}
+
+	@GetMapping("/find-by-exam/{exam}")
+	public List<Surveillant> findByExam(@PathVariable Long exam) {
+		return surveillantService.findByExam(exam);
+	}
+	
+	
 }

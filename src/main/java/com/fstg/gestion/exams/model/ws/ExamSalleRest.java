@@ -27,6 +27,11 @@ public class ExamSalleRest {
 	@Autowired
 	ExamSalleService examSalleService;
 
+	@GetMapping("/find-by-exam/{id}")
+	public List<ExamSalle> findByExamId(@PathVariable Long id) {
+		return examSalleService.findExamOrderBySalleDesignation(id);
+	}
+
 	@GetMapping("/exam-salle/find-by-designation/{designation}")
 	public List<ExamSalle> findSalleNonDisponible(@PathVariable String designation) {
 		return examSalleService.findSalleNonDisponible(designation, new Date());

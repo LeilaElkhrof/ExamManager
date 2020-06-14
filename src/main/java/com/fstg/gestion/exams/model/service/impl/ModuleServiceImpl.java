@@ -106,11 +106,12 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
-	public int updateModule(Long id, String libelle, String semestre, Professeur professeur) {
+	public int updateModule(Long id, String libelle, String semestre, String professeur) {
+		System.out.println("hahowa"+professeur);
 		Etat modifie = new Etat();
 		Module foundedModule = moduleRepository.getOne(id);
 		Semestre foundedSemestre = semestreService.findByLibelle(semestre);
-		Professeur foundedProfesseur = profService.findByNom(professeur.getNom());
+		Professeur foundedProfesseur = profService.findByNom(professeur);
 		
 		if(foundedModule == null)
 			return -1;

@@ -63,7 +63,7 @@ public class ExamRest  {
 	}
 	@PostMapping("/save")
 	public int save(@RequestBody Exam exam) {
-		return examService.save(exam, exam.getExamSurveillants(), exam.getExamSalles());
+		return examService.save(exam, exam.getExamSalles());
 	}
 	
 	/*@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}")

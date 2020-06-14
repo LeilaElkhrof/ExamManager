@@ -14,5 +14,6 @@ public interface ProfesseurService {
 	public int deleteByDepartementLibelle(String libelle);
 	public int save(Professeur professeur);
 	public List<Professeur> findAll();
-	public Professeur update(Long id,String nom, String prenom, String mail, Responsabilite responsabilite, Departement departement);
+	 public List<Professeur> findByDepartementLibelle(String libelle);
+	public Professeur update(Long id,String nom, String prenom, String mail, String responsabilite, String departement);
 }
