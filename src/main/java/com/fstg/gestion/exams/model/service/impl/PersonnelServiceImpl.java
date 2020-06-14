@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Personnel;
-
+import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.model.dao.PersonnelDao;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.PersonnelService;
@@ -40,13 +40,16 @@ public class PersonnelServiceImpl implements PersonnelService{
 	@Override
 	@Transactional
 	public int deleteByNom(String nom) {
-		int prof = professeurService.deleteByNom(nom);
-		int perso = personnelDao.deleteByNom(nom);
+		Professeur foundProf= professeurService.findByNom(nom);
+
 		
-		if(prof == 0) {
+		if(foundProf == null) {	
+		int perso = personnelDao.deleteByNom(nom);
 			return perso;
 		}
 		else {
+			int prof = professeurService.deleteByNom(nom);
+			int perso = personnelDao.deleteByNom(nom);
 				return prof+perso;
 		}
 	}
