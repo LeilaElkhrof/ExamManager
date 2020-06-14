@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,9 +25,10 @@ public class Surveillant implements Serializable{
 	private String nom;
 	private String prenom;
 	private String mail;
+	private Long exam;
 	
-	
-	
+	@ManyToOne
+	private ExamSalle examSalle;
 	
 	
 	public Surveillant() {
@@ -34,7 +36,17 @@ public class Surveillant implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	public Long getExam() {
+		return exam;
+	}
+
+
+
+
+
+	public void setExam(Long exam) {
+		this.exam = exam;
+	}
 	
 	
 	
@@ -68,6 +80,19 @@ public class Surveillant implements Serializable{
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+
+	public ExamSalle getExamSalle() {
+		return examSalle;
+	}
+
+
+
+
+
+	public void setExamSalle(ExamSalle examSalle) {
+		this.examSalle = examSalle;
 	}
 
 

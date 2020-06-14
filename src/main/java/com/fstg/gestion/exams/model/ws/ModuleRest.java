@@ -56,7 +56,7 @@ public class ModuleRest {
 	}
 
 	@PutMapping("/{id}/{libelle}/{semestre}/{professeur}")
-	public int updateModule( @PathVariable Long id,@PathVariable String libelle,@PathVariable String semestre, Professeur professeur) {
+	public int updateModule( @PathVariable Long id,@PathVariable String libelle,@PathVariable String semestre,@PathVariable String professeur) {
 		return moduleService.updateModule(id, libelle, semestre,professeur);
 	}
 

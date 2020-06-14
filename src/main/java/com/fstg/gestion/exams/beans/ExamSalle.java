@@ -1,6 +1,7 @@
 package com.fstg.gestion.exams.beans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
@@ -22,16 +26,17 @@ public class ExamSalle implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@ManyToOne(cascade = CascadeType.ALL)
     private Salle salle;
+	
+	@OneToMany(mappedBy="examSalle")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private List<Surveillant> surveillants;
 	
 	@ManyToOne
 	private Exam exam;
 
-	
-	
-	
-	
 	public ExamSalle() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -57,6 +62,18 @@ public class ExamSalle implements Serializable {
 	public void setExam(Exam exam) {
 		this.exam = exam;
 	}
+	public List<Surveillant> getSurveillants() {
+		return surveillants;
+	}
+
+
+
+	public void setSurveillants(List<Surveillant> surveillants) {
+		this.surveillants = surveillants;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

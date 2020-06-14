@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
-import com.fstg.gestion.exams.beans.ExamSurve;
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Professeur;
@@ -22,7 +21,6 @@ import com.fstg.gestion.exams.model.dao.ExamRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
-import com.fstg.gestion.exams.model.service.facade.ExamSurveService;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
@@ -53,8 +51,7 @@ public class ExamServiceImpl implements ExamService{
 	EtatService etatService;
 	@Autowired
 	ExamSalleService examSalleService;
-	@Autowired
-	ExamSurveService examSurveService;
+	
 	@Autowired
 	FiliereService filiereService;
 	
@@ -97,8 +94,7 @@ public class ExamServiceImpl implements ExamService{
 	}
 
 	@Override
-	public int save(Exam exam, List<ExamSurve> examSurves, List<ExamSalle> examSalles) {
-		 System.out.println("examDateDEpart"+ exam.getDateDepart());
+	public int save(Exam exam, List<ExamSalle> examSalles) {
 		 Filiere foundedFiliere = filiereService.findByLibelle(exam.getFiliere().getLibelle());
 		 Professeur foundedProfesseur = professeurService.findByNom(exam.getProf().getNom());
 		 Module foundedModule = moduleService.findByLibelle(exam.getModule().getLibelle());
@@ -110,13 +106,11 @@ public class ExamServiceImpl implements ExamService{
 			return -2;
 		}
 		 else {
-			 System.out.println(examSalles);
 			 exam.setProf(foundedProfesseur);
 			 exam.setModule(foundedModule);
 			 exam.setFiliere(foundedFiliere);
 			examRepository.save(exam);	
 			examSalleService.saveSalle(exam, examSalles);
-			examSurveService.saveSurve(exam, examSurves);
 			return 1;
 		}
 	}
@@ -131,10 +125,10 @@ public int deleteByReference(String reference) {
 	etat.setType("Exam");
 	etatService.save(etat);	
 	int examSalle = examSalleService.deleteByExamId(foundedExam.getId());
-	int examSurve =  examSurveService.deleteByExamId(foundedExam.getId());
+	//int examSurve =  examSurveService.deleteByExamId(foundedExam.getId());
 	int exam = examRepository.deleteByReference(reference);
 
-	return examSalle+examSurve+exam;
+	return examSalle+exam;
 
 			
 }

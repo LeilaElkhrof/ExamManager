@@ -95,7 +95,7 @@ public class SalleServiceImpl implements SalleService {
 	
 
 	@Override
-    public Salle update(Long id,String designation, String etat, String type,int capacite) {
+    public int update(Long id,String designation, String etat, String type,int capacite) {
 		Etat modifie = new Etat();
         Salle foundedSalle = findById(id);
 	foundedSalle.setCapacite(capacite);
@@ -107,7 +107,7 @@ public class SalleServiceImpl implements SalleService {
 		modifie.setAction("Modification");
 		modifie.setType("Salle");
 		etatService.save(modifie);
-	return updateSalle;
+	return 1;
 	}
 
 	@Override

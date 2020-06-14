@@ -20,6 +20,7 @@ import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
+import com.fstg.gestion.exams.model.service.facade.SurveillantService;
 
 @Service
 public class ExamSalleServiceImpl implements ExamSalleService{
@@ -32,8 +33,12 @@ public class ExamSalleServiceImpl implements ExamSalleService{
 	
 	@Autowired 
 	SalleService salleService;
+	
 	@Autowired
 	EtatService etatService;
+	
+	@Autowired
+	SurveillantService surveillantService;
 	
 	@Override
 	public List<ExamSalle> findBySalleDesignation(String designation) {
@@ -50,17 +55,12 @@ public class ExamSalleServiceImpl implements ExamSalleService{
 
 	@Override
 	public void saveSalle(Exam exam, List<ExamSalle> examSalles) {
-	System.out.println("hola"+examSalles);
-	//List<ExamSalle> validateExamSalle = validateSalle(examSalles,exam);
-	//if(validateExamSalle != null) {
 			for(ExamSalle valideExamSalle : examSalles) {
-				System.out.println("sdvcjsh "+valideExamSalle.getSalle().getDesignation());
 				Salle foundSalle = salleService.findByDesignation(valideExamSalle.getSalle().getDesignation());
-				
 				valideExamSalle.setExam(exam);
-				//valideExamSalle.getSalle().setDisponibilite(false);
 				valideExamSalle.setSalle(foundSalle);
-				examSalleDao.save(valideExamSalle);	
+				examSalleDao.save(valideExamSalle);
+				surveillantService.save(valideExamSalle, valideExamSalle.getSurveillants());
 			}
 	
 		
@@ -146,4 +146,13 @@ return examSalleDao.findAll();
 	public int deleteBySalleId(Long id) {
 		return examSalleDao.deleteBySalleId(id);
 	}
+
+	@Override
+	public List<ExamSalle> findExamOrderBySalleDesignation(Long id) {
+		return examSalleDao.findExamOrderBySalleDesignation(id);
+	}
+
+	
+
+	
 }

@@ -26,6 +26,11 @@ public class ProfesseurRest {
 	@Autowired
 	ProfesseurService professeurService;
 
+	@GetMapping("/find-by-departement/{libelle}")
+	public List<Professeur> findByDepartementLibelle(@PathVariable String libelle) {
+		return professeurService.findByDepartementLibelle(libelle);
+	}
+
 	@GetMapping("/find-by-nom/{nom}")
 	public Professeur findByNom(@PathVariable String nom) {
 		return professeurService.findByNom(nom);
@@ -51,7 +56,7 @@ public class ProfesseurRest {
 		return professeurService.deleteByDepartementLibelle(libelle);
 	}
 	@PutMapping("/{id}/{nom}/{prenom}/{mail}/{responsabilite}/{departement}")
-	public Professeur update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String mail,@PathVariable Responsabilite responsabilite,@PathVariable Departement departement ) {
+	public Professeur update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String mail,@PathVariable String responsabilite,@PathVariable String departement ) {
 		return professeurService.update(id,nom, prenom, mail, responsabilite,departement);
 	}
 	

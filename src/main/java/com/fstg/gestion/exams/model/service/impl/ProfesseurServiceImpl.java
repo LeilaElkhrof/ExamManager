@@ -18,6 +18,7 @@ import com.fstg.gestion.exams.model.service.facade.DepartementService;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.PersonnelService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
+import com.fstg.gestion.exams.model.service.facade.ResponsabiliteService;
 
 @Service
 public class ProfesseurServiceImpl implements ProfesseurService {
@@ -33,6 +34,11 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 	
 	@Autowired
 	PersonnelService personnelService;
+	
+	@Autowired
+	ResponsabiliteService responsabiliteService;
+	
+	
 	
 	@Override
 	@Transactional
@@ -60,7 +66,7 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 			personnelService.save(personnel);
 			professeurRepository.save(professeur);
 		}
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -87,14 +93,16 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 	}
 
 	@Override
-	public Professeur update(Long id,String nom, String prenom, String mail, Responsabilite responsabilite, Departement departement) {
+	public Professeur update(Long id,String nom, String prenom, String mail, String responsabilite, String departement) {
 		Etat modifie = new Etat();
 	   Professeur foundedProfesseur = findById(id);
+	   Responsabilite foundedResponsabilite = responsabiliteService.findByLibelle(responsabilite);
+	   Departement foundedDepartement = departementService.findByLibelle(departement);
 		foundedProfesseur.setNom(nom);
 		foundedProfesseur.setPrenom(prenom);
 		foundedProfesseur.setMail(mail);
-		foundedProfesseur.setResponsabilite(responsabilite);
-		foundedProfesseur.setDepartement(departement);
+		foundedProfesseur.setResponsabilite(foundedResponsabilite);
+		foundedProfesseur.setDepartement(foundedDepartement);
 		Professeur  updateProfesseur = professeurRepository.save(foundedProfesseur);
 		modifie.setLibelle(foundedProfesseur.getNom());
 		modifie.setAction("Modification");
@@ -106,6 +114,11 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 	@Override
 	public Professeur findById(Long id) {
 		return professeurRepository.getOne(id);
+	}
+
+	@Override
+	public List<Professeur> findByDepartementLibelle(String libelle) {
+		return professeurRepository.findByDepartementLibelle(libelle);
 	}
 
 }
