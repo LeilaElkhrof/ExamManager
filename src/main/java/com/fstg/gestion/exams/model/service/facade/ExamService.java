@@ -18,8 +18,7 @@ public interface ExamService {
 	public int deleteByReference(String reference);
 	public List<Exam> findByModuleLibelle(String reference);
 	public int save(Exam exam, List<ExamSalle> examSalles);
-	//public Exam findByDateDepartAndDateFin(String dateDebut, String dateFin);
-
+	public int deleteById(Long id);
 	public List<Exam>findAll();
 	public Exam update(Long id, String reference, Date dateDepart, Date dateFin,Module module, Professeur prof,Filiere filiere);
 }

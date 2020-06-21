@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.fstg.gestion.exams.beans.ExamSalle;
+import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
 import com.fstg.gestion.exams.model.service.util.DateUtil;
 
@@ -26,6 +27,7 @@ public class ExamSalleRest {
 
 	@Autowired
 	ExamSalleService examSalleService;
+
 
 	@GetMapping("/find-by-exam/{id}")
 	public List<ExamSalle> findByExamId(@PathVariable Long id) {
@@ -69,7 +71,6 @@ public class ExamSalleRest {
 
 	@GetMapping("/designation/{designation}/dateDepart/{dateDepart}/dateFin/{dateFin}")
 	public List<ExamSalle> findExamSalle(@PathVariable String designation,@PathVariable String dateDepart,@PathVariable String dateFin) {
-		System.out.println("dateDepart "+dateDepart);
 		return examSalleService.findExamSalle(designation ,DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
 

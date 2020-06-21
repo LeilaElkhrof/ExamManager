@@ -114,11 +114,20 @@ public class SurveillantServiceImpl implements SurveillantService {
 	}
 
 	@Override
-	public List<Surveillant> findByExam(Long Exam) {
-		return surveillantRepository.findByExam(Exam);
+	public List<Surveillant> findByExam(Long exam) {
+		return surveillantRepository.findByExam(exam);
 	}
 
+	@Override
+	public List<Surveillant> findSurveillant(String nom, Date dateDepart, Date dateFin) {
+		return surveillantRepository.findSurveillant(nom, dateDepart, dateFin);
+	}
 
+	@Override
+	@Transactional
+	public int deleteByExam(Long exam) {
+		return surveillantRepository.deleteByExam(exam);
+	}
 
 
 

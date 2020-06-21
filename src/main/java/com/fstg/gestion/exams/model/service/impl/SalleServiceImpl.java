@@ -58,9 +58,9 @@ public class SalleServiceImpl implements SalleService {
 		Etat etat = new Etat();
 		Salle foundedSalle = findByDesignation(designation);
 		List<ExamSalle> foundedExamSalle = examSalleService.findSalleNonDisponible(designation, new Date());
-		System.out.println("hani"+ foundedExamSalle.size());
-		if(foundedExamSalle.size() > 0) 
+		if(foundedExamSalle.size() > 0) { 
 			return -1;
+		}
 		else {
 			etat.setLibelle(foundedSalle.getDesignation());
 			etat.setAction("Suppression");

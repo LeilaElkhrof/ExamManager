@@ -27,7 +27,7 @@ public class ExamSalle implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
     private Salle salle;
 	
 	@OneToMany(mappedBy="examSalle")

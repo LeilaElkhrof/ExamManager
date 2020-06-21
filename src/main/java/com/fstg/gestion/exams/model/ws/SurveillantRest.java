@@ -1,6 +1,5 @@
 package com.fstg.gestion.exams.model.ws;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +60,11 @@ public class SurveillantRest {
 	@GetMapping("/find-by-exam/{exam}")
 	public List<Surveillant> findByExam(@PathVariable Long exam) {
 		return surveillantService.findByExam(exam);
+	}
+	
+	@GetMapping("/nom/{nom}/dateDepart/{dateDepart}/dateFin/{dateFin}")
+	public List<Surveillant> findSurveillant(@PathVariable String nom,@PathVariable String dateDepart,@PathVariable String dateFin) {
+		return surveillantService.findSurveillant(nom, DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
 	
 	

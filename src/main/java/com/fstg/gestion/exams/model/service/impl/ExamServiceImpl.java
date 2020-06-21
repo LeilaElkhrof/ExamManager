@@ -98,14 +98,13 @@ public class ExamServiceImpl implements ExamService{
 		 Filiere foundedFiliere = filiereService.findByLibelle(exam.getFiliere().getLibelle());
 		 Professeur foundedProfesseur = professeurService.findByNom(exam.getProf().getNom());
 		 Module foundedModule = moduleService.findByLibelle(exam.getModule().getLibelle());
-		Exam examFound = findByReference(exam.getReference());
-		if (examFound != null) {
-			return -1;
-		} 
-		else if(foundedFiliere == null) {
+		;
+		
+	    if(foundedFiliere == null) {
 			return -2;
 		}
 		 else {
+			 exam.setReference(foundedModule.getLibelle());
 			 exam.setProf(foundedProfesseur);
 			 exam.setModule(foundedModule);
 			 exam.setFiliere(foundedFiliere);
@@ -117,25 +116,33 @@ public class ExamServiceImpl implements ExamService{
 
 @Override
 @Transactional
-public int deleteByReference(String reference) {
+public int deleteById(Long id) {
 	Etat etat = new Etat();
-	Exam foundedExam = findByReference(reference);
+	Exam foundedExam = examRepository.getOne(id);
+	if(foundedExam.getDateDepart().getTime() - new Date().getTime() > 0) {
+		System.out.println(foundedExam.getDateDepart().getTime() - new Date().getTime());
+		return -1;
+	}else {
 	etat.setLibelle(foundedExam.getReference());
 	etat.setAction("Suppression");
-	etat.setType("Exam");
+	etat.setType("Examen");
 	etatService.save(etat);	
+	int surveillant = surveillantService.deleteByExam(foundedExam.getId());
 	int examSalle = examSalleService.deleteByExamId(foundedExam.getId());
-	//int examSurve =  examSurveService.deleteByExamId(foundedExam.getId());
-	int exam = examRepository.deleteByReference(reference);
-
-	return examSalle+exam;
-
-			
+	 examRepository.deleteById(id);
+	return examSalle+surveillant;
+	}
 }
 
 @Override
 public List<Exam> findByModuleLibelle(String reference) {
 	return examRepository.findByModuleLibelle(reference);
+}
+
+@Override
+public int deleteByReference(String reference) {
+	// TODO Auto-generated method stub
+	return 0;
 }
 
 

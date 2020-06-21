@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.fstg.gestion.exams.beans.ExamSalle;
+import com.fstg.gestion.exams.beans.Surveillant;
 
 @Repository
 public interface ExamSalleDao  extends JpaRepository<ExamSalle, Long>  {
@@ -22,10 +23,10 @@ public interface ExamSalleDao  extends JpaRepository<ExamSalle, Long>  {
 	public int deleteBySalleId(Long id);
 	@Query("SELECT examSalle FROM ExamSalle examSalle WHERE examSalle.exam.id = :id ORDER BY examSalle.salle.id")
 	public List<ExamSalle> findExamOrderBySalleDesignation(@Param(value = "id") Long id);
-	//@Query("SELECT examSalle FROM ExamSalle examSalle WHERE examSalle.salle.designation = :designation AND (((:dateDepart >= examSalle.exam.dateDepart) AND (:dateDepart  <= examSalle.exam.dateFin)) OR ((:dateFin >= examSalle.exam.dateDepart) AND (:dateFin  <= examSalle.exam.dateFin)))")
 	@Query("SELECT examSalle FROM ExamSalle examSalle WHERE examSalle.salle.designation = :designation AND((:dateDepart BETWEEN examSalle.exam.dateDepart AND examSalle.exam.dateFin ) OR (:dateFin BETWEEN examSalle.exam.dateDepart AND examSalle.exam.dateFin))")
 	public List<ExamSalle> findExamSalle(@Param(value = "designation") String designation,@Param(value = "dateDepart")Date dateDepart,@Param(value = "dateFin") Date dateFin);
     @Query("SELECT examSalle FROM ExamSalle examSalle WHERE examSalle.salle.designation = :designation AND ((:currentDate <= examSalle.exam.dateDepart) OR (:currentDate <= examSalle.exam.dateFin))")
     public List<ExamSalle> findSalleNonDisponible(@Param(value = "designation") String designation,@Param(value = "currentDate") Date currentDate);
+   
 
 }
