@@ -17,7 +17,5 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
 
 	
 	public Exam findByReference(String reference);
-	public int deleteByReference(String reference);
 	public List<Exam> findByModuleLibelle(String reference);
-   // public Exam findByDateDepartAndDateFin(String dateDepart, String dateFin);
 }

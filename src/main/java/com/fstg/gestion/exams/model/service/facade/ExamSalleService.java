@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
+import com.fstg.gestion.exams.beans.Surveillant;
 
 public interface ExamSalleService {
 	public List<ExamSalle> findBySalleDesignation(String designation);
@@ -22,5 +23,7 @@ public interface ExamSalleService {
 	public void saveSalle(Exam exam, List<ExamSalle> examSalles);
     public List<ExamSalle> findAll();
     public List<ExamSalle> findSalleNonDisponible(String designation, Date date);
+    
+ 
 
 }

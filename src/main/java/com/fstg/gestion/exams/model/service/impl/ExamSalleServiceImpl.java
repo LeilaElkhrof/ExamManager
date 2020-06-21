@@ -15,6 +15,7 @@ import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
 
 import com.fstg.gestion.exams.beans.Salle;
+import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.dao.ExamSalleDao;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
@@ -90,43 +91,21 @@ return examSalleDao.findAll();
 	return examSalleDao.findBySalleDesignationAndExamDateDepartAndExamDateFin(designation, dateDepart, dateFin);
 	}
 
-	/*public List<ExamSalle> validateSalle(List<ExamSalle> examSalles, Exam exam) {
-		List<ExamSalle> valideSalle = new ArrayList<ExamSalle>();
-		
-		for(ExamSalle examsSalle: examSalles) {
-		//ExamSalle examSalle = findBySalleDesignationAndExamDateDepartAndExamDateFin(examsSalle.getSalle().getDesignation(),exam.getDateDepart(),exam.getDateFin());
-			//List<ExamSalle> examSalle = findExamSalle(examsSalle.getSalle().getDesignation(),exam.getDateDepart(),exam.getDateFin());
-		if(examSalle == null) {
-			valideSalle.add(examsSalle);
-			System.out.println("salle"+examsSalle.getSalle().getDesignation());
-		}
-		}
-		return valideSalle;
-	}*/
-
 	
 	@Override
 	public List<ExamSalle> findExamSalle(String designation, Date dateDepart, Date dateFin) {
-		System.out.println( dateDepart);
-		System.out.println(dateFin);
-		System.out.println(designation);
 		return examSalleDao.findExamSalle(designation, dateDepart, dateFin);		
 	}
 
 	@Override
 	public List<ExamSalle> findSalleNonDisponible(String designation, Date date) {
-		System.out.println("hahiya"+date);
 		return examSalleDao.findSalleNonDisponible(designation, date);
 	}
 
 	@Override
-	@Transactional
 	public void deleteById(Long id) {
 		Etat etat = new Etat();
-		
 		ExamSalle foundedExamSalle = findById(id);
-		
-		
 		etat.setLibelle(foundedExamSalle.getSalle().getDesignation());
 		etat.setAction("Suppression");
 		etat.setType("ExamSalle");
@@ -151,6 +130,8 @@ return examSalleDao.findAll();
 	public List<ExamSalle> findExamOrderBySalleDesignation(Long id) {
 		return examSalleDao.findExamOrderBySalleDesignation(id);
 	}
+
+	
 
 	
 

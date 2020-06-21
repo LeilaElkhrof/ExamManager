@@ -36,9 +36,9 @@ public class ExamRest  {
 		return examService.findByReference(reference);
 	}
 
-	@DeleteMapping("/delete-by-reference/{reference}")
-	public int deleteByReference(@PathVariable String reference) {
-		return examService.deleteByReference(reference);
+	@DeleteMapping("/delete-by-id/{id}")
+	public int deleteByid(@PathVariable Long id) {
+		return examService.deleteById(id);
 	}
 
 	@GetMapping("/find-by-module/{reference}")

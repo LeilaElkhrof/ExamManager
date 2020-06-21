@@ -47,13 +47,11 @@ public class SurveillantServiceImpl implements SurveillantService {
 		
 		return surveillantRepository.findByNom(nom);
 	}
-
 	@Override
 	@Transactional
 	public int deleteByNom(String nom) {
 		Etat etat = new Etat();
 		Surveillant foundedSurve = findByNom(nom);
-		
 		etat.setLibelle(foundedSurve.getNom());
 		etat.setAction("Suppression");
 		etat.setType("Surveillant");
@@ -61,10 +59,26 @@ public class SurveillantServiceImpl implements SurveillantService {
 		return surveillantRepository.deleteByNom(nom);
 	}
 
-
 	@Override
 	public List<Surveillant> findAll() {
 		return surveillantRepository.findAll();
+	}
+	@Override
+	public int save(Surveillant surveillant) {
+		Personnel personnel = new Personnel();
+		Surveillant foundedSurveillant = findByNom(surveillant.getNom());
+		if(foundedSurveillant != null) 
+			return -1;
+			
+		else {
+			personnel.setMail(surveillant.getMail());
+			personnel.setNom(surveillant.getNom());
+			personnel.setPrenom(surveillant.getPrenom());
+			personnelService.save(personnel);
+			surveillantRepository.save(surveillant);
+			
+			return 1;
+		}
 	}
 
 	@Override
@@ -110,9 +124,10 @@ public class SurveillantServiceImpl implements SurveillantService {
 	}
 
 	@Override
-	public List<Surveillant> findByExam(Long Exam) {
-		return surveillantRepository.findByExam(Exam);
+	public List<Surveillant> findByExam(Long exam) {
+		return surveillantRepository.findByExam(exam);
 	}
+
 	
     public void sendSimpleMessage(String to,String subject, String text) {
 	       System.out.println("zahrrraa");
@@ -125,4 +140,17 @@ public class SurveillantServiceImpl implements SurveillantService {
 	        System.out.println(text);
 	        javaMailSender.send(message);
 	    }
+
+
+	@Override
+	public List<Surveillant> findSurveillant(String nom, Date dateDepart, Date dateFin) {
+		return surveillantRepository.findSurveillant(nom, dateDepart, dateFin);
+	}
+
+	@Override
+	@Transactional
+	public int deleteByExam(Long exam) {
+		return surveillantRepository.deleteByExam(exam);
+	}
+
 }
