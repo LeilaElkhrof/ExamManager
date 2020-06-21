@@ -136,4 +136,9 @@ public class ModuleServiceImpl implements ModuleService {
 		 moduleRepository.deleteById(id);
 	}
 
+	@Override
+	public List<Module> findByFiliereDepartementLibelle(String libelle) {
+	return moduleRepository.findByFiliereDepartementLibelle(libelle);
+	}
+
 }

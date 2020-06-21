@@ -44,7 +44,12 @@ public class ModuleRest {
 	public int deleteByFiliereLibelle(@PathVariable String libelle) {
 		return moduleService.deleteByFiliereLibelle(libelle);
 	}
-
+	
+	@GetMapping("/filiere/departement/{libelle}")
+	public List<Module> findByFiliereDepartementLibelle(@PathVariable String libelle) {
+	return moduleService.findByFiliereDepartementLibelle(libelle);
+	}
+	
 	@GetMapping("/find-all")
 	public List<Module> findAll() {
 		return moduleService.findAll();

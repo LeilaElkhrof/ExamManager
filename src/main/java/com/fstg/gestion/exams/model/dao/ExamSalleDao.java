@@ -27,5 +27,5 @@ public interface ExamSalleDao  extends JpaRepository<ExamSalle, Long>  {
 	public List<ExamSalle> findExamSalle(@Param(value = "designation") String designation,@Param(value = "dateDepart")Date dateDepart,@Param(value = "dateFin") Date dateFin);
     @Query("SELECT examSalle FROM ExamSalle examSalle WHERE examSalle.salle.designation = :designation AND ((:currentDate <= examSalle.exam.dateDepart) OR (:currentDate <= examSalle.exam.dateFin))")
     public List<ExamSalle> findSalleNonDisponible(@Param(value = "designation") String designation,@Param(value = "currentDate") Date currentDate);
-
+   
 }

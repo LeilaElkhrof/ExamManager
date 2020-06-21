@@ -16,4 +16,5 @@ public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
 	public int deleteByCne(String cne);
 	public List<Etudiant> findByFiliereLibelle(String libelle);
 	public int deleteByFiliereLibelle(String libelle);
+	public List<Etudiant> findByFiliereDepartementLibelle(String libelle);
 }

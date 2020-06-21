@@ -1,7 +1,7 @@
 package com.fstg.gestion.exams.model.service.util;
 
 import java.sql.Timestamp;
-
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -22,6 +22,20 @@ public class DateUtil {
 			Date date = new Date(timestamp.getTime());
 			return date;
 		}
+		public static String convertDate(Date date) {
+			 SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");  
+			String strDate = formatter.format(date);
+			 return strDate;
+			
+		}
+		public static String convertHeure(Date date) {
+			 SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");  
+			String strDate = formatter.format(date);
+			 return strDate;
+			
+		}
+
+		
 	
 
 }

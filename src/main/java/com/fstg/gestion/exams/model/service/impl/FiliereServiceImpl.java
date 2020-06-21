@@ -130,4 +130,9 @@ public class FiliereServiceImpl implements FiliereService {
 		return filiereRepository.getOne(id);
 	}
 
+	@Override
+	public List<Filiere> findByDepartementLibelle(String libelle) {
+	return filiereRepository.findByDepartementLibelle(libelle);
+	}
+
 }

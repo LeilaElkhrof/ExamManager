@@ -29,7 +29,11 @@ public class EtudiantRest {
 	public List<Etudiant> findByFiliereLibelle(@PathVariable String libelle) {
 		return etudiantService.findByFiliereLibelle(libelle);
 	}
-
+	@GetMapping("/filiere/departement/{libelle}")
+	public List<Etudiant> findByFiliereDepartementLibelle(@PathVariable String libelle) {
+		return etudiantService.findByFiliereDepartementLibelle(libelle);
+	}
+	
 	@Autowired
 	EtudiantService etudiantService;
 

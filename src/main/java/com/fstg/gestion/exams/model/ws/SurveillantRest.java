@@ -35,12 +35,6 @@ public class SurveillantRest {
 	public int deleteByNom(@PathVariable String nom) {
 		return surveillantService.deleteByNom(nom);
 	}
-
-	@PostMapping("/save")
-	public int save(@RequestBody Surveillant surveillant) {
-	return surveillantService.save(surveillant);
-	}
-
 	@GetMapping("/find-all")
 	public List<Surveillant> findAll() {
 	return surveillantService.findAll();

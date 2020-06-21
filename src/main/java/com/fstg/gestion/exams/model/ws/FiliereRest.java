@@ -38,6 +38,11 @@ public class FiliereRest {
 	public Filiere findByLibelle(@PathVariable String libelle) {
 		return filiereService.findByLibelle(libelle);
 	}
+	
+	@GetMapping("/departement/{libelle}")
+	public List<Filiere> findByDepartementLibelle(@PathVariable String libelle) {
+	return filiereService.findByDepartementLibelle(libelle);
+	}
 
 	@DeleteMapping("/delete-by-libelle/{libelle}")
 	public int deleteByLibelle(@PathVariable String libelle) {

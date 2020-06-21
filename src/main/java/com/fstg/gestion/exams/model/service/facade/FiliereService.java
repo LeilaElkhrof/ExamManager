@@ -14,4 +14,5 @@ public interface FiliereService {
 	public List<Filiere> findAll();
 	public int update(Long id, String libelle, String niveau, String departement);
 	public Filiere findById(Long id);
+	public List<Filiere> findByDepartementLibelle(String libelle);
 }

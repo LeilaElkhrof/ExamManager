@@ -113,5 +113,10 @@ Etudiant foundedEtudiant = findByCne(cne);
 		return 1;
 	}
 
+	@Override
+	public List<Etudiant> findByFiliereDepartementLibelle(String libelle) {
+		return etudiantRepository.findByFiliereDepartementLibelle(libelle);
+	}
+
 
 }
