@@ -18,6 +18,7 @@ public interface SurveillantRepository  extends JpaRepository<Surveillant,Long>{
 	public List<Surveillant> findByExam(Long Exam);
 	public int deleteByNom(String nom);
 	public int deleteByExam(Long exam);
+	public void deleteByExamSalleId(Long id);
 	public List<Surveillant> findByExamSalleSalleDesignationAndExamSalleExamDateDepartAndExamSalleExamDateFin(String designation, Date dateDepart, Date dateFin);
 	@Query("SELECT surveillant FROM Surveillant surveillant WHERE surveillant.nom = :nom AND((:dateDepart BETWEEN surveillant.examSalle.exam.dateDepart AND surveillant.examSalle.exam.dateFin) OR (:dateFin BETWEEN surveillant.examSalle.exam.dateDepart AND surveillant.examSalle.exam.dateFin))")
     public List<Surveillant> findSurveillant(@Param(value = "nom") String nom,@Param(value = "dateDepart")Date dateDepart,@Param(value = "dateFin") Date dateFin);

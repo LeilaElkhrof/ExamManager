@@ -145,5 +145,10 @@ public int deleteByReference(String reference) {
 	return 0;
 }
 
+@Override
+public List<Exam> findByFiliereDepartementLibelle(String libelle) {
+	return examRepository.findByFiliereDepartementLibelle(libelle);
+}
+
 
 }

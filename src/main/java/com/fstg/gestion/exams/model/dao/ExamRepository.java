@@ -18,4 +18,5 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
 	
 	public Exam findByReference(String reference);
 	public List<Exam> findByModuleLibelle(String reference);
+	public List<Exam> findByFiliereDepartementLibelle(String libelle);
 }

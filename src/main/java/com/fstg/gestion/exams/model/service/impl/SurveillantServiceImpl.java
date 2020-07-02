@@ -152,5 +152,10 @@ public class SurveillantServiceImpl implements SurveillantService {
 	public int deleteByExam(Long exam) {
 		return surveillantRepository.deleteByExam(exam);
 	}
+	@Override
+	@Transactional
+	public void deleteByExamSalleId(Long id) {
+		 surveillantRepository.deleteByExamSalleId(id);
+	}
 
 }

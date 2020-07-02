@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
 import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
@@ -81,6 +82,11 @@ public class ExamSalleRest {
 	@DeleteMapping("/salle/delete-by-id/{id}")
 	public int deleteBySalleId(@PathVariable Long id) {
 		return examSalleService.deleteBySalleId(id);
+	}
+	
+	@PostMapping("/save")
+	public void saveSalle(@RequestBody Exam exam) {
+		 examSalleService.saveSalle(exam, exam.getExamSalles());
 	}
 
 }

@@ -21,6 +21,7 @@ public interface ExamSalleDao  extends JpaRepository<ExamSalle, Long>  {
 	public int deleteByExamId(Long id);
 	public int deleteBySalleDesignationAndExamDateDepartAndExamDateFin(String designation, Date dateDepart, Date dateFin ) ;
 	public int deleteBySalleId(Long id);
+	
 	@Query("SELECT examSalle FROM ExamSalle examSalle WHERE examSalle.exam.id = :id ORDER BY examSalle.salle.id")
 	public List<ExamSalle> findExamOrderBySalleDesignation(@Param(value = "id") Long id);
 	@Query("SELECT examSalle FROM ExamSalle examSalle WHERE examSalle.salle.designation = :designation AND((:dateDepart BETWEEN examSalle.exam.dateDepart AND examSalle.exam.dateFin ) OR (:dateFin BETWEEN examSalle.exam.dateDepart AND examSalle.exam.dateFin))")

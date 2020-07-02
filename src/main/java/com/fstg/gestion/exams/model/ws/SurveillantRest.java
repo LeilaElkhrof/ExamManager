@@ -34,6 +34,10 @@ public class SurveillantRest {
 	public int deleteByNom(@PathVariable String nom) {
 		return surveillantService.deleteByNom(nom);
 	}
+	@DeleteMapping("/delete-by-exam/{id}")
+	public void deleteByExamSalleId(@PathVariable Long id) {
+		 surveillantService.deleteByExamSalleId(id);
+	}
 	@GetMapping("/find-all")
 	public List<Surveillant> findAll() {
 	return surveillantService.findAll();

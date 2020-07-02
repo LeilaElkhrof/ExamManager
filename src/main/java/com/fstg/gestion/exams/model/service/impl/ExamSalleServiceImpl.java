@@ -103,6 +103,7 @@ return examSalleDao.findAll();
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(Long id) {
 		Etat etat = new Etat();
 		ExamSalle foundedExamSalle = findById(id);
@@ -110,8 +111,8 @@ return examSalleDao.findAll();
 		etat.setAction("Suppression");
 		etat.setType("ExamSalle");
 		etatService.save(etat);
-		 examSalleDao.deleteById(id);
-		
+	 surveillantService.deleteByExamSalleId(foundedExamSalle.getId());
+		 examSalleDao.deleteById(foundedExamSalle.getId());
 	}
      
 	@Override

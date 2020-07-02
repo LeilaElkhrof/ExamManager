@@ -70,7 +70,10 @@ public class ExamRest  {
 	public Exam findByDateDepartAndDateFin(@PathVariable String dateDepart,@PathVariable String dateFin) {
 		return examService.findByDateDepartAndDateFin(dateDepart, dateFin);
 	}*/
-
+	@GetMapping("/filiere/departement/{libelle}")
+	public List<Exam> findByFiliereDepartementLibelle(String libelle){
+		return examService.findByFiliereDepartementLibelle(libelle);
+	}
 
 	
 }

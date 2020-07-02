@@ -11,6 +11,7 @@ public interface SurveillantService {
 	public int deleteByExam(Long exam);
 	public int deleteByNom(String nom);
 	public int save(Surveillant surveillant);
+	public void deleteByExamSalleId(Long id);
 	public int save(ExamSalle examSalle, List<Surveillant> surveillants);
 	public List<Surveillant> findByExam(Long exam);
 	public List<Surveillant> findAll();
