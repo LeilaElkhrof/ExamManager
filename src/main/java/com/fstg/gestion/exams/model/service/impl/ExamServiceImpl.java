@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.fstg.gestion.exams.beans.Calendrier;
 import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
@@ -18,6 +18,7 @@ import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Professeur;
 
 import com.fstg.gestion.exams.model.dao.ExamRepository;
+import com.fstg.gestion.exams.model.service.facade.CalendrierService;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
@@ -26,6 +27,7 @@ import com.fstg.gestion.exams.model.service.facade.ModuleService;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
 import com.fstg.gestion.exams.model.service.facade.SalleService;
 import com.fstg.gestion.exams.model.service.facade.SurveillantService;
+import com.fstg.gestion.exams.model.service.util.DateUtil;
 
 
 
@@ -54,6 +56,9 @@ public class ExamServiceImpl implements ExamService{
 	
 	@Autowired
 	FiliereService filiereService;
+	
+	@Autowired 
+	CalendrierService calendrierService;
 	
 	@Override
 	public Exam findByReference(String reference) {
@@ -98,18 +103,27 @@ public class ExamServiceImpl implements ExamService{
 		 Filiere foundedFiliere = filiereService.findByLibelle(exam.getFiliere().getLibelle());
 		 Professeur foundedProfesseur = professeurService.findByNom(exam.getProf().getNom());
 		 Module foundedModule = moduleService.findByLibelle(exam.getModule().getLibelle());
-		;
+		
 		
 	    if(foundedFiliere == null) {
 			return -2;
 		}
 		 else {
-			 exam.setReference(foundedModule.getLibelle());
+			 Calendrier calendrier = new Calendrier();
+			 exam.setReference(foundedModule.getLibelle()); 
 			 exam.setProf(foundedProfesseur);
 			 exam.setModule(foundedModule);
 			 exam.setFiliere(foundedFiliere);
 			examRepository.save(exam);	
+			calendrier.setTitle(foundedModule.getLibelle());
+			calendrier.setColor(foundedFiliere.getCouleur());
+			calendrier.setStart(DateUtil.parseDateHour(exam.getDateDepart()));
+			calendrier.setEnd(DateUtil.parseDateHour(exam.getDateFin()));
+			calendrier.setFiliere(foundedFiliere);
+			calendrier.setDepartement(foundedFiliere.getDepartement());
+			System.out.print(calendrier.getEnd());
 			examSalleService.saveSalle(exam, examSalles);
+			calendrierService.save(calendrier);
 			return 1;
 		}
 	}
@@ -141,8 +155,18 @@ public List<Exam> findByModuleLibelle(String reference) {
 
 @Override
 public int deleteByReference(String reference) {
-	// TODO Auto-generated method stub
+
 	return 0;
+}
+
+@Override
+public List<Exam> findByFiliereLibelle(String filiere) {
+	return examRepository.findByFiliereLibelle(filiere);
+}
+
+@Override
+public Exam findByDateDepartAndDateFinAndModuleLibelle(Date dateDepart, Date dateFin, String module) {
+	return examRepository.findByDateDepartAndDateFinAndModuleLibelle(dateDepart, dateFin, module);
 }
 
 

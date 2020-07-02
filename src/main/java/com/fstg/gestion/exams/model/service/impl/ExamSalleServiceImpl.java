@@ -131,6 +131,12 @@ return examSalleDao.findAll();
 		return examSalleDao.findExamOrderBySalleDesignation(id);
 	}
 
+	@Override
+	public List<ExamSalle> findByExamDateDepartAndExamDateFinAndExamModuleLibelle(Date dateDepart, Date dateFin,
+			String module){
+		return examSalleDao.findByExamDateDepartAndExamDateFinAndExamModuleLibelle(dateDepart, dateFin, module);
+	}
+
 	
 
 	

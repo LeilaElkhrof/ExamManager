@@ -18,9 +18,8 @@ import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Professeur;
-import com.fstg.gestion.exams.beans.Salle;
-import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
+import com.fstg.gestion.exams.model.service.util.DateUtil;
 
 @RestController
 @RequestMapping("exam-api/exams")
@@ -65,11 +64,13 @@ public class ExamRest  {
 	public int save(@RequestBody Exam exam) {
 		return examService.save(exam, exam.getExamSalles());
 	}
+
+	@GetMapping("/events/date-depart/{dateDepart}/date-fin/{dateFin}/module/{module}")
+	public Exam findByDateDepartAndDateFinAndModuleLibelle(@PathVariable Date dateDepart,@PathVariable Date dateFin,@PathVariable String module) {
+		return examService.findByDateDepartAndDateFinAndModuleLibelle(dateDepart, dateFin, module);
+	}
 	
-	/*@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}")
-	public Exam findByDateDepartAndDateFin(@PathVariable String dateDepart,@PathVariable String dateFin) {
-		return examService.findByDateDepartAndDateFin(dateDepart, dateFin);
-	}*/
+	
 
 
 	

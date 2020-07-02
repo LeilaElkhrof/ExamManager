@@ -113,5 +113,11 @@ Etudiant foundedEtudiant = findByCne(cne);
 		return 1;
 	}
 
+	@Override
+	public List<Etudiant> findByFiliereLibelleAndModuleSemestreLibelle(String filiere, String semestre) {
+		
+		return etudiantRepository.findByFiliereLibelleAndSemestreLibelle(filiere, semestre);
+	}
+
 
 }

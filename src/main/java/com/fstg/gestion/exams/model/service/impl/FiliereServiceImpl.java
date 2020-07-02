@@ -119,7 +119,6 @@ public class FiliereServiceImpl implements FiliereService {
 		modifie.setAction("Modification");
 		modifie.setType("Filiere");
 		etatService.save(modifie);
-		//foundedFiliere.setNiveau(fondedNiveau);
 		filiereRepository.save(foundedFiliere);
 		return 1;
 	}

@@ -46,8 +46,11 @@ public class Exam implements Serializable {
 	@OneToMany(mappedBy="exam")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private List<ExamSalle> examSalles;
+	
 
-
+	@OneToMany(mappedBy="exam")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private List<ExamEtudiant> examEtudiants;
 
 	public Exam() {
 		super();
@@ -89,6 +92,17 @@ public class Exam implements Serializable {
 		this.prof = prof;
 	}
 
+	
+
+
+	public List<ExamEtudiant> getExamEtudiants() {
+		return examEtudiants;
+	}
+
+
+	public void setExamEtudiants(List<ExamEtudiant> examEtudiants) {
+		this.examEtudiants = examEtudiants;
+	}
 
 
 	public Module getModule() {

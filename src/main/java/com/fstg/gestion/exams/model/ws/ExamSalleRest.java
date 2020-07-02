@@ -25,6 +25,8 @@ import com.fstg.gestion.exams.model.service.util.DateUtil;
 @CrossOrigin(origins= {"http://localhost:4200" })
 public class ExamSalleRest {
 
+	
+	
 	@Autowired
 	ExamSalleService examSalleService;
 
@@ -81,6 +83,12 @@ public class ExamSalleRest {
 	@DeleteMapping("/salle/delete-by-id/{id}")
 	public int deleteBySalleId(@PathVariable Long id) {
 		return examSalleService.deleteBySalleId(id);
+	}
+
+	@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}/module/{module}")
+	public List<ExamSalle> findByExamDateDepartAndExamDateFinAndExamModuleLibelle(@PathVariable String dateDepart, @PathVariable  String dateFin,
+			@PathVariable String module) {
+		return examSalleService.findByExamDateDepartAndExamDateFinAndExamModuleLibelle(DateUtil.parse(dateDepart), DateUtil.parse(dateFin), module);
 	}
 
 }

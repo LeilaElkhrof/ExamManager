@@ -13,6 +13,7 @@ public interface CalendrierService {
 	public Calendrier update(Long id, String libelle, Integer anneUniversitaire);
 	public Calendrier findById(Long id);*/
 	public List<Calendrier> findAll();
+	public int save(Calendrier calendrier);
 	
 	
 }

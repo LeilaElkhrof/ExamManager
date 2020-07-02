@@ -92,5 +92,11 @@ public class CalendrierServiceImpl implements CalendrierService {
 		return calendrierRepository.getOne(id);
 	}
 */
+
+	@Override
+	public int save(Calendrier calendrier) {
+		calendrierRepository.save(calendrier);
+		return 1;
+	}
 	
 }

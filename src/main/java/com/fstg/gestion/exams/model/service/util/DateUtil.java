@@ -1,9 +1,11 @@
 package com.fstg.gestion.exams.model.service.util;
 
 import java.sql.Timestamp;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
@@ -23,5 +25,23 @@ public class DateUtil {
 			return date;
 		}
 	
+		public static String parseDate(Date date) {
+              DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");  
+              String strDate = dateFormat.format(date);  
+             return strDate; 
+		}
+		
+		public static String parseDateHour(Date date) {
+            DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss");  
+            String strDate = dateFormat.format(date);  
+           return strDate; 
+		}
+		
+
+		public static String parsehour(Date date) {
+              DateFormat dateFormat = new SimpleDateFormat("HH:mm");  
+              String strDate = dateFormat.format(date);  
+             return strDate; 
+		}
 
 }

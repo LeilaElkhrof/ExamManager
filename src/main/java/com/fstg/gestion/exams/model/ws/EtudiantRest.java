@@ -20,15 +20,7 @@ import com.fstg.gestion.exams.model.service.facade.EtudiantService;
 @RequestMapping("exam-api/etudiants")
 @CrossOrigin(origins= {"http://localhost:4200" })
 public class EtudiantRest {
-	@PutMapping("/{id}/{nom}/{prenom}/{cne}/{mail}/{filiere}/{semestre}")
-	public int update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String cne,@PathVariable String mail,@PathVariable String filiere,@PathVariable Long semestre) {
-		return etudiantService.update(id, nom, prenom, cne, mail, filiere, semestre);
-	}
 
-	@GetMapping("/find-by-filiere/{libelle}")
-	public List<Etudiant> findByFiliereLibelle(@PathVariable String libelle) {
-		return etudiantService.findByFiliereLibelle(libelle);
-	}
 
 	@Autowired
 	EtudiantService etudiantService;
@@ -57,6 +49,22 @@ public class EtudiantRest {
 	public int deleteByFiliereLibelle(@PathVariable String libelle) {
 		return etudiantService.deleteByFiliereLibelle(libelle);
 	}
+	
+	@PutMapping("/{id}/{nom}/{prenom}/{cne}/{mail}/{filiere}/{semestre}")
+	public int update(@PathVariable Long id,@PathVariable String nom,@PathVariable String prenom,@PathVariable String cne,@PathVariable String mail,@PathVariable String filiere,@PathVariable Long semestre) {
+		return etudiantService.update(id, nom, prenom, cne, mail, filiere, semestre);
+	}
+
+	@GetMapping("/find-by-filiere/{libelle}")
+	public List<Etudiant> findByFiliereLibelle(@PathVariable String libelle) {
+		return etudiantService.findByFiliereLibelle(libelle);
+	}
+
+	@GetMapping("/filiere/{filiere}/semestre/{semestre}")
+	public List<Etudiant> findByFiliereLibelleAndModuleSemestreLibelle(@PathVariable String filiere, @PathVariable String semestre) {
+		return etudiantService.findByFiliereLibelleAndModuleSemestreLibelle(filiere, semestre);
+	}
+	
 	
 	
 }

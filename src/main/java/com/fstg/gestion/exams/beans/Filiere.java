@@ -28,6 +28,7 @@ public class Filiere implements Serializable {
 	private String libelle;
 	@ManyToOne
 	private Niveau niveau;
+	private String couleur;
 	@ManyToOne
 	private Departement departement;
 	@OneToMany(mappedBy="filiere")
@@ -73,6 +74,14 @@ public class Filiere implements Serializable {
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+
+	public String getCouleur() {
+		return couleur;
+	}
+
+	public void setCouleur(String couleur) {
+		this.couleur = couleur;
 	}
 
 	public Filiere() {
