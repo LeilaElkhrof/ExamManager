@@ -6,10 +6,6 @@ import java.util.List;
 
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
-import com.fstg.gestion.exams.beans.Filiere;
-import com.fstg.gestion.exams.beans.Module;
-import com.fstg.gestion.exams.beans.Professeur;
-
 
 
 public interface ExamService {
@@ -21,7 +17,9 @@ public interface ExamService {
 	public int deleteById(Long id);
 	public List<Exam> findByFiliereLibelle(String filiere);
 	public List<Exam>findAll();
-	public Exam update(Long id, String reference, Date dateDepart, Date dateFin,Module module, Professeur prof,Filiere filiere);
-	public List<Exam> findByFiliereDepartementLibelle(String libelle);
+public List<Exam> findByFiliereDepartementLibelle(String libelle);
+
+	public int update(Long id, Date dateDepart, Date dateFin,String module, String prof,String filiere, String title);
+
 	public Exam findByDateDepartAndDateFinAndModuleLibelle(Date dateDepart, Date dateFin, String module);
 }

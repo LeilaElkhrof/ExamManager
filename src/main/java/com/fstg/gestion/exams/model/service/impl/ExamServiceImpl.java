@@ -51,6 +51,7 @@ public class ExamServiceImpl implements ExamService{
 	
 	@Autowired
 	EtatService etatService;
+	
 	@Autowired
 	ExamSalleService examSalleService;
 	
@@ -77,15 +78,28 @@ public class ExamServiceImpl implements ExamService{
 
 
 	@Override
-	public Exam update(Long id, String reference, Date dateDepart, Date dateFin,Module module, Professeur prof,Filiere filiere) {
+	public int update(Long id, Date dateDepart, Date dateFin,String module, String prof,String filiere, String title) {
 		Etat modifie = new Etat();
 		Exam foundedExam = findById(id);
+		Module foundedModule = moduleService.findByFiliereModuleAndModuleLibelle(filiere, module);
+		Filiere foundedFiliere = filiereService.findByLibelle(filiere);
+		Professeur foundedProfesseur = professeurService.findByNom(prof);
+		Calendrier foundedCalendrier = calendrierService.findByStartAndEndAndTitle(DateUtil.parseDateHour(dateDepart), DateUtil.parseDateHour(dateFin), title);
+		System.out.println(DateUtil.parseDateHour(dateDepart));
 	foundedExam.setDateDepart(dateDepart);
 	foundedExam.setDateFin(dateFin);
-	foundedExam.setModule(module);
-	foundedExam.setProf(prof);
-	foundedExam.setReference(reference);
-	foundedExam.setFiliere(filiere);
+	foundedExam.setModule(foundedModule);
+	foundedExam.setProf(foundedProfesseur);
+	foundedExam.setReference(module);
+	foundedExam.setFiliere(foundedFiliere);
+
+	foundedCalendrier.setTitle(module);
+	foundedCalendrier.setStart(DateUtil.parseDateHour(dateDepart));
+	foundedCalendrier.setEnd(DateUtil.parseDateHour(dateFin));
+	foundedCalendrier.setFiliere(foundedFiliere);
+	foundedCalendrier.setDepartement(foundedFiliere.getDepartement());
+	foundedCalendrier.setColor(foundedFiliere.getCouleur());
+	
 
 	
 	Exam updateExam = examRepository.save(foundedExam);
@@ -93,7 +107,7 @@ public class ExamServiceImpl implements ExamService{
 	modifie.setAction("Modification");
 	modifie.setType("Exam");
 	etatService.save(modifie);
-	return updateExam;
+	return 1;
 		
 
 	}
@@ -119,16 +133,18 @@ public class ExamServiceImpl implements ExamService{
 				etat.setAction("Insertion");
 				etat.setType("Examen");
 				etatService.save(etat);	
-			examRepository.save(exam);	
-			calendrier.setTitle(foundedModule.getLibelle());
-			calendrier.setColor(foundedFiliere.getCouleur());
-			calendrier.setStart(DateUtil.parseDateHour(exam.getDateDepart()));
-			calendrier.setEnd(DateUtil.parseDateHour(exam.getDateFin()));
-			calendrier.setFiliere(foundedFiliere);
-			calendrier.setDepartement(foundedFiliere.getDepartement());
-			System.out.print(calendrier.getEnd());
-			examSalleService.saveSalle(exam, examSalles);
-			calendrierService.save(calendrier);
+			 examRepository.save(exam);	
+			 
+			 calendrier.setTitle(foundedModule.getLibelle());
+			 calendrier.setColor(foundedFiliere.getCouleur());
+			 calendrier.setStart(DateUtil.parseDateHour(exam.getDateDepart()));
+			 calendrier.setEnd(DateUtil.parseDateHour(exam.getDateFin()));
+			 calendrier.setFiliere(foundedFiliere);
+			 calendrier.setDepartement(foundedFiliere.getDepartement());
+			
+			 examSalleService.saveSalle(exam, examSalles);
+			 calendrierService.save(calendrier);
+			 
 			return 1;
 		}
 	}
@@ -139,7 +155,6 @@ public int deleteById(Long id) {
 	Etat etat = new Etat();
 	Exam foundedExam = examRepository.getOne(id);
 	if(foundedExam.getDateDepart().getTime() - new Date().getTime() > 0) {
-		System.out.println(foundedExam.getDateDepart().getTime() - new Date().getTime());
 		return -1;
 	}else {
 	etat.setLibelle(foundedExam.getReference());

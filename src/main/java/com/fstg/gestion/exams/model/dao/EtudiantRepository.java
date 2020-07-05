@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.fstg.gestion.exams.beans.Etudiant;
 
 
+
 @Repository
 public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
 	public Etudiant findByCne(String cne);

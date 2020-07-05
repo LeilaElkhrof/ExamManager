@@ -145,5 +145,10 @@ public class ModuleServiceImpl implements ModuleService {
 	public List<Module> findByFiliereDepartementLibelle(String libelle) {
 	return moduleRepository.findByFiliereDepartementLibelle(libelle);
 	}
+	@Override
+	public Module findByFiliereModuleAndModuleLibelle(String filiere, String module) {
+		return moduleRepository.findByFiliereLibelleAndLibelle(filiere, module);
+
+	}
 
 }

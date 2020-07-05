@@ -4,7 +4,6 @@ import java.util.List;
 
 
 import com.fstg.gestion.exams.beans.Etat;
-import com.fstg.gestion.exams.beans.Salle;
 
 public interface EtatService {
 

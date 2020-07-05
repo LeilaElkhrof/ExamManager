@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 
 import com.fstg.gestion.exams.beans.ExamSalle;
-import com.fstg.gestion.exams.beans.Surveillant;
 
 @Repository
 public interface ExamSalleDao  extends JpaRepository<ExamSalle, Long>  {

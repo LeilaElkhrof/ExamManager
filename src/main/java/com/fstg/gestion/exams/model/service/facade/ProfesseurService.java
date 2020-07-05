@@ -2,9 +2,7 @@ package com.fstg.gestion.exams.model.service.facade;
 
 import java.util.List;
 
-import com.fstg.gestion.exams.beans.Departement;
 import com.fstg.gestion.exams.beans.Professeur;
-import com.fstg.gestion.exams.beans.Responsabilite;
 
 
 public interface ProfesseurService {

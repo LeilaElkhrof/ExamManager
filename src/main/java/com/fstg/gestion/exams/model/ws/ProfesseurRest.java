@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fstg.gestion.exams.beans.Departement;
 import com.fstg.gestion.exams.beans.Professeur;
-import com.fstg.gestion.exams.beans.Responsabilite;
 import com.fstg.gestion.exams.model.service.facade.ProfesseurService;
 
 @RestController

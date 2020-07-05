@@ -2,6 +2,7 @@ package com.fstg.gestion.exams.model.service.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class ExamEtudiantServiceImp implements ExamEtudiantService {
 	@Override
 	public int save(List<ExamEtudiant> examEtudiants) {
 	for(ExamEtudiant examEtudiant : examEtudiants) {
-		Exam foundedExam = examService.findById(examEtudiant.getExam().getId());
+		Exam foundedExam = examService.findByDateDepartAndDateFinAndModuleLibelle(examEtudiant.getExam().getDateDepart(), examEtudiant.getExam().getDateFin(), examEtudiant.getExam().getModule().getLibelle());
 		Salle foundedSalle = salleService.findByDesignation(examEtudiant.getSalle().getDesignation());
 			examEtudiant.setExam(foundedExam);
 			examEtudiant.setSalle(foundedSalle);
@@ -52,12 +53,20 @@ public class ExamEtudiantServiceImp implements ExamEtudiantService {
 	}
 	
 	@Override
-	public int imprimerListeEtudiants(Long exam) throws FileNotFoundException, DocumentException {
-		return PdfUtil.imprimerListeEtudiants(findByExamId(exam), examService.findById(exam) );
+	public int imprimerListeEtudiants(String module, Date dateDepart, Date dateFin) throws FileNotFoundException, DocumentException {
+		Exam foundedExam = examService.findByDateDepartAndDateFinAndModuleLibelle(dateDepart, dateFin, module);
+		return PdfUtil.imprimerListeEtudiants(findByExamId(foundedExam.getId()), foundedExam );
 	}
 	
 	@Override
-	public int exportExcel(Long exam) throws DocumentException, IOException {
-		return ExcelUtil.exportExcel(findByExamId(exam), examService.findById(exam) );
+	public int exportExcel(String module, Date dateDepart, Date dateFin) throws DocumentException, IOException {
+		Exam foundedExam = examService.findByDateDepartAndDateFinAndModuleLibelle(dateDepart, dateFin, module);
+		return ExcelUtil.exportExcel(findByExamId(foundedExam.getId()), foundedExam);
+	}
+
+	@Override
+	public List<ExamEtudiant> findByExamModuleLibelleAndExamDateDepartAndExamDateFin(String module, Date dateDepart,
+			Date dateFin) {
+		return examEtudiantDao.findByExamModuleLibelleAndExamDateDepartAndExamDateFin(module, dateDepart, dateFin);
 	}
 }

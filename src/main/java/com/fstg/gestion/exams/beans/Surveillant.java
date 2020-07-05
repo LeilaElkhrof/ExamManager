@@ -25,7 +25,8 @@ public class Surveillant implements Serializable{
 	private String nom;
 	private String prenom;
 	private String mail;
-	private Long exam;
+	@ManyToOne
+	private Exam exam;
 	
 	@ManyToOne
 	private ExamSalle examSalle;
@@ -36,20 +37,23 @@ public class Surveillant implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Long getExam() {
+	
+	
+	
+	public Exam getExam() {
 		return exam;
 	}
 
 
 
 
-
-	public void setExam(Long exam) {
+	public void setExam(Exam exam) {
 		this.exam = exam;
 	}
-	
-	
-	
+
+
+
+
 	public Long getId() {
 		return id;
 	}
