@@ -49,6 +49,7 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 
 	@Override
 	public int save(Professeur professeur) {
+		Etat etat = new Etat();
 		Personnel personnel = new Personnel();
 		Professeur foundedProfesseur = findByNom(professeur.getNom());
 		Departement foundedDepartement = departementService.findByLibelle(professeur.getDepartement().getLibelle());
@@ -58,11 +59,16 @@ public class ProfesseurServiceImpl implements ProfesseurService {
 		if(foundedDepartement == null)
 			return -2;
 		else {
+			
 			professeur.setDepartement(foundedDepartement);
 			personnel.setMail(professeur.getMail());
 			personnel.setNom(professeur.getNom());
 			personnel.setPrenom(professeur.getPrenom());
 			personnel.setFonction("professeur");
+			etat.setLibelle(professeur.getNom());
+			etat.setAction("Insertion");
+			etat.setType("Professeur");
+			etatService.save(etat);	
 			personnelService.save(personnel);
 			professeurRepository.save(professeur);
 		}

@@ -23,7 +23,8 @@ public interface ExamSalleService {
 	public void saveSalle(Exam exam, List<ExamSalle> examSalles);
     public List<ExamSalle> findAll();
     public List<ExamSalle> findSalleNonDisponible(String designation, Date date);
-    
+    public List<ExamSalle> findByExamDateDepartAndExamDateFinAndExamModuleLibelle(Date dateDepart, Date dateFin, String module);
+
  
 
 }

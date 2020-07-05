@@ -92,5 +92,15 @@ public class CalendrierServiceImpl implements CalendrierService {
 		return calendrierRepository.getOne(id);
 	}
 */
-	
+
+	@Override
+	public int save(Calendrier calendrier) {
+		calendrierRepository.save(calendrier);
+		return 1;
+	}
+
+	@Override
+	public List<Calendrier> findByFiliereDepartementLibelle(String libelle) {
+ return calendrierRepository.findByFiliereDepartementLibelle(libelle);
+	}
 }

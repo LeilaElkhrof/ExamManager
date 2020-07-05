@@ -69,6 +69,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 	@Override
 	public void save(Filiere filiere, List<Module> modules) {
+	
 		for(Module module : modules) {
 			
 			Semestre foundedSemestre = semestreService.findByLibelle(module.getSemestre().getLibelle());
@@ -76,7 +77,7 @@ public class ModuleServiceImpl implements ModuleService {
 			
 			module.setProfesseur(foundedProfesseur);
 				module.setFiliere(filiere);
-				module.setSemestre(foundedSemestre);
+				module.setSemestre(foundedSemestre);	
 				moduleRepository.save(module);
 				
 		}
@@ -89,7 +90,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 	@Override
 	public int addModule(Module module) {
-		
+		Etat etat = new Etat();
 		Filiere foundedFiliere = filiereService.findByLibelle(module.getFiliere().getLibelle());
 		Semestre foundedSemestre = semestreService.findByLibelle(module.getSemestre().getLibelle());
 		
@@ -99,6 +100,10 @@ public class ModuleServiceImpl implements ModuleService {
 		else {
 			module.setFiliere(foundedFiliere);
 			module.setSemestre(foundedSemestre);
+			etat.setLibelle(module.getLibelle());
+			etat.setAction("Insertion");
+			etat.setType("Module");
+			etatService.save(etat);	
 			moduleRepository.save(module);
 			return 1;
 		}

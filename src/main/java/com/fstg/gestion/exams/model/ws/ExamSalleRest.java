@@ -26,6 +26,8 @@ import com.fstg.gestion.exams.model.service.util.DateUtil;
 @CrossOrigin(origins= {"http://localhost:4200" })
 public class ExamSalleRest {
 
+	
+	
 	@Autowired
 	ExamSalleService examSalleService;
 
@@ -87,6 +89,12 @@ public class ExamSalleRest {
 	@PostMapping("/save")
 	public void saveSalle(@RequestBody Exam exam) {
 		 examSalleService.saveSalle(exam, exam.getExamSalles());
+	}
+
+	@GetMapping("/dateDepart/{dateDepart}/dateFin/{dateFin}/module/{module}")
+	public List<ExamSalle> findByExamDateDepartAndExamDateFinAndExamModuleLibelle(@PathVariable String dateDepart, @PathVariable  String dateFin,
+			@PathVariable String module) {
+		return examSalleService.findByExamDateDepartAndExamDateFinAndExamModuleLibelle(DateUtil.parse(dateDepart), DateUtil.parse(dateFin), module);
 	}
 
 }

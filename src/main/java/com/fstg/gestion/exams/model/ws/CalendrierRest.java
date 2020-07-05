@@ -23,38 +23,14 @@ public class CalendrierRest {
 
 	@Autowired 
 	CalendrierService calendrierService;
-/*
-
-	@DeleteMapping("/delete-by-libelle/{libelle}")
-	public int deleteByLibelle(@PathVariable String libelle) {
-		return calendrierService.deleteByLibelle(libelle);
-	}
-
-	@GetMapping("/find-by-libelle/{libelle}")
-	public Calendrier findByLibelle(@PathVariable String libelle) {
-		return calendrierService.findByLibelle(libelle);
-	}
 	
-	@PostMapping("/save")
-	public int save(@RequestBody Calendrier calendar) {
-		return calendrierService.save(calendar);
-	}
-
-	@PutMapping("/{id}/{libelle}/{anneUniversitaire}")
-	public Calendrier update(@PathVariable Long id, @PathVariable String libelle,@PathVariable Integer anneUniversitaire) {
-		return calendrierService.update(id, libelle, anneUniversitaire);
-	}
-
-	@GetMapping("/find-by-id/{id}")
-	public Calendrier findById(@PathVariable Long id) {
-		return calendrierService.findById(id);
-	}
-
-	*/
 	@GetMapping("/find-all")
 	public List<Calendrier> findAll() {
 		return calendrierService.findAll();
 	}
 
-	
+	@GetMapping("/filiere/departement/{libelle}")
+	public List<Calendrier> findByFiliereDepartementLibelle(@PathVariable String libelle) {
+ return calendrierService.findByFiliereDepartementLibelle(libelle);
+	}
 }

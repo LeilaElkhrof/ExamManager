@@ -41,11 +41,16 @@ public class ResponsabiliteServiceImpl implements ResponsabiliteService {
 
 	@Override
 	public int save(Responsabilite respo) {
+		Etat etat = new Etat();
 		Responsabilite foundedRespo = findByLibelle(respo.getLibelle());
 		if(foundedRespo != null) 
 			return -1;
 			
 		else {
+			etat.setLibelle(respo.getLibelle());
+			etat.setAction("Insertion");
+			etat.setType("Responsabilite");
+			etatService.save(etat);	
 			respoRepository.save(respo);
 			return 1;
 		}

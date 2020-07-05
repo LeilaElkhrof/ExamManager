@@ -66,6 +66,7 @@ public class FiliereServiceImpl implements FiliereService {
 
 	@Override
 	public int save(Filiere filiere) {
+		Etat etat = new Etat();
 		Filiere foundedFiliere = findByLibelle(filiere.getLibelle());
 		Niveau foundedNiveau = niveauService.findById(filiere.getNiveau().getId());
 		Departement foundedDepartement = departementService.findByLibelle(filiere.getDepartement().getLibelle());
@@ -75,6 +76,10 @@ public class FiliereServiceImpl implements FiliereService {
 		else {
 			filiere.setNiveau(foundedNiveau);
 			filiere.setDepartement(foundedDepartement);
+			etat.setLibelle(filiere.getLibelle());
+			etat.setAction("Insertion");
+			etat.setType("Filiere");
+			etatService.save(etat);	
 			filiereRepository.save(filiere);
 			return 1;
 		}
@@ -119,7 +124,6 @@ public class FiliereServiceImpl implements FiliereService {
 		modifie.setAction("Modification");
 		modifie.setType("Filiere");
 		etatService.save(modifie);
-		//foundedFiliere.setNiveau(fondedNiveau);
 		filiereRepository.save(foundedFiliere);
 		return 1;
 	}

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fstg.gestion.exams.beans.Filiere;
 import com.fstg.gestion.exams.beans.Module;
-import com.fstg.gestion.exams.beans.Professeur;
+
 
 public interface ModuleService {
 

@@ -47,11 +47,16 @@ public class DepartementServiceImpl implements DepartementService {
 
 	@Override
 	public int save(Departement depart) {
+		Etat etat = new Etat();
 	Departement foundedDepart = findByLibelle(depart.getLibelle());
 	if(foundedDepart != null) 
 		return -1;
 		
 	else {
+		etat.setLibelle(depart.getLibelle());
+		etat.setAction("Insertion");
+		etat.setType("Departement");
+		etatService.save(etat);	
 		departementDao.save(depart);
 		return 1;
 	}

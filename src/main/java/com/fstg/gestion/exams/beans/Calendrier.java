@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -27,16 +28,34 @@ public class Calendrier implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	
-	 private Date start;
+	 private String start;
 	 
-     private Date end;
+     private String end;
      private String title;
      private String color;
      
+     @ManyToOne
+     private Filiere filiere;
+     
+     @ManyToOne
+     private Departement departement;
      
      
+     
+	public Departement getDepartement() {
+		return departement;
+	}
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+	public Filiere getFiliere() {
+		return filiere;
+	}
+	public void setFiliere(Filiere filiere) {
+		this.filiere = filiere;
+	}
 	public Calendrier() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	/**
 	 * @return the id
@@ -44,34 +63,22 @@ public class Calendrier implements Serializable {
 	public Long getId() {
 		return id;
 	}
-	/**
-	 * @param id the id to set
-	 */
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
-	/**
-	 * @return the start
-	 */
-	public Date getStart() {
+
+
+	public String getStart() {
 		return start;
 	}
-	/**
-	 * @param start the start to set
-	 */
-	public void setStart(Date start) {
+	public void setStart(String start) {
 		this.start = start;
 	}
-	/**
-	 * @return the end
-	 */
-	public Date getEnd() {
+	public String getEnd() {
 		return end;
 	}
-	/**
-	 * @param end the end to set
-	 */
-	public void setEnd(Date end) {
+	public void setEnd(String end) {
 		this.end = end;
 	}
 	/**

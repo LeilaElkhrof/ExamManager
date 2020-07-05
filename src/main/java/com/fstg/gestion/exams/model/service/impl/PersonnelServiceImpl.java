@@ -28,10 +28,15 @@ public class PersonnelServiceImpl implements PersonnelService{
 
 	@Override
 	public int save(Personnel personnel) {	
+		Etat etat = new Etat();
 		Personnel foundedPersonnel = findByNom(personnel.getNom());
 		if(foundedPersonnel != null) {
 			return -1;
 		}else {
+			etat.setLibelle(personnel.getNom());
+			etat.setAction("Insertion");
+			etat.setType("Personnel");
+			etatService.save(etat);	
 			personnelDao.save(personnel);
 			return 1;
 		}	

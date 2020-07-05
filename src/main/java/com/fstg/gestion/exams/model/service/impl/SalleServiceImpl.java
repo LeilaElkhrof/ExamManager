@@ -81,12 +81,16 @@ public class SalleServiceImpl implements SalleService {
 
 	@Override
 	public int save(Salle salle) {
+		Etat etat = new Etat();
 		Salle foundedSalle = findByDesignation(salle.getDesignation());
 		
 		if(foundedSalle != null)
 			return -1;
 		
 		else {
+			etat.setLibelle(salle.getDesignation());
+			etat.setAction("Insertion");
+			etatService.save(etat);	
 			salleRepository.save(salle);
 			return 1;
 		}

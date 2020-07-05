@@ -41,6 +41,7 @@ public class EtudiantServiceImpl implements EtudiantService {
 
 	@Override
 	public int save(Etudiant etudiant) {
+		Etat etat = new Etat();
 		Etudiant foundedEtudiant = findByCne(etudiant.getCne());
 		Filiere foundedFiliere = filiereService.findByLibelle(etudiant.getFiliere().getLibelle());
 		Semestre foundedSemestre = semestreService.findByLibelle(etudiant.getSemestre().getLibelle());
@@ -55,6 +56,10 @@ public class EtudiantServiceImpl implements EtudiantService {
 			return -3;
 		
 		else {
+			etat.setLibelle(etudiant.getNom());
+			etat.setAction("Insertion");
+			etat.setType("Etudiant");
+			etatService.save(etat);	
 			etudiant.setFiliere(foundedFiliere);
 			etudiant.setSemestre(foundedSemestre);
 			etudiantRepository.save(etudiant);
@@ -116,6 +121,10 @@ Etudiant foundedEtudiant = findByCne(cne);
 	@Override
 	public List<Etudiant> findByFiliereDepartementLibelle(String libelle) {
 		return etudiantRepository.findByFiliereDepartementLibelle(libelle);
+		}
+	@Override
+	public List<Etudiant> findByFiliereLibelleAndModuleSemestreLibelle(String filiere, String semestre) {
+		return etudiantRepository.findByFiliereLibelleAndSemestreLibelle(filiere, semestre);
 	}
 
 
