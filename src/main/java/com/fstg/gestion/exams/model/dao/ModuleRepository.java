@@ -14,4 +14,5 @@ public interface ModuleRepository extends JpaRepository<Module, Long> {
 	public int deleteByLibelle(String libelle);
 	public List<Module> findByFiliereLibelle(String libelle);
 	public int deleteByFiliereLibelle(String libelle);
+	public Module findByFiliereLibelleAndLibelle(String filiere, String module);
 }

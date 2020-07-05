@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.gestion.exams.beans.ExamEtudiant;
 import com.fstg.gestion.exams.model.service.facade.ExamEtudiantService;
+import com.fstg.gestion.exams.model.service.util.DateUtil;
 import com.itextpdf.text.DocumentException;
 
 @RestController
@@ -35,17 +36,22 @@ public class ExamEtudiantRest {
 		return examEtudiantService.findByExamId(exam);
 	}
 
-	@PostMapping("/imprimer/exam/{exam}")
-	public int imprimerListeEtudiants(@PathVariable Long exam) throws FileNotFoundException, DocumentException {
-		return examEtudiantService.imprimerListeEtudiants(exam);
+	@PostMapping("/imprimer/module/{module}/date-depart/{dateDepart}/date-fin/{dateFin}")
+	public int imprimerListeEtudiants(@PathVariable String module,@PathVariable String dateDepart,@PathVariable String dateFin) throws FileNotFoundException, DocumentException {
+		return examEtudiantService.imprimerListeEtudiants(module, DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
 
-	@PostMapping("/export-excel/exam/{exam}")
-	public int exportExcel(@PathVariable Long exam) throws DocumentException, IOException {
-		return examEtudiantService.exportExcel(exam);
+	@PostMapping("/export-excel/module/{module}/date-depart/{dateDepart}/date-fin/{dateFin}")
+	public int exportExcel(@PathVariable String module,@PathVariable String dateDepart,@PathVariable String dateFin) throws DocumentException, IOException {
+		return examEtudiantService.exportExcel( module, DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
 	
-	
+	@GetMapping("/module/{module}/dateDepart/{dateDepart}/dateFin/{dateFin}")
+	public List<ExamEtudiant> findByExamModuleLibelleAndExamDateDepartAndExamDateFin(@PathVariable String module,@PathVariable String dateDepart,
+			@PathVariable String dateFin) {
+
+		return examEtudiantService.findByExamModuleLibelleAndExamDateDepartAndExamDateFin(module, DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
+	}
 	
 	
 	

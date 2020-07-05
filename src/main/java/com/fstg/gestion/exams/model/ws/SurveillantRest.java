@@ -30,11 +30,6 @@ public class SurveillantRest {
 		return surveillantService.findByNom(nom);
 	}
 
-	@DeleteMapping("/delete-by-nom/{nom}")
-	public int deleteByNom(@PathVariable String nom) {
-		return surveillantService.deleteByNom(nom);
-	}
-
 	@PostMapping("/save")
 	public int save(@RequestBody Surveillant surveillant) {
 	return surveillantService.save(surveillant);
@@ -56,16 +51,31 @@ public class SurveillantRest {
 		return surveillantService.findByExamSalleSalleDesignationAndExamSalleExamDateDepartAndExamSalleExamDateFin(
 				designation, DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
-
-	@GetMapping("/find-by-exam/{exam}")
-	public List<Surveillant> findByExam(@PathVariable Long exam) {
-		return surveillantService.findByExam(exam);
-	}
 	
 	@GetMapping("/nom/{nom}/dateDepart/{dateDepart}/dateFin/{dateFin}")
 	public List<Surveillant> findSurveillant(@PathVariable String nom,@PathVariable String dateDepart,@PathVariable String dateFin) {
 		return surveillantService.findSurveillant(nom, DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
 	}
+
+	@GetMapping("/module/{module}/dateDepart/{dateDepart}/dateFin/{dateFin}")
+	public List<Surveillant> findByExamModuleLibelleAndExamDateDepartAndExamDateFin(@PathVariable String module,@PathVariable String dateDepart,
+			@PathVariable String dateFin) {
+		return surveillantService.findByExamModuleLibelleAndExamDateDepartAndExamDateFin(module, DateUtil.parse(dateDepart), DateUtil.parse(dateFin));
+	}
+
+	@GetMapping("/find-by-exam/{exam}")
+	public List<Surveillant> findByExamId(@PathVariable Long exam) {
+		return surveillantService.findByExamId(exam);
+	}
+
+	@DeleteMapping("/delete/{nom}/{dateDepart}/{dateFin}/{module}")
+	public void deleteById(@PathVariable String nom,@PathVariable String dateDepart,@PathVariable String dateFin,@PathVariable String module) {
+		surveillantService.deleteById(nom, DateUtil.parse(dateDepart), DateUtil.parse(dateFin), module);
+	}
+
+
+	}
 	
 	
-}
+	
+

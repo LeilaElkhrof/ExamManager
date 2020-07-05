@@ -10,11 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.ExamSalle;
-import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Personnel;
-import com.fstg.gestion.exams.beans.Professeur;
-import com.fstg.gestion.exams.beans.Salle;
-import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.dao.SurveillantRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
@@ -40,14 +36,14 @@ public class SurveillantServiceImpl implements SurveillantService {
 
 	@Override
 	@Transactional
-	public int deleteByNom(String nom) {
+	public void deleteById(String nom, Date dateDepart, Date dateFin, String module) {
+		Surveillant foundedSurve= findByNomAndExamDateDepartAndExamDateFinAndExamModuleLibelle(nom, dateDepart, dateFin, module);
 		Etat etat = new Etat();
-		Surveillant foundedSurve = findByNom(nom);
 		etat.setLibelle(foundedSurve.getNom());
 		etat.setAction("Suppression");
 		etat.setType("Surveillant");
 		etatService.save(etat);
-		return surveillantRepository.deleteByNom(nom);
+	    surveillantRepository.deleteById(foundedSurve.getId());
 	}
 
 	@Override
@@ -106,29 +102,41 @@ public class SurveillantServiceImpl implements SurveillantService {
         	surveillant.setNom(surve.getNom());
         	surveillant.setPrenom(surve.getPrenom());
         	surveillant.setMail(surve.getMail());
-        	surveillant.setExam(examsalle.getExam().getId());
+        	surveillant.setExam(examsalle.getExam());
             surveillant.setExamSalle(examsalle);
 			surveillantRepository.save(surveillant);		
 		}
 		return 1;
 	}
-
-	@Override
-	public List<Surveillant> findByExam(Long exam) {
-		return surveillantRepository.findByExam(exam);
-	}
-
+	
 	@Override
 	public List<Surveillant> findSurveillant(String nom, Date dateDepart, Date dateFin) {
 		return surveillantRepository.findSurveillant(nom, dateDepart, dateFin);
 	}
 
+	
+
 	@Override
-	@Transactional
-	public int deleteByExam(Long exam) {
-		return surveillantRepository.deleteByExam(exam);
+	public List<Surveillant> findByExamModuleLibelleAndExamDateDepartAndExamDateFin(String module, Date dateDepart,
+			Date dateFin) {
+		return surveillantRepository.findByExamModuleLibelleAndExamDateDepartAndExamDateFin(module, dateDepart, dateFin);
 	}
 
+	@Override
+	public int deleteByExam(Long id) {
+		return surveillantRepository.deleteByExam(id);
+	}
+
+	@Override
+	public List<Surveillant> findByExamId(Long exam) {
+		return surveillantRepository.findByExamId(exam);
+	}
+
+	@Override
+	public Surveillant findByNomAndExamDateDepartAndExamDateFinAndExamModuleLibelle(String nom, Date dateDepart,
+			Date dateFin, String module) {
+		return surveillantRepository.findByNomAndExamDateDepartAndExamDateFinAndExamModuleLibelle(nom, dateDepart, dateFin, module);
+	}
 
 
 }

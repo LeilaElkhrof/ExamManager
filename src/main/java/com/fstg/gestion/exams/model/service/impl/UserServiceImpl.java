@@ -1,6 +1,5 @@
 package com.fstg.gestion.exams.model.service.impl;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.fstg.gestion.exams.model.service.impl;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -10,19 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fstg.gestion.exams.beans.Etat;
-import com.fstg.gestion.exams.beans.Salle;
 import com.fstg.gestion.exams.model.dao.EtatRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
-import com.fstg.gestion.exams.model.service.facade.SalleService;
-
 @Service
 public class EtatServiceImpl implements EtatService {
 
 	@Autowired
 	private EtatRepository etatRepository;
-	
-	@Autowired
-	private SalleService salleService;
 
 
 	@Override

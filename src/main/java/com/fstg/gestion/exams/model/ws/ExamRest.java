@@ -1,6 +1,6 @@
 package com.fstg.gestion.exams.model.ws;
 
-import java.util.Date;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.gestion.exams.beans.Exam;
-import com.fstg.gestion.exams.beans.Filiere;
-import com.fstg.gestion.exams.beans.Module;
-import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.model.service.facade.ExamService;
 import com.fstg.gestion.exams.model.service.util.DateUtil;
 
@@ -55,10 +52,10 @@ public class ExamRest  {
 		return examService.findById(id);
 	}
 
-	@PutMapping("/{id}/{reference}/{dateDepart}/{dateFin}/{module}/{prof}/{filiere}")
-	public Exam update(@PathVariable Long id,@PathVariable String reference,@PathVariable Date dateDepart,@PathVariable Date dateFin, Module module,
-			Professeur prof, Filiere filiere) {
-		return update(id, reference , dateDepart, dateFin, module, prof, filiere);
+	@PutMapping("/{id}/{dateDepart}/{dateFin}/{module}/{prof}/{filiere}/{title}")
+	public int update(@PathVariable Long id, @PathVariable String dateDepart,@PathVariable String dateFin,@PathVariable String module,
+			@PathVariable String prof,@PathVariable String filiere, @PathVariable String title) {
+		return examService.update(id, DateUtil.parse(dateDepart), DateUtil.parse(dateFin), module, prof, filiere, title);
 	}
 	@PostMapping("/save")
 	public int save(@RequestBody Exam exam) {
@@ -66,8 +63,8 @@ public class ExamRest  {
 	}
 
 	@GetMapping("/events/date-depart/{dateDepart}/date-fin/{dateFin}/module/{module}")
-	public Exam findByDateDepartAndDateFinAndModuleLibelle(@PathVariable Date dateDepart,@PathVariable Date dateFin,@PathVariable String module) {
-		return examService.findByDateDepartAndDateFinAndModuleLibelle(dateDepart, dateFin, module);
+	public Exam findByDateDepartAndDateFinAndModuleLibelle(@PathVariable String dateDepart,@PathVariable String dateFin,@PathVariable String module) {
+		return examService.findByDateDepartAndDateFinAndModuleLibelle(DateUtil.parse(dateDepart), DateUtil.parse(dateFin), module);
 	}
 	
 	

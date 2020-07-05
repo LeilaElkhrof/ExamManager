@@ -60,9 +60,9 @@ public class EtudiantRest {
 		return etudiantService.findByFiliereLibelle(libelle);
 	}
 
-	@GetMapping("/filiere/{filiere}/semestre/{semestre}")
-	public List<Etudiant> findByFiliereLibelleAndModuleSemestreLibelle(@PathVariable String filiere, @PathVariable String semestre) {
-		return etudiantService.findByFiliereLibelleAndModuleSemestreLibelle(filiere, semestre);
+	@GetMapping("/filiere/{filiere}/module/{module}")
+	public List<Etudiant> findByFiliereLibelleAndModuleSemestreLibelle(@PathVariable String filiere, @PathVariable String module) {
+		return etudiantService.findByFiliereLibelleAndModuleSemestreLibelle(filiere, module);
 	}
 	
 	

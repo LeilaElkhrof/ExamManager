@@ -1,5 +1,6 @@
 package com.fstg.gestion.exams.model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,5 @@ import com.fstg.gestion.exams.beans.ExamEtudiant;
 public interface ExamEtudiantDao extends JpaRepository<ExamEtudiant, Long>{
 
 	public List<ExamEtudiant> findByExamIdOrderBySalleDesignation(Long exam);
+	public List<ExamEtudiant> findByExamModuleLibelleAndExamDateDepartAndExamDateFin(String module, Date dateDepart, Date dateFin);
 }

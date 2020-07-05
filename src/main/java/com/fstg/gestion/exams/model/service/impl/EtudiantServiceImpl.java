@@ -11,12 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fstg.gestion.exams.beans.Etat;
 import com.fstg.gestion.exams.beans.Etudiant;
 import com.fstg.gestion.exams.beans.Filiere;
-import com.fstg.gestion.exams.beans.Salle;
+import com.fstg.gestion.exams.beans.Module;
 import com.fstg.gestion.exams.beans.Semestre;
 import com.fstg.gestion.exams.model.dao.EtudiantRepository;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.EtudiantService;
 import com.fstg.gestion.exams.model.service.facade.FiliereService;
+import com.fstg.gestion.exams.model.service.facade.ModuleService;
 import com.fstg.gestion.exams.model.service.facade.SemestreService;
 
 @Service
@@ -27,6 +28,9 @@ public class EtudiantServiceImpl implements EtudiantService {
 	
 	@Autowired
 	FiliereService filiereService;
+	
+	@Autowired
+	ModuleService moduleService;
 	
 	@Autowired
 	SemestreService semestreService;
@@ -114,9 +118,9 @@ Etudiant foundedEtudiant = findByCne(cne);
 	}
 
 	@Override
-	public List<Etudiant> findByFiliereLibelleAndModuleSemestreLibelle(String filiere, String semestre) {
-		
-		return etudiantRepository.findByFiliereLibelleAndSemestreLibelle(filiere, semestre);
+	public List<Etudiant> findByFiliereLibelleAndModuleSemestreLibelle(String filiere, String module) {
+		Module foundedModule = moduleService.findByLibelle(module);
+		return etudiantRepository.findByFiliereLibelleAndSemestreLibelle(filiere, foundedModule.getSemestre().getLibelle());
 	}
 
 

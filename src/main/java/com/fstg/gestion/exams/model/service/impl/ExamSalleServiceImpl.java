@@ -15,7 +15,6 @@ import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
 
 import com.fstg.gestion.exams.beans.Salle;
-import com.fstg.gestion.exams.beans.Surveillant;
 import com.fstg.gestion.exams.model.dao.ExamSalleDao;
 import com.fstg.gestion.exams.model.service.facade.EtatService;
 import com.fstg.gestion.exams.model.service.facade.ExamSalleService;

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fstg.gestion.exams.beans.Module;
-import com.fstg.gestion.exams.beans.Professeur;
 import com.fstg.gestion.exams.model.service.facade.ModuleService;
 
 @RestController
@@ -64,5 +63,12 @@ public class ModuleRest {
 	public void deleteById(@PathVariable Long id) {
 		moduleService.deleteById(id);
 	}
+
+	@GetMapping("/find-module/filiere/{filiere}/module/{module}")
+	public Module findByFiliereModuleAndModuleLibelle(@PathVariable String filiere, @PathVariable String module) {
+		return moduleService.findByFiliereModuleAndModuleLibelle(filiere, module);
+	}
+	
+	
 	 
 }

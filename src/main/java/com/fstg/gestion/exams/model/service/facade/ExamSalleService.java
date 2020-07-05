@@ -3,11 +3,8 @@ package com.fstg.gestion.exams.model.service.facade;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
-
 import com.fstg.gestion.exams.beans.Exam;
 import com.fstg.gestion.exams.beans.ExamSalle;
-import com.fstg.gestion.exams.beans.Surveillant;
 
 public interface ExamSalleService {
 	public List<ExamSalle> findBySalleDesignation(String designation);

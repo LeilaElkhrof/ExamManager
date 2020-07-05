@@ -98,11 +98,11 @@ public class SalleServiceImpl implements SalleService {
     public int update(Long id,String designation, String etat, String type,int capacite) {
 		Etat modifie = new Etat();
         Salle foundedSalle = findById(id);
-	foundedSalle.setCapacite(capacite);
-	foundedSalle.setDesignation(designation);
-	foundedSalle.setEtat(etat);
-	foundedSalle.setType(type);
-	 Salle updateSalle = salleRepository.save(foundedSalle);
+	    foundedSalle.setCapacite(capacite);
+	    foundedSalle.setDesignation(designation);
+	    foundedSalle.setEtat(etat);
+	    foundedSalle.setType(type);
+	    salleRepository.save(foundedSalle);
 		modifie.setLibelle(foundedSalle.getDesignation());
 		modifie.setAction("Modification");
 		modifie.setType("Salle");

@@ -17,5 +17,6 @@ public interface ModuleService {
 	public int addModule(Module module);
 	public int updateModule(Long id, String libelle, String semestre, String professeur);
 	public void deleteById(Long id);
+	public Module findByFiliereModuleAndModuleLibelle(String filiere, String module);
 	
 }

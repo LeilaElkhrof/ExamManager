@@ -1,7 +1,6 @@
 package com.fstg.gestion.exams.beans;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -82,7 +81,6 @@ public class Etudiant implements Serializable {
 	
 	public Etudiant() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	
